@@ -1,0 +1,61 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>VIP礼包</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">礼包名称</th>
+				<th class="">等级名称</th>
+                <th class="">创建时间</th>
+                <th class="">礼包发放时间</th>
+				<th class="">状态</th>
+				<th class=""></th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.vg_id}</td>
+				<td>{$vo.vg_title}</td>
+				<td><?php $level_name = D('VipLevel')->getVipLevelNameById($vo['vip_level_id']); echo $level_name; ?></td>
+				<td>{$vo.vg_createtime}</td>
+				<td>{$vo.vg_sendtime}</td>
+				<td>
+					<?php if($vo['vg_status'] == 0){ ?> 禁止发放
+					<?php }elseif($vo['vg_status'] == 1){ ?> 允许发放
+					<?php }elseif($vo['vg_status'] == 2){ ?> 已发放
+					<?php } ?>
+				</td>
+				<td>
+					<a href="{:U('edit', array('id'=>$vo['vg_id']))}" class="btn">编辑</a>
+					<a class="btn btn-mini colorbox" href="{:U('getVipContent', array('id'=>$vo['vg_id']))}" >查看礼包详情</a>
+					<a class="btn btn-mini colorbox" href="{:U('editVipContent', array('vg_id'=>$vo['vg_id']))}" >编辑礼包详情</a>
+					<?php if($vo['vg_status'] == 1){ ?>
+						<a href="{:U('send', array('id'=>$vo['vg_id']))}" class="btn">发放礼包</a>
+					<?php }?>
+					<?php if($vo['vg_status'] == 2){ ?>
+						<a href="{:U('push', array('id'=>$vo['vg_id']))}" class="btn">推送礼包内容</a>
+					<?php }?>
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

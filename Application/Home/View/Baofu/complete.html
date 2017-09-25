@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>您的充值请求正在提交</title>
+</head>
+
+<body >
+<if condition="$result eq 1">
+充值提交成功，请返回继续购彩<br/>
+银行到帐有延迟，如未到账，请稍候再试
+<else />
+您的充值提交失败，错误代码{$result_desc}，请联系客服
+</if>
+</body>
+</html>

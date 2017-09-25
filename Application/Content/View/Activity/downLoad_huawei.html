@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>老虎彩票—足彩2串1最高加奖10%</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+        * { margin: 0;padding: 0;-webkit-tap-highlight-color: rgba(0,0,0,0);outline: none;border: none;}
+        body {  position: relative;  background-color: #EE4133;  }
+        .bg{  width: 100%;  overflow: hidden;  }
+        .bg img{  width: 100%;  float: left;  }
+        .gif{  position: absolute;  left: 0;  top: 0 ;  width: 84%;  margin: 74% 8% 0 8%;  }
+        .gif img{  width: 100%;  }
+        .btn-wrap{  position: absolute;  left: 0;  top: 0 ;  width: 84%;  margin: 115% 8% 0 8%;  }
+        .btn-wrap a{  display: inline-block;  text-decoration: none;  width: 100%;  }
+        .btn-wrap img{  width: 100%;  }
+
+        .shadow{position: fixed;top:0;left:0;width:100%;height: 100%;background-color:#000000;opacity:0.5;z-index: 15;display: none;}
+        .promt{position: fixed;top: 10px;right: 0;z-index: 16;text-align: right;display: none;}
+        .promt img{ width: 49%; margin: 0 20px 0 0; }
+        .promt p{ position: relative; bottom: 0; color: #C00003; }
+    </style>
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?a5ed9d009e392bc2167010a85eaba0ed";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="bg"><img src="http://hongmi.oss-cn-hangzhou.aliyuncs.com/imgs/20170809/TigerCaiDownLoad/bg.jpg"></div>
+<div class="gif"><img src="http://hongmi.oss-cn-hangzhou.aliyuncs.com/imgs/20170809/TigerCaiDownLoad/gif.gif"></div>
+<div class="btn-wrap"><a id="btn_downLoad" href="javascript:void(0)"><img src="http://hongmi.oss-cn-hangzhou.aliyuncs.com/imgs/20170809/TigerCaiDownLoad/btn.png"></a></div>
+
+<div class="shadow" name="mask"></div>
+<div class="promt" name="mask"><img id="pic_ios" src="http://hongmi.oss-cn-hangzhou.aliyuncs.com/imgs/20170809/TigerCaiDownLoad/promt_ios.png"/><img id="pic_adr" src="http://hongmi.oss-cn-hangzhou.aliyuncs.com/imgs/20170809/TigerCaiDownLoad/promt_andr.png"/></div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    var ua = navigator.userAgent;
+    var config = {
+        download_adr: "http://tclottery.oss-cn-hangzhou.aliyuncs.com/admin_file/2017-08-25/599fc8641185e.apk",
+        download_ios: "https://itunes.apple.com/cn/app/lao-hu-cai-piao-jing-cai-jia/id1120940650?mt=8"
+    };
+
+    $(document).ready(function(){
+        document.getElementsByTagName('body')[0].style.minHeight = document.documentElement.clientHeight +'px';
+        initBtnDownLoad();
+    });
+    function initBtnDownLoad(){
+        if (ua.match(/MicroMessenger/i) == "MicroMessenger" || ( ua.indexOf('QQ/') > -1 && ua.match(/Mobile/i)=="Mobile") ){
+            if (ua.indexOf('OS') > 0 || ua.indexOf('os') > 0) {
+                $("#pic_ios").show();
+                $("#pic_adr").hide();
+            } else {
+                $("#pic_ios").hide();
+                $("#pic_adr").show();
+            }
+
+            $("#btn_downLoad").bind("click", function () {
+                $(".shadow").show();
+                $(".promt").show();
+            });
+
+            initMarskClick();
+        }else {
+            $("#btn_downLoad").bind("click", function () {
+                if (ua.indexOf('OS') > 0 || ua.indexOf('os') > 0) {
+                    window.location.href = config.download_ios;
+                } else {
+                    window.location.href = config.download_adr;
+                }
+            });
+
+        }
+    }
+
+    function initMarskClick() {
+        $("div[name='mask']").unbind();
+        $("div[name='mask']").bind("click", function () {
+            $(".shadow").hide();
+            $(".promt").hide();
+        });
+    }
+</script>
+</body>
+</html>

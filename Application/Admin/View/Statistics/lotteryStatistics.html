@@ -1,0 +1,73 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>彩种报表</h2>
+</div>
+<div class="cf">
+	<!--<div class="fl">
+		<volist name="search_button" id="btn">
+			<a class="btn" href="{:U('channel',array('s_date'=>$btn['start'],'e_date'=>$btn['end'],'is_search'=>1))}">{$btn.name}</a>
+		</volist>
+	</div>-->
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('lotteryStatistics')}" method="post">
+			<div class="form-group">
+				<label  for="s_date">时间：</label>
+				<input type="text" class="form-control input-sm" name="s_date" value="{$search_time['s_date']}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" >
+				~
+				<input type="text" class="form-control input-sm" name="e_date" value="{$search_time['e_date']}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" >
+			</div>
+			<input type="hidden" name="is_search" value="1">
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+		
+	
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed" >
+		<thead>
+			<tr>
+				<th class="">彩种名称</th>
+				<th class="">销售额</th>
+				<th class="">订单数</th>
+				<th class="">消费用户数</th>
+				<th class="">平均订单金额</th>
+				<th class="">ARPPU</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="order_list"> <volist name="order_list" id="vo">
+			<tr>
+				<td>{$vo['lottery_name']}</td>
+				<td>{$vo['order_amount']}</td>
+				<td>{$vo['order_count']}</td>
+				<td>{$vo['user_count']}</td>
+				<td><?php echo bcdiv($vo['order_amount'],$vo['order_count'],2); ?></td>
+				<td><?php echo bcdiv($vo['order_amount'],$vo['user_count'],2); ?></td>
+				<td>
+					<a href="{:U('orderRegionDetail', array('lottery_id'=>$vo['lottery_id'],'s_date' =>$search_time['s_date'],'e_date' =>$search_time['e_date'] ))}" class="btn btn-mini">订单区间详情</a>
+					<!--<a href="{:U('orderChannelDetail', array('lottery_id'=>$vo['lottery_id'],'s_date' =>$search_time['s_date'],'e_date' =>$search_time['e_date'] ))}" class="btn btn-mini">渠道详情</a>-->
+				</td>
+			</tr>
+			</volist> 
+
+			<else />
+			<td colspan="10" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+
+</script>
+</block>

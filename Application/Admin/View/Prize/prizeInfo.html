@@ -1,0 +1,39 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="main-title">
+	<ol class="breadcrumb">
+	  <li>选择彩期</li>
+	  <li class="active">填写开奖信息</li>
+	  <li>确认开奖</li>
+	</ol>
+</div>
+
+<form action="{:U('confirmPrize')}" method="post" class="form-horizontal" role="form">
+	<div class="form-group">
+		<label for="prize_number" class="col-sm-2 control-label">开奖号码：</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="prize_number" id="prize_number" value="{$prize_num}">
+			<span class="help-block">双色球格式：04,06,10,18,29,30#10</span>
+			<span class="help-block">快三格式：5#9#3</span>
+			<span class="help-block">大乐透格式：04,09,30,31,34#02,11</span>
+			
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2">
+			<input type="hidden" name="issue_id" id="issue_id" value="{$issue_id}">
+			<input type="button" value="上一步" class="btn" onclick="javascript:history.back(-1)">
+			<button type="submit" class="btn btn-default" >确认开奖</button>
+		</div>
+	</div>
+
+</form>
+</block>
+
+<block name="script"> 
+<script type="text/javascript">
+	 highlight_subnav('{:U('index')}');
+</script> 
+</block>

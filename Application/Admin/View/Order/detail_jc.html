@@ -1,0 +1,56 @@
+<table class="table  table-bordered  table-condensed">
+<caption>以下为最终拆票列表</caption>
+<thead>
+	<tr>
+		<th width="260px">票号</th>
+		<th width="300px">投注内容</th>
+		<th width="300px">出票内容</th>
+		<th width="60px">玩法</th>
+		<th width="60px">注数</th>
+		<th width="60px">倍数</th>
+		<th width="80px">投注金额</th>
+		<th width="100px">出票状态</th>
+		<th width="100px">中奖状态</th>
+		<th width="100px">中奖金额</th>
+		<th width="100px">出票时间</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="tickets" id="ticket">
+<tr>
+<td>{$ticket.ticket_seq}
+<notempty name="ticket.ticket_id">
+、【{$ticket.ticket_id}】
+</notempty>
+</td>
+
+<td>
+<volist name="ticket.ticket_content" id="content" key="k">
+<neq name="k" value="1">
+-----------------------------------------<br>
+</neq>
+{$content.round_no}({$content.vs_team})  <br> {$content.bet_options}  <br>
+</volist>
+</td>
+
+<td>
+<volist name="ticket.printout_content" id="content" key="k">
+<neq name="k" value="1">
+-----------------------------------------<br>
+</neq>
+{$content.round_no}({$content.vs_team})  <br> {$content.odds}
+</volist>
+</td>
+<td>{$ticket.bet_type|showJCBetType}</td>
+<td>{$ticket.stake_count}</td>
+<td>{$ticket.ticket_multiple}</td>
+<td>{$ticket.total_amount}</td>
+<td>{$ticket.ticket_status|getConfText='TICKET_STATUS'}</td>
+<td>{$ticket.winnings_status|getConfText='ORDER_WINNINGS_STATUS'}</td>
+<td>{$ticket.winnings_bonus}</td>
+<td>{$ticket.printout_time}</td>
+</tr>
+</volist>
+</tbody>
+</table>
+

@@ -1,0 +1,158 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>用户列表</h2>
+</div>
+<div class="cf">
+
+	<!-- 高级搜索 -->
+	<div class="search-form fl cf">
+		<form class="form-inline" role="form" action="{:U('consumeUser')}" method="post">
+			<div class="form-group">
+				<label  for="user_register_time_start">注册时间：</label>
+				<input type="text" class="form-control input-sm" name="user_register_time_start" value="{$Think.request.user_register_time_start}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+				~
+				<input type="text" class="form-control input-sm" name="user_register_time_end" value="{$Think.request.user_register_time_end}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+			</div>
+			<div class="form-group">
+				<label  for="s_date">消费时间：</label>
+				<input type="text" class="form-control input-sm" name="s_date" value="{$Think.request.s_date}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+				~
+				<input type="text" class="form-control input-sm" name="e_date" value="{$Think.request.e_date}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+			</div>
+			<div class="form-group">
+				<label  for="consume_min">消费金额：</label>
+				<input type="text" class="form-control"
+					id="consume_min" name="consume_min" value="{$Think.request.consume_min}" style="width:94px">
+				~
+				<input type="text" class="form-control"
+					id="consume_max" name="consume_max" value="{$Think.request.consume_max}" style="width:94px">
+			</div>
+			<div class="form-group">
+				<label  for="recharge_min">充值金额：</label>
+				<input type="text" class="form-control"
+					id="recharge_min" name="recharge_min" value="{$Think.request.recharge_min}" style="width:94px">
+				~
+				<input type="text" class="form-control"
+					id="recharge_max" name="recharge_max" value="{$Think.request.recharge_max}" style="width:94px">
+			</div>
+			<div class="form-group">
+				<label  for="channel">渠道：</label>
+				<select name="channel" id="channel" class="form-control input-sm">
+				<option value="">全部渠道</option>
+				<volist name="channel_list" id="vo">
+				<option value="{$vo.a}"
+					<if condition="$Think.request.channel eq $vo['a']">
+					selected="selected"
+					</if>	
+				>{$vo.name}</option>
+				</volist>
+				</select>
+			</div>
+		
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+
+	<div class="fr">
+			<button type="submit" class="btn btn-default btn-export" url="{:U('consumeUserExport',array('user_register_time_start'=>$request['user_register_time_start'],'user_register_time_end'=>$request['user_register_time_end'],'channel'=>$request['channel'],'consume_min'=>$request['consume_min'],'consume_max'=>$request['consume_max'],'recharge_min'=>$request['recharge_min'],'recharge_max'=>$request['recharge_max'],'s_date'=>$request['s_date'],'e_date'=>$request['e_date']))}">导出</button>
+			<button type="submit" class="btn btn-default btn-amount" url="{:U('consumeUserAmount',array('user_register_time_start'=>$request['user_register_time_start'],'user_register_time_end'=>$request['user_register_time_end'],'channel'=>$request['channel'],'consume_min'=>$request['consume_min'],'consume_max'=>$request['consume_max'],'recharge_min'=>$request['recharge_min'],'recharge_max'=>$request['recharge_max'],'s_date'=>$request['s_date'],'e_date'=>$request['e_date']))}">当前数据合计</button>
+			<div class="group-amount" style="
+				width:190px;
+				height:155px;
+				position: absolute;
+			    background: white;
+				padding: 10px;
+				margin-top: 5px;
+				text-align: left;
+				display:none;
+				">
+				<p><label>充值金额：</label><span class="recharge-amount">0.00</span></p>
+				<p><label>消费金额：</label><span class="consume-amount">0.00</span></p>
+				<p><label>余额总计：</label><span class="balance-amount">0.00</span></p>
+				<p><label>红包获取：</label><span class="coupon-amount">0.00</span></p>
+				<p><label>红包消费：</label><span class="coupon-consumption">0.00</span></p>
+			</div>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed" >
+		<thead>
+			<tr>
+				<th class="">用户名</th>
+				<th class="">渠道</th>
+				<th class="">注册时间</th>
+				<th class="">首次充值时间</th>
+				<th class="">首次充值金额</th>
+				<th class="">总充值金额</th>			
+				<th class="">首次消费时间</th>
+				<th class="">首次消费金额</th>
+				<th class="">总消费金额</th>
+				<th class="">当前余额</th>
+				<th class="">红包获取</th>
+				<th class="">红包消费</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.user_telephone}</td>
+				<td>{$vo.channel_name}</td>
+				<td>{$vo.user_register_time}</td>
+				<td>{$vo.recharge_first_time}</td>
+				<td>{$vo.recharge_first_amount}</td>
+				<td>{$vo.user_account_recharge_amount}</td>
+				<td>{$vo.order_first_time}</td>
+				<td>{$vo.order_first_amount}</td>
+				<td>{$vo.user_account_consume_amount}</td>
+				<td>{$vo.user_account_balance}</td>
+				<td>{$vo.user_account_coupon_amount}</td>
+				<td>{$vo.user_account_coupon_consumption}</td>
+			</tr>
+			</volist> 
+			<else />
+			<td colspan="12" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	$('.btn-export').on('click',function(e){
+		var url = $('.btn-export').attr('url');
+		window.location.href=url;
+	});
+	$('.btn-amount').on('click',function(e){
+		e.stopPropagation();
+		if($('.group-amount').is(':hidden')){
+			var url = $('.btn-amount').attr('url');
+			$.ajax({
+				url:url,
+				dataType:'json',
+				success:function(data){
+					$('.recharge-amount').text(data.recharge_amount);
+					$('.consume-amount').text(data.consume_amount);
+					$('.balance-amount').text(data.balance);
+					$('.coupon-amount').text(data.coupon_amount);
+					$('.coupon-consumption').text(data.coupon_consumption);
+				}
+			});
+			
+		}
+		$('.group-amount').toggle();
+	});
+	$('body').on('click',function(){
+		$('.group-amount').hide();
+	});
+	$('.group-amount').on('click',function(e){
+		e.stopPropagation();
+	});
+});
+</script>
+</block>

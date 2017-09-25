@@ -1,0 +1,39 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="main-title">
+	<ol class="breadcrumb">
+	  <li>选择彩期</li>
+	  <li class="active">确认开奖方案</li>
+	  <li>确认派奖信息</li>
+	  <li>派奖</li>
+	</ol>
+</div>
+
+<form action="{:U('winningsInfos')}" method="post" class="form-horizontal" role="form">
+	<volist name="schemes" id="scheme">
+	<div class="form-group">
+		<label for="lottery_id" class="col-sm-2 control-label">{$scheme.ws_bonus_name}：</label>
+		<div class="col-sm-2">
+			<input class="form-control" type="text" value="{$scheme.ws_bonus_money}" name="ws_bonus_money[]">
+			<input  type="hidden" value="{$scheme.ws_id}" name="ws_id[]">
+		</div>
+	</div>
+	</volist>
+
+	
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2">
+			<input type="hidden" name="issue_id" value="{$issue_id}">
+			<button type="submit" class="btn btn-default " target-form="form-horizontal">下一步</button>
+		</div>
+	</div>
+
+</form>
+</block>
+
+<block name="script"> 
+<script type="text/javascript">
+	 highlight_subnav('{:U('distribute')}');
+</script> 
+</block>

@@ -1,0 +1,86 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['turntable_id'])?'编辑':'新增'}奖品设置</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+
+		<div class="form-group">
+			<label for="turntable_name" class="col-sm-2 control-label">名称：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="turntable_name" id="turntable_name" value="{$vo.turntable_name}">
+			</div>
+		</div>
+
+        <div class="form-group">
+            <label for="turntable_type" class="col-sm-2 control-label">类型：</label>
+            <div class="col-sm-2">
+				<select name="turntable_type" id="turntable_type" class="form-control">
+					<option value="0" <eq name="vo.turntable_type" value="0"> selected="selected"</eq>>未中奖</option>
+					<option value="1" <eq name="vo.turntable_type" value="1"> selected="selected"</eq>>红包</option>
+					<option value="2" <eq name="vo.turntable_type" value="2"> selected="selected"</eq>>积分</option>
+					<option value="3" <eq name="vo.turntable_type" value="3"> selected="selected"</eq>>实物</option>
+				</select>
+            </div>
+        </div>
+
+		<div class="form-group">
+			<label for="turntable_img" class="col-sm-2 control-label">图片：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.turntable_img">
+					<img src="{$vo.turntable_img}" />
+				</notempty>
+				<input type="file" class="" name="turntable_img" id="turntable_img">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="turntable_n" class="col-sm-2 control-label">中奖权重：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="turntable_n" id="turntable_n" value="{$vo.turntable_n}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="coupon_id" class="col-sm-2 control-label">红包ID：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="coupon_id" id="coupon_id" value="{$vo.coupon_id}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="interger_value" class="col-sm-2 control-label">积分值：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="interger_value" id="interger_value" value="{$vo.interger_value}">
+			</div>
+		</div>
+
+
+	  <div class="form-group">
+	    <label for="is_del" class="col-sm-2 control-label" >状态：</label>
+	    <div class="col-sm-2">
+	    <select name="is_del" id="is_del" class="form-control">
+	    <option value="0" <eq name="vo.is_del" value="0"> selected="selected"</eq>>启用</option>
+	    <option value="1" <eq name="vo.is_del" value="1"> selected="selected"</eq>>禁用</option>
+	    </select>
+	    </div>
+	  </div>
+
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="turntable_id" value="{$vo.turntable_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+
+   <script type="text/javascript">
+    highlight_subnav("{:U('index')}");
+</script>
+</block>

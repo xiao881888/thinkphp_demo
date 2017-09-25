@@ -1,0 +1,102 @@
+*{ 
+	margin: 0; 
+	padding: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+}
+body{
+	background-color: #FFC601;
+}
+/*banner*/
+.banner{
+	text-align: center;
+}
+.banner img{
+	margin: 0 0 0 0;
+	width: 100%;
+}
+
+a.btn{
+	display: block;
+	position: relative;
+	width: 70%;
+	margin: -5% auto 7% auto;
+	border: none;
+	background-color:transparent;
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/JuventusVSRealMadrid/img/but_nor.png);
+	background-repeat:no-repeat;
+	background-position: center center;
+	background-size: 100% auto;
+	padding: 7% 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	z-index: 2;
+}
+
+/*活动奖励*/
+.rule-wrap{
+	width: 90%;
+	text-align: center;
+	margin: 0% 5% 2% 5%;
+	background-color: #F0B206;
+	position:relative;
+}
+.rule-wrap .title{
+	position: relative;
+	z-index: 2;
+	text-align: center;
+	width: 92%;
+	margin: 0 auto 0 auto;
+}
+.rule-wrap .title img{
+	width: 40%;
+	margin: -4% 30% 0 30%;
+	display: block;
+	position: absolute;
+}
+.rule-wrap .cont{
+	position: relative;
+	z-index: 2;
+	text-align: center;
+	width: 94%;
+	margin: 0 auto 10% auto;
+	padding: 4% 0 0 0;
+}
+.rule-wrap .cont ul{
+	list-style: none;
+	color: #333333;
+	font-size: 14px;
+	padding: 5% 0 4% 0;
+}
+.rule-wrap .cont ul li{
+	margin: 0 0 9px 0;
+	position: relative;
+	word-break:break-all;
+	overflow:hidden;
+}
+.rule-wrap .cont ul li span{
+	display: inline-block;
+	margin: 0 3px 0 0;
+	background-color: #7E0A09;
+	height: 20px;
+	line-height:20px;
+	padding: 0 0;
+	border-radius:50px;
+	width:20px;
+	float:left;
+	color:#FCFDFE;
+}
+.rule-wrap .cont ul li p{
+	text-align:left;
+	display: inline-block;
+	width: 91%;
+	word-break:break-all;
+	word-wrap:break-word;
+	color:#333333;
+	opacity: 0.85;
+}
+

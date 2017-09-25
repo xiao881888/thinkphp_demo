@@ -1,0 +1,69 @@
+<?php foreach($informationList as $information){ ?>
+<?php
+                        $information_images = $information['information_image_list'];
+
+                    ?>
+<?php if($information['information_picture_status'] == 2){ ?>
+
+<?php
+                            $information_images = explode('|',$information_images);
+                        ?>
+
+<li class="third">
+
+    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+    <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+        <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+    <?php } else { ?>
+        <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+
+    <?php } ?>
+        <p>{$information.information_title}</p>
+        <div><div style="background-image:url({$information_images.0})"></div><div style="background-image:url({$information_images.1})"></div><div style="background-image:url({$information_images.2})"></div></div>
+        <p>{$information.information_create_time|substr=0,10}</p>
+    </a>
+</li>
+
+<?php }elseif($information['information_picture_status'] == 1){ ?>
+
+
+<li class="first">
+    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+        <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+        <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+            <?php } else { ?>
+        <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+
+                <?php } ?>
+
+        <div name="recommend_img" style="background-image:url({$information_images})"></div>
+        <div><p>{$information.information_title}</p>
+            <?php if(!empty($information['information_tag'])){ ?>
+            <p>{$information.information_tag}</p>
+            <?php } ?>
+            <p>{$information.information_create_time|substr=0,10}</p></div>
+    </a>
+</li>
+
+<?php }elseif($information['information_picture_status'] == 0){ ?>
+<li class="sec">
+    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+        <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+    <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+            <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+    <?php } else { ?>
+            <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+
+    <?php } ?>
+
+        <p>{$information.information_title}</p>
+        <?php if(!empty($information['information_tag'])){ ?>
+        <p>{$information.information_tag}</p>
+        <?php } ?>
+        <p>{$information.information_create_time|substr=0,10} </p>
+    </a>
+</li>
+<?php } ?>
+<?php } ?>

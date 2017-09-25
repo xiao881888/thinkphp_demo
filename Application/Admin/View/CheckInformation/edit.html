@@ -1,0 +1,488 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/uploadify/uploadify.css" />
+    <div class="main-title">
+        <h2>{:isset($vo['information_id'])?'编辑':'新增'}资讯</h2>
+    </div>
+    <form action="{:U()}" id="myform" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="information_title" class="col-sm-2 control-label">资讯标题：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="information_title" id="information_title"
+                       value="{$vo.information_title}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_index_title" class="col-sm-2 control-label">首页标题：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="information_index_title" id="information_index_title"
+                       value="{$vo.information_index_title}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_sub_title" class="col-sm-2 control-label">副标题：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="information_sub_title" id="information_sub_title"
+                       value="{$vo.information_sub_title}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_category_id" class="col-sm-2 control-label">资讯分类：</label>
+            <div class="col-sm-2">
+
+                <select name="information_category_id" id="information_category_id" class="form-control">
+                    <option value="">选择分类</option>
+                    <volist name="category_map" id="category">
+                        <option value="{$key}"
+                        <eq name="vo.information_category_id" value="$key">selected="selected"</eq>
+                        >{$category}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_desc" class="col-sm-2 control-label">资讯描述：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="information_desc" id="information_desc"
+                       value="{$vo.information_desc}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_tag" class="col-sm-2 control-label">资讯标签：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="information_tag" id="information_tag"
+                       value="{$vo.information_tag}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="information_content" class="col-sm-2 control-label">资讯内容：</label>
+            <div class="controls">
+                <textarea style="width:700px;height:300px;visibility:hidden;background-color: #ffffff" name="information_content" id="information_content">{$vo.information_content}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_up_time" class="col-sm-2 control-label">上架时间：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control datePicker" name="information_up_time" id="information_up_time"  value="{$vo.information_up_time}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_image" class="col-sm-2 control-label">图片：</label>
+            <div class="col-sm-2">
+                <notempty name="vo.information_image">
+                    <img src="{$vo.information_image}" />
+                </notempty>
+                <input type="file" class="" name="information_image" id="information_image">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_picture_status" class="col-sm-2 control-label">列表图片模式：</label>
+            <div class="col-sm-2">
+                <input type="radio" id="information_picture_status1" value="0" class="" name="information_picture_status" <?php if($vo['information_picture_status'] == 0){ ?> checked="checked"  <?php } ?> >无图
+                <input type="radio" id="information_picture_status2" value="1" class="" name="information_picture_status" <?php if($vo['information_picture_status'] == 1){ ?> checked="checked"  <?php } ?> >单图
+                <input type="radio" id="information_picture_status3" value="2" class="" name="information_picture_status" <?php if($vo['information_picture_status'] == 2){ ?> checked="checked"  <?php } ?> >三图
+
+            </div>
+        </div>
+
+        <input type="hidden" id="information_image_list"  name="information_image_list" value="{$vo.information_image_list}" >
+
+        <?php
+            if($vo['information_picture_status'] == 1){
+                $informationImageSrcList = $vo['information_image_list'];
+            }elseif($vo['information_picture_status'] == 2){
+                $informationImageSrcList = explode('|',$vo['information_image_list']);
+            }
+
+        ?>
+
+        <div id="onePicture" style="display: none">
+            <div class="form-group">
+                <label for="information_image" class="col-sm-2 control-label">列表图片：</label>
+                <div class="col-sm-2">
+                    <input type="file" id="information_image_upload1" class="">
+                    <img id="informationImageSrc1" src="{$informationImageSrcList}" />
+                </div>
+            </div>
+        </div>
+
+        <div id="threePicture" style="display: none">
+            <div class="form-group">
+                <label for="information_image" class="col-sm-2 control-label">列表图片：</label>
+                <div class="col-sm-2">
+                    <input type="file" id="information_image_upload2" class="">
+                    <img id="informationImageSrc2" src="{$informationImageSrcList.0}" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="file" id="information_image_upload3" class="">
+                    <img id="informationImageSrc3" src="{$informationImageSrcList.1}" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="file" id="information_image_upload4" class="">
+                    <img id="informationImageSrc4" src="{$informationImageSrcList.2}" />
+                </div>
+            </div>
+        </div>
+
+        <br/><br/><br/>
+
+
+
+        <div class="form-group">
+            <label for="information_carousel" class="col-sm-2 control-label">是否轮播：</label>
+            <div class="col-sm-2">
+                <select name="information_carousel" id="information_carousel" class="form-control">
+                    <option value="0"
+                    <eq name="vo.information_carousel" value="0"> selected="selected"</eq>
+                    >非轮播</option>
+                    <option value="1"
+                    <eq name="vo.information_carousel" value="1"> selected="selected"</eq>
+                    >轮播</option>
+                </select>
+                <span class="help-block">如果选择轮播需要上传图片。</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information_recommend_head_img" class="col-sm-2 control-label">推荐人头像：</label>
+            <div class="col-sm-2">
+                <notempty name="vo.information_recommend_head_img">
+                    <img src="{$vo.information_recommend_head_img}" />
+                </notempty>
+                <input type="file" class="" name="information_recommend_head_img" id="information_recommend_head_img">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="information_recommend" class="col-sm-2 control-label">是否推荐：</label>
+            <div class="col-sm-2">
+                <select name="information_recommend" id="information_recommend" class="form-control">
+                    <option value="0"
+                    <eq name="vo.information_recommend" value="0"> selected="selected"</eq>
+                    >不推荐</option>
+                    <option value="1"
+                    <eq name="vo.information_recommend" value="1"> selected="selected"</eq>
+                    >普通推荐</option>
+                    <option value="2"
+                    <eq name="vo.information_recommend" value="2"> selected="selected"</eq>
+                    >头条推荐</option>
+                </select>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <div class="form-group">
+            <label for="information_is_add_recomment" class="col-sm-2 control-label">是否增加推荐下注内容：</label>
+            <div class="col-sm-2">
+                <select name="information_is_add_recomment" id="information_is_add_recomment" class="form-control" onchange="is_add_recomment()">
+                    <option value="0"
+                    <eq name="vo.information_is_add_recomment" value="0"> selected="selected"</eq>
+                    >不增加</option>
+                    <option value="1"
+                    <eq name="vo.information_is_add_recomment" value="1"> selected="selected"</eq>
+                    >增加</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div id="is_recomment_content" style="display: none">
+            <div class="form-group">
+                <label for="information_recomment_lottery_id" class="col-sm-2 control-label" >推荐彩种：</label>
+                <div class="col-sm-2">
+                    <select name="information_recomment_lottery_id" id="information_recomment_lottery_id" class="form-control">
+                        <option value="">选彩种</option>
+                        <?php foreach($lottery_list as $lottery){ ?>
+                        <option value="<?php echo $lottery['lottery_id'] ?>"
+                        <?php if(!empty($vo['information_recomment_lottery_id'])){ ?>
+                        <?php if($lottery['lottery_id'] == $vo['information_recomment_lottery_id']){ ?>
+                        selected="selected"
+                        <?php } ?>
+                        <?php }else{ ?>
+                        <?php if($lottery['lottery_id'] == $recommentLotteryId){ ?>
+                        selected="selected"
+                        <?php } ?>
+                        <?php } ?>
+                        ><?php echo $lottery['lottery_name'] ?></option>
+                        <?php } ?>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="information_recomment_play_id" class="col-sm-2 control-label">推荐场次ID：</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="information_recomment_play_id" id="information_recomment_play_id" value="{$vo.information_recomment_play_id}" onblur="checkRecommentPlayId()">
+                </div>
+
+                <a target="_blank" href="<?php echo U('JcSchedule/recommentIndex'); ?>">查看竞彩足球场次</a>
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="information_recomment_content" class="col-sm-2 control-label">推荐内容：</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="information_recomment_content" id="information_recomment_content" value="<?php echo $vo['information_recomment_content']; ?>" onblur="checkContent()">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="information_id" value="{$vo.information_id}">
+                <input type="hidden" name="admin_id" value="{:is_login()}">
+                <button type="submit"  class="btn btn-default">提交</button><!--onclick="return subForm();"-->
+            </div>
+        </div>
+    </form>
+</block>
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/static/kindeditor-4.1.10/themes/default/default.css"/>
+</block>
+<block name="script">
+    <script charset="utf-8" src="__PUBLIC__/static/kindeditor-4.1.10/kindeditor-min.js"></script>
+    <script charset="utf-8" src="__PUBLIC__/static/kindeditor-4.1.10/lang/zh_CN.js"></script>
+    <script>
+
+        var editor;
+        KindEditor.ready(function (K) {
+            editor = K.create('#information_content', {
+                allowFileManager: true,
+                uploadJson:"{:U('Editor/kindUpload')}"
+            });
+        });
+
+        function checkRecommentPlayId(){
+            var play_id = $('#information_recomment_play_id').val();
+            var lottery_id = $('#information_recomment_lottery_id').val();
+
+            if(lottery_id == ''){
+                alert('请选择推荐彩种');
+                return false;
+            }
+
+            if(play_id == ''){
+                return false;
+            }
+            $.ajax({
+                url:"<?php echo U('checkRecommentPlayId'); ?>",
+                type:'post',
+                dataType:'json',
+                data:{
+                    'play_id' : play_id,
+                    'lottery_id' : lottery_id
+                },
+                success:function(data){
+                    if(data.error_code == 1){
+                        $('#play_type').hide();
+                        alert(data.msg);
+                        return false;
+                    }
+                }
+            });
+        }
+
+        function checkContent(){
+            var play_id = $('#information_recomment_play_id').val();
+            var content = $('#information_recomment_content').val();
+
+            if(play_id == '' || content == ''){
+                alert('请先填写场次ID跟玩法内容');return false;
+            }
+            $.ajax({
+                url:"<?php echo U('checkContent'); ?>",
+                type:'post',
+                dataType:'json',
+                data:{
+                    'play_id' : play_id,
+                    'content' : content
+                },
+                success:function(data){
+                    if(data.error_code == 1){
+                        alert(data.msg);
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            });
+        }
+
+        function subForm(){
+
+            var information_is_add_recomment = $('#information_is_add_recomment').val();
+            if(information_is_add_recomment == '0' || information_is_add_recomment == 0){
+                $('#myform').submit();
+            }else if(information_is_add_recomment == '1' || information_is_add_recomment == 1){
+                var play_id = $('#information_recomment_play_id').val();
+                var content = $('#information_recomment_content').val();
+                var lottery_id = $('#information_recomment_lottery_id').val();
+
+                if(lottery_id == ''){
+                    alert('请选择推荐彩种');
+                    return false;
+                }
+
+                if(play_id == '' || content == ''){
+                    alert('请先填写场次ID跟玩法内容');return false;
+                }
+                $.ajax({
+                    url:"<?php echo U('checkPostForm'); ?>",
+                    type:'post',
+                    dataType:'json',
+                    data:{
+                        'play_id' : play_id,
+                        'content' : content,
+                        'lottery_id' : lottery_id
+                    },
+                    success:function(data){
+                        if(data.error_code == 1){
+                            alert(data.msg);
+                            return false;
+                        }else{
+                            $('#myform').submit();
+                        }
+                    }
+                });
+                return false;
+            }
+
+
+        }
+
+        function is_add_recomment(){
+
+            var information_is_add_recomment = $('#information_is_add_recomment').val();
+            if(information_is_add_recomment == '0' || information_is_add_recomment == 0){
+                $("#is_recomment_content").hide();
+            }else if(information_is_add_recomment == '1' || information_is_add_recomment == 1){
+                $("#is_recomment_content").show();
+            }
+
+        }
+
+        $(document).ready(function(){
+            is_add_recomment();
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        //上传图片
+        /* 初始化上传插件 */
+        <?php for($i=1;$i<=4;$i++){ ?>
+            /* 初始化上传插件 */
+            $("#information_image_upload<?php echo $i; ?>").uploadify({
+                "height"          : 30,
+                "swf"             : "__PUBLIC__/static/uploadify/uploadify.swf",
+                "fileObjName"     : "download",
+                "buttonText"      : "上传图片",
+                "uploader"        : "{:U('File/uploadifyUpload',array('session_id'=>session_id()))}",
+                "width"           : 120,
+                'removeTimeout'	  : 1,
+                'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+                "onUploadSuccess" : uploadInformationPicture<?php echo $i; ?>,
+            'onFallback' : function() {
+                alert('未检测到兼容版本的Flash.');
+            }
+        });
+
+        <?php } ?>
+
+        function getTotalURL(){
+            var url2 = $("#informationImageSrc2").attr('src');
+            var url3 = $("#informationImageSrc3").attr('src');
+            var url4 = $("#informationImageSrc4").attr('src');
+            var totalURL = url2 + '|' + url3 + '|' + url4;
+            return totalURL;
+        }
+
+        function uploadInformationPicture1(file,data){
+            var data = $.parseJSON(data);
+            if(data.error_status == 0){
+                var url = data.pictureURL;
+                $("#informationImageSrc1").attr('src',url);
+                $("#information_image_list").val(url);
+            }
+        }
+
+        function uploadInformationPicture2(file,data){
+            var data = $.parseJSON(data);
+            if(data.error_status == 0){
+                var url = data.pictureURL;
+                $("#informationImageSrc2").attr('src',url);
+                $("#information_image_list").val(getTotalURL());
+            }
+        }
+
+        function uploadInformationPicture3(file,data){
+            var data = $.parseJSON(data);
+            if(data.error_status == 0){
+                var url = data.pictureURL;
+                $("#informationImageSrc3").attr('src',url);
+                $("#information_image_list").val(getTotalURL());
+            }
+        }
+
+        function uploadInformationPicture4(file,data){
+            var data = $.parseJSON(data);
+            if(data.error_status == 0){
+                var url = data.pictureURL;
+                $("#informationImageSrc4").attr('src',url);
+                $("#information_image_list").val(getTotalURL());
+            }
+        }
+
+
+
+        $(function(){
+            showCont();
+            $("input[name=information_picture_status]").click(function(){
+                showCont();
+            });
+        });
+        function showCont(){
+            switch($("input[name=information_picture_status]:checked").attr("id")){
+                case "information_picture_status1":
+                    $("#onePicture").hide();
+                    $("#threePicture").hide();
+                    break;
+                case "information_picture_status2":
+                    $("#onePicture").show();
+                    $("#threePicture").hide();
+                    break;
+                case "information_picture_status3":
+                    $("#threePicture").show();
+                    $("#onePicture").hide();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //导航高亮
+        highlight_subnav('{:U('CheckInformation/index')}');
+
+    </script>
+</block>

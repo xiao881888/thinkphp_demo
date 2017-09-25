@@ -1,0 +1,68 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="main-title">
+	<ol class="breadcrumb">
+	  <li>选择彩期</li>
+	  <li>确认开奖方案</li>
+	  <li class="active">确认派奖信息</li>
+	  <li>派奖</li>
+	</ol>
+</div>
+<div class="cf">
+<div class="fl">
+		<a class="btn btn-warning" href="{:U('confirmationDistribute',array('issue_id'=>$issue_id))}">确认派奖</a>
+	</div>
+</div>
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+	<caption>{$lottery_name}|{$issue_no}期|开奖号码：{$prize_num}</caption>
+		<thead>
+			<tr>
+
+				<th class="">订单编号</th>
+				<th class="">选号方案</th>
+				<th class="">中奖金额</th>
+				<th class="">税后金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="result_infos"> <volist name="result_infos" id="vo">
+			<tr>
+
+				<td>{$vo.order_sku}</td>
+				<td>{$vo.bet_number}</td>
+				<td>{$vo.wr_bonus_amount}</td>
+				<td>{$vo.wr_after_tax_amount}</td>
+				
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+</block>
+
+<block name="script"> 
+<script type="text/javascript">
+	$(function(){
+		$('#lottery_id').bind('change',function(){
+			var lottery_id = $(this).val();
+			if(lottery_id != ''){
+				$.ajax({
+					url:"{:U('Prize/distributeIssue')}",
+					data:{lottery_id:lottery_id},
+					type:'post',
+					success:function(data){
+						$('#issue_id').html(data);
+					}
+				});
+			}	
+		});
+		
+		$('#lottery_id').triggerHandler('change');
+	});
+	highlight_subnav('{:U('distribute')}');
+</script> 
+</block>

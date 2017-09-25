@@ -1,0 +1,70 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>订单列表</h2>
+</div>
+
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table  table-bordered  table-condensed" >
+<caption>用户：{$userInfo.user_telephone|showTel}</caption>
+	<tbody>
+	<tr>
+	<th>账户余额</th>
+	<th>不可用余额</th>
+	<th>充值总额</th>
+	<th>消费总额</th>
+	<th>红包充值总额</th>
+	<th>红包消费总额</th>
+	</tr>
+	<tr>
+	<td>{$userAccountInfo.user_account_balance}</td>
+	<td>{$userAccountInfo.user_account_frozen_balance}</td>
+	<td>{$userAccountInfo.user_account_recharge_amount}</td>
+	<td>{$userAccountInfo.user_account_consume_amount}</td>
+	<td>{$userAccountInfo.user_account_coupon_amount}</td>
+	<td>{$userAccountInfo.user_account_coupon_consumption}</td>
+	</tr>
+	</tbody>
+	
+</table>
+
+<table class="table  table-bordered  table-condensed" >
+	<caption>账户日志</caption>
+	<tbody>
+	<tr>
+	<th>操作类型</th>
+	<th>操作金额</th>
+	<th>操作后金额</th>
+	<th>操作不可用金额</th>
+	<th>操作后不可用金额</th>
+
+	<th>操作时间</th>
+	</tr>
+	<volist name="userAccountLog" id="log">
+	<tr>
+	<td>{$log.ual_type}</td>
+	<td>{$log.ual_amount}</td>
+	<td>{$log.ual_balance}</td>
+	<td>{$log.ual_frozen_amount}</td>
+	<td>{$log.ual_frozen_balance}</td>
+
+	<td>{$log.ual_create_time}</td>
+	</tr>
+	</volist>
+	
+	</tbody>
+	
+</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+highlight_subnav('{:U('index')}');
+</script>
+</block>
+
+

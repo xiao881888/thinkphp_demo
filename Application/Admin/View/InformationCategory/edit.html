@@ -1,0 +1,60 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['information_category_id'])?'编辑':'新增'}分类</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="information_category_name" class="col-sm-2 control-label">分类名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="information_category_name" id="information_category_name" value="{$vo.information_category_name}">
+		    </div>
+	 	</div>
+	 	
+	 	<div class="form-group">
+	    <label for="information_category_icon" class="col-sm-2 control-label">分类图片：</label>
+	    <div class="col-sm-2">
+	      <input type="file" class="" name="information_category_icon"  id="information_category_icon">
+	    </div>
+	  	</div>
+	  
+   		<div class="form-group">
+		    <label for="information_category_order" class="col-sm-2 control-label">排序权重：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="information_category_order" id="information_category_order" value="{$vo.information_category_order}">
+		    </div>
+	 	</div>
+
+        <div class="form-group">
+            <label for="information_category_recomment_lottery" class="col-sm-2 control-label" >推荐彩种：</label>
+            <div class="col-sm-2">
+                <select name="information_category_recomment_lottery" id="information_category_recomment_lottery" class="form-control">
+                    <option value="">选彩种</option>
+
+                    <!--selected="selected"-->
+
+                    <?php foreach($lottery_list as $lottery){ ?>
+                        <option value="<?php echo $lottery['lottery_id'] ?>" <?php if($lottery['lottery_id'] == $vo['information_category_recomment_lottery']){ ?>selected="selected" <?php } ?> ><?php echo $lottery['lottery_name'] ?></option>
+                    <?php } ?>
+
+                </select>
+            </div>
+        </div>
+
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="information_category_id" value="{$vo.information_category_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+    highlight_subnav('{:U("InformationCategory/index")}');
+</script>
+</block>

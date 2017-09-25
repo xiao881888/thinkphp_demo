@@ -1,0 +1,54 @@
+<div id="deduction" style="display:none;">
+    <div class="deductionTab">
+        <ul>
+            <li sType="0"
+            <?php if($biggest_user_coupon_info['coupon_type'] == 1){ ?> class="on" <?php } ?>
+            >现金红包({$coupon_count_info.cash_coupon_count})</li>
+            <li sType="1"
+            <?php if($biggest_user_coupon_info['coupon_type'] == 2){ ?> class="on" <?php } ?>
+            >满减红包({$coupon_count_info.full_reduced_coupon_count})</li>
+        </ul>
+    </div>
+   
+    <div class="deductionWrap" id="deductionWrap_cash" <?php if($biggest_user_coupon_info['coupon_type'] == 1){ ?> style="display:block;" <?php } ?>>
+        <volist name="user_coupon_list" id="coupon_info">
+            <?php if($coupon_info['coupon_type'] == 1){ ?>
+
+            <div id="{$coupon_info['id']}" data-balance="{$coupon_info['balance']}" <if condition="$coupon_info['id'] eq $biggest_user_coupon_info['id']">class="deductionItem selected" s="1"<else/>class="deductionItem" s="0"</if>>
+                    <h1>￥<span id="b_{$coupon_info['id']}">{$coupon_info['balance']}</span></h1>
+                    <h2>
+                        <empty name="coupon_info.display_name">
+                        现金红包
+                        <else />
+                        {$coupon_info['display_name']}
+                        </empty>
+
+
+                    </h2>
+                    <p><if condition="$coupon_info['type'] eq 0">永久有效<else/>{$coupon_info['end_time_desc']}</if></p>
+                </div>
+
+        	<?php } ?>
+        </volist>
+    </div>
+    <div class="deductionWrap" id="deductionWrap_man" <?php if($biggest_user_coupon_info['coupon_type'] == 2){ ?> style="display:block;" <?php } ?>>
+        <volist name="user_coupon_list" id="coupon_info">
+            <?php if($coupon_info['coupon_type'] == 2){ ?>
+
+                <div id="{$coupon_info['id']}" data-balance="{$coupon_info['balance']}" <if condition="$coupon_info['id'] eq $biggest_user_coupon_info['id']">class="deductionItem selected" s="1"<else/>class="deductionItem" s="0"</if>>
+                    <h1>￥<span id="b_{$coupon_info['id']}">{$coupon_info['balance']}</span></h1>
+                    <h2>
+                        <empty name="coupon_info.display_name">
+                            满减红包
+                            <else />
+                            {$coupon_info['display_name']}
+                        </empty>
+                    </h2>
+                    <p><b>满{$coupon_info['coupon_min_consume_price']}可用</b><if condition="$coupon_info['type'] eq 0">永久有效<else/>{$coupon_info['end_time_desc']}</if></p>
+                </div>
+
+            <?php } ?>
+    	</volist>
+	</div>
+</div>
+		

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>充值成功</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/LargeRecharge/css/style.css">
+</head>
+<body>
+	<div class="txt2">
+    	<img src="__PUBLIC__/Home/LargeRecharge/images/icon_success.png" />
+        <p>提交成功!</p>
+    </div>
+    
+    <div class="txt3">
+    	<p>客服会尽快与您联系</p>
+        <p>请保证联系手机{$contacts_tel}的畅通</p>
+    </div>
+    
+    <button id="btn_close">关闭</button>
+    <script>
+		var touchEvents = {
+			touchstart: "touchstart",
+			touchmove: "touchmove",
+			touchend: "touchend"
+		};
+    	document.getElementById("btn_close").addEventListener(touchEvents.touchend,function(){
+			window.location.href = "index.html";
+		});
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+*{ margin:0;padding:0;}
+
+body{ background: #fff8ee; }
+
+.img-box{
+	width:100%;
+}
+.img-box img{
+	width:100%;
+}
+
+.bottom-box{
+	width:100%;
+}
+.bottom-box div{
+	width: 93%;
+	margin: 10px 0 25px 0 ;
+	font-size:14px;
+}
+.bottom-box p{
+	color:#333;
+	line-height: 28px;
+	margin: 0 0 10px 0;
+}
+.bottom-box p:before{
+	content:"活动时间：";
+	color: #ea3e3e;
+}
+.bottom-box div p:first-child + p:before{
+	content:"活动内容：";
+	color: #ea3e3e;
+}
+.bottom-box div p:first-child + p + p:before{
+	content:"活动条件：";
+	color: #ea3e3e;
+}
+.bottom-box div p:first-child + p + p + p:before{
+	content:"活动奖励：";
+	color: #ea3e3e;
+}
+.bottom-box div p:first-child + p + p + p + p:before{
+	content:"派发方式：";
+	color: #ea3e3e;
+}
+
+.bottom-box div span{
+	color:#999;
+}
+
+.btn-cash{
+	display:inline-block;
+	height: 46px;
+}
+.btn-cash span{
+	display: inline-block;
+	width:130px;
+	height: 46px;
+	background: url(../images/btn_cash.png) no-repeat;
+	background-size: 100%;
+}
+.btn-cash:active span{
+	background: url(../images/btn_cash.png) no-repeat;
+	background-size: 100%;
+}
+
+
+
+	

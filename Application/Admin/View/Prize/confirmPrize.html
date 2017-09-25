@@ -1,0 +1,34 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="main-title">
+	<ol class="breadcrumb">
+		<li>选择彩期</li>
+		<li>填写开奖信息</li>
+		<li class="active">确认开奖</li>
+	</ol>
+</div>
+<div class="container" style="border: 1px solid #ccc;">
+	<div class="row">
+		<div class="col-xs-2 col-xs-offset-1">数据验证通过</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-2 col-xs-offset-1">
+		<notempty name="result">
+		<font color="green">发起开奖成功!</font>
+		<else/>
+		<font color="red">发起开奖失败!</font>
+		</notempty>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">系统正在开奖，请稍后核对数据是否开奖成功！</div>
+	</div>
+</div>
+</block>
+
+<block name="script"> <script type="text/javascript">
+	highlight_subnav('{:U('index')}');
+</script> </block>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+    <title>VIP中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="__PUBLIC__/Integral/User/css/vipCenter.css?t=0628">
+    <style>
+      html, body { font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif; }
+    </style>
+  </head>
+  <body>
+  <script src="__PUBLIC__/Integral/User/js/zepto.min.js"></script>
+    <div class="container">
+      <div class="grade-container clearfix"></div>
+      <div class="box">
+        <div class="title">
+          本期VIP礼包
+        </div>
+        <div class="content">
+
+          <?php if($current_vip_level == 1){ ?>
+          <div class="no-gift">
+            升级到VIP2以上即可每周获得<span>1</span>次VIP礼包<br/>
+            您还需要<span><?php echo $diff_exp; ?></span>经验升级到 <span>VIP2</span>
+          </div>
+
+          <?php } ?>
+
+          <?php foreach($gift_list as $key => $gift_info){ ?>
+                  <?php if($gift_info['type'] == 1){ ?>
+                          <div class="gift-item redpack-active">
+                            <span class="icon"></span>
+                            <?php echo $gift_info['name'];  ?>  （<?php echo $gift_info['num']; ?> 份）
+                          </div>
+                  <?php }else{ ?>
+                            <div class="gift-item point">
+                              <span class="icon"></span>
+                              <?php echo $gift_info['integral'];  ?>积分
+                            </div>
+                  <?php } ?>
+          <?php } ?>
+        </div>
+      </div>
+      <div class="box">
+        <div class="title point-icon">
+          当前积分：<span class="text-red"><?php echo $integral_balance; ?></span>
+        </div>
+        <div class="content">
+          <div class="carousel">
+            <div class="carousel-scroll">
+              <img src="__PUBLIC__/Integral/User/img/swipe_1.png" data-href="{:U('/Integral/Turntable/index',['session_code' => I('encrypt_str')])}" alt="">
+              <img src="__PUBLIC__/Integral/User/img/swipe_2.png" data-href="/api/tiger?act=10709" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="title privilege">
+          等级特权
+        </div>
+        <div class="content">
+          <div class="privilege-grade clearfix">
+            <a href="javascript:;">VIP1</a>
+            <a href="javascript:;">VIP2</a>
+            <a href="javascript:;">VIP3</a>
+            <a href="javascript:;">VIP4</a>
+          </div>
+          <div class="privilege-panel"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="__PUBLIC__/Integral/User/js/alloy_finger.js"></script>
+    <script>
+      $(function () {
+        // 当前等级图标
+        var gradeIcos = '';
+        var curGrade = "<?php echo empty($current_vip_level) ? 1 : $current_vip_level; ?>";
+        curGrade = parseInt(curGrade);
+        for (i = 1; i < 5; i++) {
+          gradeIcos += '<div class="grade-icon'+(curGrade === i?' active':'')+'">'
+          gradeIcos += '    <div class="grade-icon-wrap">'
+          gradeIcos += '      <div class="icon-item">'
+          gradeIcos += '        <span class="vip-'+i+'-icon"></span>'
+          gradeIcos += '      </div>'
+          gradeIcos += '    </div>'
+          if (i < 4) {
+            gradeIcos += '    <div class="division-line"></div>'
+          }
+          if (curGrade === i) {
+            gradeIcos += '<span class="cur-grade">当前等级</span>'
+          }
+          gradeIcos += '</div>'
+        }
+        $(".grade-container").html(gradeIcos);
+        
+        var carouselIndex = 0;
+        var carouselScroll = $(".carousel-scroll");
+        var carouselImgs = carouselScroll.find('img');
+        new AlloyFinger(".carousel", {
+          swipe: function (evt) {
+            if (evt.direction === "Right") {
+              carouselIndex--;
+              setCarouselContent();
+            } else if (evt.direction === "Left"){
+              carouselIndex++;
+              setCarouselContent();
+            }
+            setCarouselContent();
+            return false;
+          }
+        });
+        $(".carousel").on('click', function (e) {
+          var action = e.target.getAttribute('data-action');
+          if (action === "right") {
+            carouselIndex--;
+            setCarouselContent();
+          } else if (action === "left") {
+            carouselIndex++;
+            setCarouselContent();
+          } else if (action === "center") {
+            var href = e.target.getAttribute('data-href');
+            location.href = href;
+          }
+        });
+        setCarouselContent();
+        function setCarouselContent () {
+          var lg = carouselImgs.length;
+          if (carouselIndex < 0) {
+            carouselIndex = lg - 1;
+          } else if (carouselIndex >= lg) {
+            carouselIndex = 0;
+          }
+          if (lg > 2) {
+            for (var i = 0; i < lg; i++) {
+              img = carouselImgs[i];
+              img.className = '';
+              img.setAttribute('data-action', '');
+              if (i === carouselIndex) {
+                img.className = "img-active";
+                img.setAttribute('data-action', 'center');
+              } 
+              if (i === (carouselIndex - 1 >= 0 ? carouselIndex - 1 : lg - 1)) {
+                img.className = "img-left";
+                img.setAttribute('data-action', 'left');
+              } else if (i === (carouselIndex + 1 < lg ? carouselIndex + 1 : 0)) {
+                img.className = 'img-right';
+                img.setAttribute('data-action', 'right');
+              }
+            }
+          } else if (lg === 2){
+            if (0 === carouselIndex) {
+              carouselImgs[0].className = 'img-active';
+              carouselImgs[0].setAttribute('data-action', 'center');
+              carouselImgs[1].className = 'img-right';
+              carouselImgs[1].setAttribute('data-action', 'right');
+            } else {
+              carouselImgs[0].className = 'img-left';
+              carouselImgs[1].className = 'img-active';
+              carouselImgs[1].setAttribute('data-action', 'center');
+              carouselImgs[0].setAttribute('data-action', 'left');
+            } 
+          } else {
+            carouselImgs[0].className = 'img-active';
+            carouselImgs[0].setAttribute('data-action', 'center');
+          }
+        }
+
+        if (!String.prototype.format) {
+          String.prototype.format = function (args) {
+            var result = this;
+            if (arguments.length > 0) {
+              if (arguments.length === 1 && typeof (args) === 'object') {
+                for (var key in args) {
+                  if (args[key] !== undefined) {
+                    var reg = new RegExp('({' + key + '})', 'g');
+                    result = result.replace(reg, args[key]);
+                  }
+                }
+              } else {
+                for (var i = 0; i < arguments.length; i++) {
+                  if (arguments[i] !== undefined) {
+                    var reg = new RegExp('({)' + i + '(})', 'g');
+                    result = result.replace(reg, arguments[i]);
+                  }
+                }
+              }
+            }
+            return result;
+          }
+        }
+
+        var gradePrivilege = [[{
+            icon: 'no-privilege-gift', text: '暂无特权', desc: '升级获得特权'
+          }], [{
+            icon: 'gift', text: 'VIP2礼包', desc: '每周定期礼包'
+          }], [{
+            icon: 'accelerate', text: '积分加速', desc: '购彩获得积分X1.1'
+          }, {
+            icon: 'gift', text: 'VIP3礼包', desc: '每周定期礼包'
+          }], [{
+            icon: 'accelerate', text: '积分加速', desc: '购彩获得积分X1.2'
+          }, {
+            icon: 'gift', text: 'VIP4礼包', desc: '每周定期礼包'
+          }, {
+            icon: 'service', text: '专属客服', desc: '一对一服务'
+          }]]
+        var privilegePanel = $(".privilege-panel");
+        $(".privilege-grade").on('click', 'a', function (e) {
+          if (!$(this).hasClass('active')) {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+            var index = $(this).index()
+            var html = '';
+            for (var i = 0; i < gradePrivilege[index].length; i++) {
+              html += '<div class="privilege-item {0}">'.format(gradePrivilege[index][i].icon)
+              html += '    <h3>{0}</h3>'.format(gradePrivilege[index][i].text);
+              html += '    <p>{0}</p>'.format(gradePrivilege[index][i].desc);
+              html += '  </div>';
+            }
+            privilegePanel.html(html);
+          }
+        });
+        $(".privilege-grade a").eq(curGrade-1).click();
+      })
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?41791bbd1565647fa1b0d9236fc6ee3d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+  </body>
+</html>

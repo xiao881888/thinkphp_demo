@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>关于我们</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/style.css">
+</head>
+<body>
+	<div id="icon"></div>
+	<p id="appName" class="appName"></p>
+	<div class="about">
+		<p>客服电话：<span>400-869-3691</span></p>
+		<p>版本号：{$version}</p>
+	</div>
+	<script>
+		var bagName = "<?php echo $package; ?>";//包名
+		var className = ''
+		var appName = '';
+        var ua = navigator.userAgent;
+
+        if (ua.indexOf('OS') > 0 || ua.indexOf('os') > 0) {
+            if( bagName == 'com.zyl.caipiao' ){
+                className = 'title-good';
+                appName = '好彩票';
+            }else if( bagName == 'com.zyl.caipiao2' ){
+                className = 'title-99';
+                appName = '99彩票';
+            }else if( bagName == 'com.zyl.caipiao3' ){
+                className = 'title-happy';
+                appName = '欢乐彩票';
+            }else if( bagName == 'com.zyl.caipiao4' ){
+                className = 'title-jishi';
+                appName = '及时彩';
+            }else if( bagName == 'com.yingqiu.xincai' ){
+                className = 'title-new';
+                appName = '新彩票';
+			}
+        } else {
+            className = 'title-new';
+            appName = '新彩票';
+        }
+
+        document.getElementsByTagName('body')[0].style.height = document.documentElement.clientHeight +'px';
+        document.getElementById("icon").setAttribute("class",className);
+        document.getElementById("appName").innerHTML = appName;
+	</script>
+</body>
+</html>

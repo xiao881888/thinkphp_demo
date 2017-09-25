@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首单最高返利100元</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="format-detection" content="telephone=no" />
+	<style>
+		*{margin:0;padding:0;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:none;}
+		body{background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/bg-load.png);background-position:left top;background-repeat:no-repeat;background-size:100% auto;text-align: center;}
+		/*banner*/
+		.banner{text-align: center; }
+		.banner img{  margin: 15% 0 0 0;  width: 100%; }
+		/*logo*/
+		.logo{display:inline-block;position:absolute;top:1.5%;left:2.5%;width:28%;}
+		.shadow{background:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/black_bg.png) repeat;position:fixed;z-index:20;top:0;width:100%;padding:100% 0;display:none;}
+		.prompt{display:none;margin:auto;position:fixed;top:0;left:0;bottom:0;right:0;width:100%;z-index:21;text-align:right;}
+		.prompt img {  margin: 10px 5px 0 0; }
+		.btn-ios{display:inline-block;width:75%;margin:30% 12.5% 0 12.5%;border:0;background-color:transparent;background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/ios.png);background-repeat:no-repeat;background-position:center center;background-size:100% auto;padding:8.5% 0;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+		.btn-andr{display:inline-block;width:75%;margin:4% 12.5% 0 12.5%;border:0;background-color:transparent;background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/Android.png);background-repeat:no-repeat;background-position:center center;background-size:100% auto;padding:8.5% 0;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+		.btn-back{color: #FFE512;font-size: 14px;display: inline-block;margin: 20px 0 30% 0;-webkit-tap-highlight-color:rgba(0,0,0,0); }
+		p{color: #FEFDFD;font-size: 16px;text-align: center;margin: 6% 0 0 0; }
+	</style>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?ff3fe8d7424d80083f130a5e0bb80176";
+	  var s = document.getElementsByTagName("script")[0];
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+</head>
+<body>
+	<!-- logo -->
+	<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/logo.png" class="logo" />
+    <!-- banner -->
+	<div class="banner"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/img-downLoad.png" /></div>
+	<a id="btn_ios" class="btn-ios"></a>
+	<a id="btn_andr" class="btn-andr"></a>
+	<p>下载老虎彩票，参与竞猜吧！</p>
+	<a href="{:U('WebReg/chinaVSIranReg')}" class="btn-back">返回活动页</a>
+   	<div class="shadow" name="mask"></div>
+    <div class="prompt" name="mask">
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/press.png" width="10%"><br>
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/img-andr.png" width="50%" id="pic_adr">
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSIran_activity/img/img-ios.png" width="50%" id="pic_ios">
+    </div>
+
+	<script type="text/javascript">
+		var ua = navigator.userAgent;
+		var config = {
+			download_adr: "http://oss.aliyuncs.com/tclottery/apk/laohucaipiao-blue_duobao_V2.5.2_25.apk",
+			download_ios: "https://itunes.apple.com/cn/app/lao-hu-cai-piao-jing-cai-jia/id1120940650?mt=8"
+		};
+
+		$(document).ready(function(){
+			initBtnDownLoad();
+		});
+
+		function initBtnDownLoad(){
+			if (ua.match(/MicroMessenger/i) == "MicroMessenger" || ( ua.indexOf('QQ/') > -1 && ua.match(/Mobile/i)=="Mobile") ){
+				if (ua.indexOf('OS') > 0 || ua.indexOf('os') > 0) {
+					$("#pic_ios").show();
+					$("#pic_adr").hide();
+				} else {
+					$("#pic_ios").hide();
+					$("#pic_adr").show();
+				}
+
+				$("#btn_andr").bind("click", function () {
+					$(".shadow").show();
+					$(".prompt").show();
+				});
+
+				$("#btn_ios").bind("click", function () {
+					$(".shadow").show();
+					$(".prompt").show();
+				});
+
+				initMarskClick();
+			}else {
+				$("#btn_andr").attr("href", config.download_adr);
+				$("#btn_ios").attr("href", config.download_ios);
+			}
+		}
+
+		function initMarskClick() {
+			$("div[name='mask']").unbind();
+			$("div[name='mask']").bind("click", function () {
+				$(".shadow").hide();
+				$(".prompt").hide();
+			});
+		}
+	</script>
+</body>
+</html>

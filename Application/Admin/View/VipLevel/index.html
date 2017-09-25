@@ -1,0 +1,64 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>VIP等级配置</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">等级名称</th>
+                <th class="">会员等级</th>
+                <th class="">图片</th>
+				<th class="">等级最大经验值</th>
+				<th class="">下单积分比例</th>
+				<th class="">礼包间隔天数</th>
+				<th class="">状态</th>
+				<th class=""></th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.vip_level_id}</td>
+                <td>{$vo.vip_level_name}</td>
+				<td>{$vo.vip_level_grade}</td>
+				<td><img src="{$vo.vip_level_img}"></td>
+				<td> {$vo.vip_level_min_exp} </td>
+				<td> {$vo.vip_level_integral_order_precent} </td>
+				<td> {$vo.vip_level_gift_interval} </td>
+				<td>
+					<eq name="vo.vip_level_status" value="1">
+						启用
+						<else/>
+						禁用
+					</eq>
+
+				</td>
+				<td>
+					<eq name="vo.vip_level_status" value="1">
+						<a href="{:U('VipLevel/changeStatus?status=0&ids='.$vo['vip_level_id'])}" class="btn ajax-get">禁用</a>
+						<else/>
+						<a href="{:U('VipLevel/changeStatus?status=1&ids='.$vo['vip_level_id'])}" class="btn ajax-get">启用</a>
+					</eq>
+					<a href="{:U('edit', array('id'=>$vo['vip_level_id']))}" class="btn">编辑</a>
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

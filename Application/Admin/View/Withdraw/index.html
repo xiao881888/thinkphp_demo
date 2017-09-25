@@ -1,0 +1,132 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>提现列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			<div class="form-group">
+				<label  for="s_date">申请状态：</label>
+				<select name="withdraw_status_et" >
+					<option value="-1" <if condition="$withdraw_status === '-1'">selected</if>>全部</option>
+					<volist name="status" id="vo">
+					<option value="{$vo.val}" <if condition="$withdraw_status === (string)$vo['val']">selected</if>>{$vo.text}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="form-group">
+				<label  for="s_date">申请开始时间：</label>
+				<input type="text" class="form-control input-sm " name="s_date" value="{$Think.request.s_date}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">
+			</div>
+			<div class="form-group">
+				<label  for="e_date">申请结束时间：</label>
+				<input type="text" class="form-control input-sm " name="e_date" value="{$Think.request.e_date}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">
+			</div>
+			<div class="form-group">
+				<label  for="user_bank_card_type">银行</label>
+				<input type="text" class="form-control input-sm" name="user_bank_card_type" value="{$Think.request.user_bank_card_type}" placeholder="银行名称">
+			</div>
+			<div class="form-group">
+				<label  for="uid">用户手机号：</label>
+				<input type="text" class="form-control input-sm" name="user_telephone" value="{$Think.request.user_telephone}" placeholder="输入手机号">
+			</div>
+			<div class="form-group">
+				<label  for="withdraw_id">提现ID：</label>
+				<input type="text" class="form-control input-sm" name="withdraw_id" value="{$Think.request.withdraw_id}" placeholder="">
+			</div>
+			<div class="form-group">
+				<label  for="user_bank_card_account_name">银行帐户名：</label>
+				<input type="text" class="form-control input-sm" name="user_bank_card_account_name" value="{$Think.request.user_bank_card_account_name}" placeholder="">
+			</div>
+			<div class="form-group">
+				<label  for="pay_mod">付款选择：</label>
+				<select name="pay_mod" >
+					<option value="" <if condition="$Think.request.pay_mod == ''">selected</if>>全部</option>
+					<option value="1" <if condition="$Think.request.pay_mod == '1'">selected</if>>可代付</option>
+					<option value="2" <if condition="$Think.request.pay_mod == '2'">selected</if>>需手工</option>
+				</select>
+			</div>
+
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>提现ID</th>
+				<th class="">用户</th>
+				<th class="">提现金额</th>
+				<th class="">手续费</th>
+				<th class="">实际打款</th>
+				<th class="">银行卡号</th>
+				<th class="">开户行</th>
+				<th class="">银行卡户主名</th>
+				<th class="">银行卡类型</th>
+				<th class="">申请时间</th>
+				<th class="">打款时间</th>
+				<th class="">状态</th>
+				<th class="">备注</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.withdraw_id}</td>
+				<td><a href="{:U('UserAccountLog/index', array('uid'=>$vo['uid']))}">{$user_map[$vo['uid']]|showTel}</a></td>				
+				<!-- <td><a href="{:U('UserAccountLog/index', array('uid'=>$vo['uid']))}">{$user_map[$vo['uid']]}</a></td>				 -->
+				<td>{$vo.withdraw_amount}</td>
+				<td>{$vo.withdraw_fee}</td>
+				<td><php>echo number_format($vo['withdraw_amount']-$vo['withdraw_fee'], 2, '.', '')</php></td>
+				<td>{$vo.user_bank_card_number}</td>
+				<td>{$vo.user_bank_card_address}</td>
+				<td>{$vo.user_bank_card_account_name}</td>
+				<td>{$vo.user_bank_card_type}</td>		
+				<td>{$vo.withdraw_request_time}</td>
+				<td>{$vo.withdraw_pay_time}</td>
+				<td>{$vo.withdraw_status|withdraw_status_text}</td>
+				<td><if condition="$vo['withdraw_daify_result'] == 'FAILURE'">{$vo.withdraw_daifu_remark}<else />{$vo.withdraw_remark}</if></td>
+			
+				<td>
+				<eq name="vo.withdraw_status" value="0">
+				<a href="{:U('Withdraw/pass', array('id'=>$vo['withdraw_id']))}" class="btn btn-mini ajax-get confirm">通过</a>
+				<a href="{:U('Withdraw/refuse', array('id'=>$vo['withdraw_id']))}" class="btn btn-mini colorbox">拒绝</a>
+				<!--<a href="{:U('Withdraw/daifu', array('id'=>$vo['withdraw_id']))}" class="btn btn-mini ajax-get confirm">通过并代付-连连</a>--><if condition="in_array($vo['user_bank_card_type'], $baofu_bank_2_my_bank)"><a href="{:U('Withdraw/daifuByBaofu', array('id'=>$vo['withdraw_id']))}" class="btn btn-mini ajax-get confirm">通过并代付-宝付</a></if>
+				</eq>
+				
+				<eq name="vo.withdraw_status" value="1">
+				<a href="{:U('Withdraw/withdrawSucc', array('id'=>$vo['withdraw_id']))}" class="btn btn-mini ajax-get confirm">打款</a>
+				<a href="{:U('Withdraw/revoke', array('id'=>$vo['withdraw_id']))}" class="btn btn-mini colorbox confirm">撤销</a>
+				</eq>
+				
+				<a href="{:U('CpUser/editBase',array('id'=>$vo['uid']))}" class="btn btn-mini">用户基本信息</a>
+				</td>
+			</tr>
+			</volist> 
+			<tr class="sum_tr">
+				<td colspan="2" class="text_center">本页合计</td>
+				<td>{:sumArrField($list, 'withdraw_amount')}</td>
+				<td>{:sumArrField($list, 'withdraw_fee')}</td>
+				<td><php>echo number_format((sumArrField2($list, 'withdraw_amount')-sumArrField2($list, 'withdraw_fee')), 2)</php></td>
+				<td colspan="9" class="text_center">本页合计</td>
+			</tr>
+			<else />
+			<td colspan="14" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

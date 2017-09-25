@@ -1,0 +1,52 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['vg_id'])?'编辑':'新增'}VIP礼包设置</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="vg_title" class="col-sm-2 control-label">礼包名称：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="vg_title" id="vg_title" value="{$vo.vg_title}">
+            </div>
+        </div>
+
+		<div class="form-group">
+			<label for="vip_level_id" class="col-sm-2 control-label">会员等级：</label>
+			<div class="col-sm-2">
+				<select name="vip_level_id" id="vip_level_id" class="form-control">
+					<?php foreach($vip_level_list as $vip_level_info){ ?>
+					<option value="{$vip_level_info.vip_level_id}" <?php if($vo['vip_level_id'] == $vip_level_info['vip_level_id']){ ?>  selected="selected" <?php } ?> >{$vip_level_info.vip_level_name}</option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<label for="vg_push_content" class="col-sm-2 control-label">推送内容：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="vg_push_content" id="vg_push_content"
+					   value="{$vo.vg_push_content}">
+			</div>
+		</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="vg_id" value="{$vo.vg_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript">
+    highlight_subnav("{:U('index')}");
+	</script>
+</block>

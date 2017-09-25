@@ -1,0 +1,135 @@
+*{ 
+	margin: 0; 
+	padding: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+}
+body{
+	background-image: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/SyriaVSChina/img/bg.jpg);
+	background-position: center top;
+	background-size: cover;
+}
+/*banner*/
+.banner{
+	text-align: center;
+}
+.banner img{
+	margin: 8% 0 0 0;
+	width: 84%;
+}
+
+a.btn{
+	display: block;
+	position: relative;
+	width: 85%;
+	margin: 0 auto 3% auto;
+	border: none;
+	background-color:transparent;
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/SyriaVSChina/img/btn.png);
+	background-repeat:no-repeat;
+	background-position: center center;
+	background-size: 100% auto;
+	padding: 8% 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	z-index: 2;
+}
+
+.wrap{
+	width: 94%;
+	margin: 3.5% auto 4% auto;
+	padding: 0 0;
+	background-image: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/SyriaVSChina/img/white-bg.png);
+	background-repeat: repeat;
+	border-radius: 20px;
+	padding: 4% 0 3% 0;
+}
+
+/*活动奖励*/
+.rule-wrap{
+	width: 92%;
+	text-align: center;
+	margin: 0 4% 0 4%;
+	background-color: #F0B206;
+	position:relative;
+	padding: 4% 0;
+	border-radius: 13px;
+}
+.rule-wrap .title{
+	position: relative;
+	z-index: 2;
+	text-align: center;
+	width: 92%;
+	margin: 0 auto 0 auto;
+}
+.rule-wrap .title img{
+	width: 20%;
+	margin: 0 40% 0 40%;
+	display: block;
+}
+.rule-wrap .cont{
+	position: relative;
+	z-index: 2;
+	text-align: center;
+	width: 94%;
+	margin: 0 auto 0 auto;
+	padding: 0 0 0 0;
+}
+.rule-wrap .cont ul{
+	list-style: none;
+	color: #333333;
+	font-size: 14px;
+	padding: 5% 0 0 0;
+}
+.rule-wrap .cont ul li{
+	margin: 0 0 9px 0;
+	position: relative;
+	word-break:break-all;
+	overflow:hidden;
+}
+.rule-wrap .cont ul li span{
+	display: inline-block;
+	margin: 8px 0 0 0;
+	background-color: #C72A1F;
+	height: 5px;
+	line-height:20px;
+	padding: 0 0;
+	border-radius:50px;
+	width: 5px;
+	float: left;
+	color:#FCFDFE;
+}
+.rule-wrap hr{
+	width: 90%;
+	margin: 4% auto 0 auto;
+	height: 0;
+	outline: none;
+	border: none;
+	border-bottom: 1px dashed #333;
+	opacity: 0.5;
+}
+.rule-wrap  p{
+	text-align:left;
+	display: inline-block;
+	width: 87%;
+	word-break:break-all;
+	word-wrap:break-word;
+	color:#333333;
+	opacity: 0.85;
+	font-size: 14px;
+}
+.rule-wrap .cont ul li p{
+	text-align:left;
+	display: inline-block;
+	width: 94%;
+	word-break:break-all;
+	word-wrap:break-word;
+	color:#333333;
+	opacity: 0.85;
+}
+
+

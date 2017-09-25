@@ -1,0 +1,84 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>红包日志列表</h2>
+</div>
+
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+<div class="">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+		
+			
+			<!--<div class="form-group">
+				<label  for="ual_type">操作类型:</label>
+				<select name="ual_type" id="ual_type" class="form-control">
+				<option value="">全部</option>
+				<volist name=":C('ACCOUNT_LOG')" id="type">
+				<option value="{$key}"
+				<eq name="Think.request.ual_type" value="$key">
+				 selected="selected"
+				 </eq>
+				 >{$type}</option>
+				</volist>
+				</select>
+			</div>-->
+			
+			<div class="form-group">
+					<label for="s_date">开始日期：</label> 
+					<input type="text" class="form-control" name="s_date"		
+					value="{$Think.request.s_date}" 
+					onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+			</div>
+				
+			<div class="form-group">
+				<label for="e_date">结束日期：</label> 
+				<input type="text" class="form-control" name="e_date"		
+				value="{$Think.request.e_date}" 
+				onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+			</div>
+			
+			
+			<input type="hidden" name="uid" value="{$uid}">
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+<table class="table  table-bordered  table-condensed" >
+	<caption>红包日志</caption>
+	<tbody>
+	<tr>
+	<th>红包ID</th>
+		<th>红包类型</th>
+		<th>手机号码</th>
+		<th>操作类型</th>
+	<th>操作金额</th>
+	<th>操作后金额</th>
+		<th>操作时间</th>
+	</tr>
+	<volist name="list" id="vo">
+	<tr>
+	<td>{$vo.user_coupon_id}</td>
+		<td>{$vo.user_coupon_id|getCouponTypeByUserCouponId}</td>
+		<td>{$vo.uid|getUserTelByUid}</td>
+		<td>{$vo.ucl_type|getUserCouponLogTypeByOrderId}</td>
+		<td>{$vo.ucl_type|getUserCouponLogMarkDescOrderId}{$vo.coupon_amount}</td>
+		<td>{$vo.user_coupon_balance}</td>
+		<td>{$vo.ucl_create_time}</td>
+	</tr>
+	</volist>
+	
+	</tbody>
+	
+</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+highlight_subnav('{:U('CpUser/index')}');
+</script>
+</block>
+
+

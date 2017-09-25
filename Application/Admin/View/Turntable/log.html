@@ -1,0 +1,67 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>抽奖记录</h2>
+</div>
+<div class="cf">
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U()}" method="post">
+			<div class="form-group">
+				<label class="sr-only" for="uid"></label>
+				<input type="text" class="form-control"
+					   id="uid" placeholder="UID" name="uid" value="{:I('uid')}">
+			</div>
+
+			<div class="form-group">
+				<label class="sr-only" for="turntable_id"></label>
+				<input type="text" class="form-control"
+					   id="turntable_id" placeholder="输入奖品ID" name="turntable_id" value="{:I('turntable_id')}">
+			</div>
+
+			<div class="form-group">
+				<label for="user_telephone">时间范围：</label>
+				<input type="text" class="form-control input-sm" name="start_time" value="{:I('start_time')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd 00:00:00'})">
+				~
+				<input type="text" class="form-control input-sm" name="end_time" value="{:I('end_time')}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd 23:59:59'})">
+			</div>
+
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+
+
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">UID</th>
+				<th class="">手机号</th>
+				<th class="">用户名称</th>
+                <th class="">奖品</th>
+                <th class="">中奖时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.uid}</td>
+				<td>{$vo.mobile}</td>
+                <td>{$vo.user_name}</td>
+				<td> {$vo.turntable_name} </td>
+				<td> {$vo.log_addtime} </td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

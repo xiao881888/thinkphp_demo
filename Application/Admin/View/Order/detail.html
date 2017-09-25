@@ -1,0 +1,39 @@
+<table class="table  table-bordered  table-condensed">
+<caption>彩期编号：{$issueInfo.issue_no}<br>
+开奖号码：{$issueInfo.issue_prize_number}</caption>
+<thead>
+	<tr>
+		<th width="260px">票号</th>
+		<th width="300px">选号方案</th>
+		<th width="100px">玩法</th>
+		<th width="100px">投注方式</th>
+		<th width="100px">注数</th>
+		<th width="100px">倍数</th>
+		<th width="100px">投注金额</th>
+		<th width="100px">出票状态</th>
+		<th width="100px">中奖状态</th>
+		<th width="100px">中奖金额</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="tickets" id="ticket">
+<tr>
+<td>{$ticket.ticket_seq}
+<notempty name="ticket.ticket_id">
+、【{$ticket.ticket_id}】
+</notempty>
+</td>
+<td>{$ticket.bet_number}</td>
+<td>{$ticket.play_type|getConfText='PLAY_TYPE_DESC'}</td>
+<td>{$ticket.bet_type|showBetType}</td>
+<td>{$ticket.stake_count}</td>
+<td>{$ticket.ticket_multiple}</td>
+<td>{$ticket.total_amount}</td>
+<td>{$ticket.ticket_status|getConfText='TICKET_STATUS'}</td>
+<td>{$ticket.winnings_status|getConfText='ORDER_WINNINGS_STATUS'}</td>
+<td>{$ticket.winnings_bonus}</td>
+</tr>
+</volist>
+</tbody>
+</table>
+

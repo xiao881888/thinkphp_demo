@@ -1,0 +1,99 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>红包类别列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a href="{:U('add')}" class="btn">新增</a>
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+		
+			
+			<div class="form-group">
+				<label  for="coupon_name">红包名：</label>
+				<input type="text" class="form-control"
+					id="coupon_name" placeholder="输入红包名" name="coupon_name" value="{$Think.request.coupon_name}">
+			</div>
+
+			<div class="form-group">
+				<select name="coupon_status" id="coupon_status" class="form-control input-sm">
+					<option value="">全部状态</option>
+					<option value="0" <eq name="Think.request.coupon_status" value="0">selected="selected" </eq>>禁用</option>
+					<option value="1" <eq name="Think.request.coupon_status" value="1">selected="selected" </eq>>启用</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<select name="activity_id" id="activity_id" class="form-control input-sm">
+					<option value="">活动ID</option>
+					<volist name="activity_ids" id="activity_id">
+						<option value="{$activity_id}" <eq name="Think.request.activity_id" value="$activity_id">selected="selected" </eq>>
+						{$activity_id}
+						</option>
+					</volist>
+				</select>
+			</div>
+			
+			
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+
+				<th class="">红包名称</th>
+				<th class="">说明</th>
+				<th class="">活动ID</th>
+				<th class="">类型</th>
+				<th class="">图片</th>
+				<th class="">创建时间</th>
+				
+				<th class="">面额</th>
+				<th class="">价格</th>
+				<th class="">状态</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+
+				<td>{$vo.coupon_name}</td>
+				<td>{$vo.coupon_slogon}</td>
+				<td>{$vo.activity_id}</td>
+				<td>{$vo.coupon_valid_date_type|getConfText='COUPON_VALID_DATE_TYPE'}</td>
+				<td><img src="{$vo.coupon_image}" width="20px;" height="20px"></td>
+				<td>{$vo.coupon_create_time}</td>
+				
+				<td>{$vo.coupon_value}</td>
+				<td>{$vo.coupon_price}</td>
+				<td>{$vo.coupon_status|status_text}</td>
+				<td>
+				<a href="{:U('edit', array('id'=>$vo['coupon_id']))}" class="btn btn-mini">编辑</a>
+				<eq name="vo.coupon_status" value="1">
+				<a href="{:U('changeStatus', array('ids'=>$vo['coupon_id'],'status'=>0))}" class="btn btn-mini ajax-get">下架</a></td>
+				<else/>
+				<a href="{:U('changeStatus', array('ids'=>$vo['coupon_id'],'status'=>1))}" class="btn btn-mini ajax-get">上架</a></td>
+				</eq>
+				
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

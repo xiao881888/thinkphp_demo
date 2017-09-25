@@ -1,0 +1,196 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>订单列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			<div class="form-group">
+				<label  for="user_register_time_start">注册时间：</label>
+				<input type="text" class="form-control input-sm" name="user_register_time_start" value="{$Think.request.user_register_time_start}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd 00:00:00'})" >
+				~
+				<input type="text" class="form-control input-sm" name="user_register_time_end" value="{$Think.request.user_register_time_end}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd 23:59:59'})" >
+			</div>
+			<div class="form-group">
+				<label  for="app_channel_id">应用包渠道：</label>
+				<select name="app_channel_id" id="app_channel_id" class="form-control input-sm">
+				<option value="">全部渠道</option>
+				<volist name="user_channels" id="channel_name">
+				<option value="{$key}"
+					<if condition="$Think.request.app_channel_id === (String)$key">
+					selected="selected"
+					</if>	
+				>{$channel_name}</option>
+				</volist>
+				</select>
+			</div>
+		
+			<div class="form-group">
+				<label  for="channel_id">红包兑换码归属渠道：</label>
+				<select name="channel_id" id="channel_id" class="form-control input-sm">
+				<option value="">全部渠道</option>
+				<volist name="channels" id="channel_name">
+				<option value="{$key}"
+					<if condition="$Think.request.channel_id === (String)$key">
+					selected="selected"
+					</if>	
+				>{$channel_name}</option>
+				</volist>
+				</select>
+			</div>
+			<div class="form-group">
+				<label  for="channel_id">对接商务：</label>
+				<select name="saler_id" id="saler_id" class="form-control input-sm">
+				<option value="">全部商务</option>
+				<volist name="salers" id="saler_name">
+				<option value="{$key}"
+					<if condition="$Think.request.saler_id === (String)$key">
+					selected="selected"
+					</if>	
+				>{$saler_name}</option>
+				</volist>
+				</select>
+			</div>
+			<div class="form-group">
+				<label  for="user_telephone">手机号或姓名：</label>
+				<input type="text" class="form-control"
+					id="user_telephone" placeholder="输入手机号或姓名" name="user_keyword" value="{$Think.request.user_keyword}">
+			</div>
+			
+			
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed" >
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">手机号</th>
+				<th class="">可用余额</th>
+				<th class="">冻结金额</th>
+				<th class="">累计充值</th>
+				<th class="">累计消费</th>
+				<th class="">积分余额</th>
+				<th class="">累计积分</th>			
+				<th class="">身份证</th>
+				<th class="">应用包渠道</th>
+				<th class="">红包渠道</th>
+				<th class="">注册时间</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr <if condition="$vo['user_status'] neq 1">style="color:red"</if>>
+				<td>{$vo.uid}</td>
+				<td>{$vo.user_telephone|showTel}</td>
+				<td>{$user_accounts[$vo['uid']]['user_account_balance']}</td>
+				<td>{$user_accounts[$vo['uid']]['user_account_frozen_balance']}</td>
+				<td>{$user_accounts[$vo['uid']]['user_account_recharge_amount']}</td>
+				<td>{$user_orders[$vo['uid']]['s']}</td>
+				<td>{$user_integral[$vo['uid']]['user_integral_balance']|intval}</td>
+				<td>{$user_integral[$vo['uid']]['user_integral_amount']|intval}</td>			
+				<td>
+				<notempty name="vo.user_identity_card">
+					<eq name="vo.user_identity_card_status" value="1">
+					<span class="label label-success">已认证</span>
+					<else/>
+					<span class="label label-warning">未认证</span>
+					</eq>
+					<br/>
+					{$vo.user_real_name}
+					<br/>
+					{$vo.user_identity_card|showIdentity}
+				</notempty>
+				</td>
+				<td>{$vo.user_app_channel_id|showUserAppChannel=$vo['user_app_os'], ###}</td>
+				<td>{$channels[$vo['channel_id']]}</td>
+				<td>{$vo.user_register_time}</td>
+				<td>
+				<input type="button" value="重置密码" val="{:U('resetPw', array('uid'=>$vo['uid']))}" class="btn confirm btn-mini resetpw ">
+				<a href="{:U('editBase',array('id'=>$vo['uid']))}" class="btn btn-mini">编辑</a>
+				<a href="{:U('UserAccountLog/index',array('uid'=>$vo['uid']))}" class="btn btn-mini ">详细信息</a>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				    更多 <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				  	<li><a href="{:U('edit', array('id'=>$vo['uid']))}" >高级编辑</a></li>
+				    <li><a href="{:U('passIdCard', array('uid'=>$vo['uid']))}" class="ajax-get">通过身份证号</a></li>
+				    <li><a href="{:U('passBankCard', array('uid'=>$vo['uid']))}" class="ajax-get">通过银行卡号</a></li>
+				    <li><a href="{:U('Recharge/addRechargeRecord', array('uid'=>$vo['uid']))}" >添加手工转账记录</a></li>
+				    <li>
+					     <eq name="vo.user_status" value="1">
+							<a href="{:U('changeStatus',array('ids'=>$vo['uid'], 'status'=>0))}" class=" ajax-get confirm">冻结</a>
+							<else/>
+							<a href="{:U('changeStatus',array('ids'=>$vo['uid'], 'status'=>1))}" class=" ajax-get confirm">解冻</a>
+						</eq>
+					</li>
+
+				  </ul>
+				</div>
+				</td>
+			</tr>
+			</volist> 
+			<tr class="sum_tr">
+				<td colspan="2" class="text_center">本页合计</td>
+				<td>{:sumArrField($user_accounts, 'user_account_balance')}</td>
+				<td>{:sumArrField($user_accounts, 'user_account_frozen_balance')}</td>
+				<td>{:sumArrField($user_accounts, 'user_account_recharge_amount')}</td>
+				<td>{:sumArrField($user_orders, 's')}</td>
+				<td colspan="7" class="text_center">本页合计</td>
+			</tr>
+			<else />
+			<td colspan="10" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	$('.resetpw').bind('click', function(){
+		var url = $(this).attr('val');
+		if (confirm("确定执行次操作吗？")) {
+			$.ajax({
+				url:url,
+				dataType:'json',
+				success:function(data){
+					var status = data.status;
+					var info = data.info;
+					if(status){
+						$().toastmessage('showToast',{
+							sticky:true,
+							type:'success',
+							position:'middle-center',
+							text:info
+					});
+					}else{
+						$().toastmessage('showToast',{
+							sticky:true,
+							type:'error',
+							position:'middle-center',
+							text:info
+					});
+					}
+				}
+			});
+		}
+	});
+});
+</script>
+</block>

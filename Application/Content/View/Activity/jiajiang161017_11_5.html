@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta name="format-detection" content="telephone=no"/>
+<title>中奖有奖，奖上加奖</title>
+<style>
+*{ margin:0;padding:0;}
+body{ background:#ED3847; }
+.img-box{ width:100%; }
+.img-box img{ width:100%; }
+
+
+
+table td{ width:25%; line-height:26px; color:#747071; background-color:#E8E6E7; font-size:12px; text-align:center;}
+table th{ font-weight:normal; width:25%; line-height:26px; color:#C02E3B; background-color:#FEFEFE; font-size:14px; text-align:center; padding: 0 0 5px 0;}
+
+footer{ width:100%; position: absolute; text-align:center; bottom: 10px; color:#333; font-size:12px; }
+a { display: inline-block; width: 42%; padding: 1% 0; }
+a span{ display: inline-block; width: 100%; padding: 15% 0; background: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/20161017jiajiang/btn11_5_nor.png) no-repeat; background-size: 100%; margin:0; }
+a:active span{ background: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/20161017jiajiang/btn11_5_pre.png) no-repeat; background-size: 100%; margin:0; }
+
+span{ color:#FFFFFF; font-size:12px; display:inline-block; margin: 10px 0 0 0 ; }
+.btn{ margin-top:4%; }
+
+.footer{ margin-bottom:2%; }
+
+.cont_1{
+	width:100%;
+	text-align:center;
+	margin: 4% 0;
+}
+.cont_1 img{
+	width:45%;
+	position:relative;
+	z-index:2;
+}
+.cont_1 p{
+	display:inline-block;
+	width:98%;
+	margin: -5% 0 0 0;
+	background:#D72427;
+	border-radius:6px;
+	padding: 8% 0 5% 0;
+	position:relative;
+	z-index:1;
+}
+.cont_1 p img{
+	width:80%;
+	z-index:1;
+}
+
+.cont_2{
+	width:100%;
+	text-align:center;
+	margin: 8% 0 0 0;
+}
+.cont_2 img{
+	width:45%;
+	position:relative;
+	z-index:2;
+}
+.cont_2 div{
+	display:inline-block;
+	width:98%;
+	margin: -5% 0 0 0;
+	background:#D72427;
+	border-radius:6px;
+	padding: 6% 0 1% 0;
+	position:relative;
+	z-index:1;
+	text-align: center;
+}
+.cont_2 div div{
+	width:97%;
+	z-index:1;
+	border-radius: 6px;
+	margin: 0;
+	padding: 2% 0 2% 0;
+	background: #fefefe;
+	overflow: hidden
+}
+.cont_2 div div table{
+	width:100%;
+	z-index:1;
+	background:#FEFEFE;
+}
+</style>
+</head>
+<body>
+	<div class="img-box">
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/20161017jiajiang/11_5_top.png" />
+    </div>
+    
+    <div class="cont_1">
+    	<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/20161017jiajiang/11_5_title_time.png" />
+        <p><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/20161017jiajiang/11_5_txt.png"/></p>
+    </div>
+    
+    <div class="cont_2">
+    	<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/20161017jiajiang/11_5_title_rule.png" />
+        <div>
+        	<div>
+            	
+                <table width="100%" border="0">
+                  <tr>
+                    <th scope="col">投注方式</th>
+                    <th scope="col">原奖金</th>
+                    <th scope="col">加奖金额</th>
+                    <th scope="col">合计奖金</th>
+                  </tr>
+                  <tr style="height: 130px;">
+                    <td>任选3胆拖玩法:<br/>任意选两个胆码，其余9个号全选为拖码</td>
+                    <td>57元</td>
+                    <td>15元</td>
+                    <td>72元</td>
+                  </tr>
+                  <tr style="height: 65px;">
+                    <td rowspan="2">
+                    <br/>任选3普通玩法:<br/>任意选四个号码<br/><br/>
+                    </td>
+                    <td>19元(中3个数)</td>
+                    <td>5元</td>
+                    <td>24元</td>
+                  </tr>
+                  <tr style="height: 65px;">
+                    <td>76元(中4个数)</td>
+                    <td>20元</td>
+                    <td>96元</td>
+                  </tr>
+                  <tr style="height: 130px;">
+                    <td>任选4普通玩法:<br/>任意选4个或者更多号码</td>
+                    <td>78元</td>
+                    <td>12元</td>
+                    <td>90元</td>
+                  </tr>
+                </table>
+
+            </div>
+            
+        </div>
+    </div>
+      
+    <div align="center" class="btn">
+        <a href="{$jump_url}"><span></span></a>
+    </div>
+    
+    <div align="center" class="footer">
+        <span>本活动最终解释权归本APP所有</span>
+    </div>
+
+</body>
+</html>

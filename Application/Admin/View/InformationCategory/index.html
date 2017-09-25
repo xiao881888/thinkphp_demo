@@ -1,0 +1,68 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>资讯分类列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			
+			<div class="form-group">
+				<label class="sr-only" for="activity_name"></label>
+				<input type="text" class="form-control"
+					id="information_category_name" placeholder="分类名称" name="information_category_name" value="{$Think.request.information_category_name}">
+			</div>
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+
+				<th class="">分类名</th>
+				<th class="">图标</th>
+				<th class="">排序权重(降序)</th>
+				<th class="">创建时间</th>
+				<th class="">修改时间</th>			
+				<th class="">状态</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+
+				<td>{$vo.information_category_name}</td>
+				<td><img src="{$vo.information_category_icon}" width="20px;" height="20px;"></td>
+				<td>{$vo.information_category_order}</td>
+				<td>{$vo.information_category_create_time}</td>
+				<td>{$vo.information_category_modify_time}</td>
+				<td>{$vo.information_category_status|status_text}</td>
+
+				<td><eq name="vo.information_category_status" value="1"> <a
+						href="{:U('changeStatus', array('status'=>0,'ids'=>$vo['information_category_id']))}"
+						class="ajax-get btn btn-mini">禁用</a> <else /> <a
+						href="{:U('changeStatus', array('status'=>1,'ids'=>$vo['information_category_id']))}"
+						class="ajax-get btn btn-mini">启用</a> </eq>  <a
+					href="{:U('edit', array('id'=>$vo['information_category_id']))}" class="btn btn-mini">编辑</a></td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

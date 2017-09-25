@@ -1,0 +1,66 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="main-title">
+	<ol class="breadcrumb">
+	  <li class="active">选择彩期</li>
+	  <li>确认开奖方案</li>
+	  <li>确认派奖信息</li>
+	  <li>派奖</li>
+	</ol>
+</div>
+
+<form action="{:U('prizeScheme')}" method="post" class="form-horizontal" role="form">
+	<div class="form-group">
+		<label for="lottery_id" class="col-sm-2 control-label">彩种：</label>
+		<div class="col-sm-2">
+			<select name="lottery_id" id="lottery_id">
+				<option value="">选择彩种</option>
+				<volist name="lottery_map" id="lottery">
+				<option value="{$key}">{$lottery}</option>
+				</volist>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="issue_id" class="col-sm-2 control-label">彩期：</label>
+		<div class="col-sm-2">
+			<select name="issue_id" id="issue_id">
+				<option value="">选择彩期</option>
+
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2">
+			<button type="submit" class="btn btn-default" target-form="form-horizontal">下一步</button>
+		</div>
+	</div>
+
+</form>
+</block>
+
+<block name="script"> 
+<script type="text/javascript">
+	$(function(){
+		$('#lottery_id').bind('change',function(){
+			var lottery_id = $(this).val();
+			if(lottery_id != ''){
+				$.ajax({
+					url:"{:U('Prize/distributeIssue')}",
+					data:{lottery_id:lottery_id},
+					type:'post',
+					success:function(data){
+						$('#issue_id').html(data);
+					}
+				});
+			}	
+		});
+		
+		$('#lottery_id').triggerHandler('change');
+	});
+
+</script> 
+</block>

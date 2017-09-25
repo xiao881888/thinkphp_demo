@@ -1,0 +1,43 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['apu_id'])?'编辑':'新增'}上传App包</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="apu_title" class="col-sm-2 control-label">App名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="apu_title" id="apu_title" value="{$vo.apu_title}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+	    <label for="apu_url" class="col-sm-2 control-label">上传：</label>
+	    <div class="col-sm-2">
+	      <notempty name="vo.apu_url">
+			  <input type="text" class="form-control" value="{$vo.apu_url}">
+	      </notempty>
+	      <input type="file" class="" name="apu_url"  id="apu_url">
+	    </div>
+	  	</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="apu_id" value="{$vo.apu_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8">
+CKEDITOR.replace('activity_description');
+</script>
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

@@ -1,0 +1,116 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['uid'])?'编辑':'新增'}用户</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+   
+ 	 	<div class="form-group">
+		    <label for="user_telephone" class="col-sm-2 control-label">电话号码</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" readonly="readonly" name="user_telephone" id="user_telephone" value="{$vo.user_telephone}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_real_name" class="col-sm-2 control-label">用户名真实姓名</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="user_real_name" id="user_real_name" value="{$vo.user_real_name}">
+		    </div>
+	 	</div>
+	 	
+	 	<div class="form-group">
+		    <label for="user_identity_card" class="col-sm-2 control-label">身份证</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="user_identity_card" id="user_identity_card" value="{$vo.user_identity_card}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_type" class="col-sm-2 control-label">银行卡类型</label>
+		    <div class="col-sm-2">
+		      <select name="user_bank_card_type">
+		      	<option value="" <if condition="empty($vo['user_bank_card_type'])">selected</if>>暂无</option>
+		      	<volist name="banks" id="bank_name">
+		      	<option value="{$bank_name}" <if condition="$vo['user_bank_card_type'] == $bank_name">selected</if>>{$bank_name}</option>
+		      	</volist>
+		      </select>
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_account_name" class="col-sm-2 control-label">银行卡账户名</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="user_bank_card_account_name" id="user_bank_card_account_name" value="{$vo.user_bank_card_account_name}">
+		    </div>
+	 	</div>
+
+	 	
+	 	<div class="form-group">
+		    <label for="user_bank_card_number" class="col-sm-2 control-label">银行卡号</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="user_bank_card_number" id="user_bank_card_number" value="{$vo.user_bank_card_number}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_address" class="col-sm-2 control-label">开户行</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="user_bank_card_address" id="user_bank_card_address" value="{$vo.user_bank_card_address}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_address" class="col-sm-2 control-label">VIP用户</label>
+		    <div class="col-sm-2">
+		      <input type="radio" name="user_vip" value='1' <if condition="$vo['user_vip'] == 1">checked</if> > 是 &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="user_vip" value='0' <if condition="$vo['user_vip'] == 0">checked</if>> 否
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_address" class="col-sm-2 control-label">返点比率</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="user_rebate" id="user_rebate" value="{$vo.user_rebate}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_address" class="col-sm-2 control-label">所属渠道</label>
+		    <div class="col-sm-2">
+		      <select name="channel_id">
+		      	<option value="0" <if condition="empty($vo['channel_id'])">selected</if>>暂无</option>
+		      	<volist name="channels" id="so">
+		      	<option value="{$so.channel_id}" <if condition="$vo['channel_id'] == $so['channel_id']">selected</if>>{$so.channel_name}</option>
+		      	</volist>
+		      </select>
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="user_bank_card_address" class="col-sm-2 control-label">对接商务</label>
+		    <div class="col-sm-2">
+		      <select name="saler_id">
+		      	<option value="0" <if condition="empty($vo['saler_id'])">selected</if>>暂无</option>
+		      	<volist name="salers" id="so">
+		      	<option value="{$so.saler_id}" <if condition="$vo['saler_id'] == $so['saler_id']">selected</if>>{$so.saler_name}</option>
+		      	</volist>
+		      </select>
+		    </div>
+	 	</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    
+	    	<input type="hidden" name="uid" value="{$vo.uid}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

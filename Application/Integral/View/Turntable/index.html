@@ -1,0 +1,589 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="yes" name="apple-touch-fullscreen"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<title>积分大转盘</title>
+
+	<link href="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/css/style.css" rel="stylesheet" type="text/css">
+	<link href="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/css/swiper.min.css" rel="stylesheet" type="text/css">
+
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/js/swiper.min.js" ></script>
+	<script type="text/javascript" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/js/awardRotate.js"></script>
+</head>
+<body>
+
+	<!-- 奖品对应图片列表 -->
+	<!--<img src="images/icon-red-200.png" id="img-1" data-name="200元红包" name="prize_list" style="display:none;" />-->
+	<!--<img src="images/icon-sorry.png" id="img-2" data-name="谢谢参与" name="prize_list" style="display:none;" />-->
+	<!--<img src="images/icon-JD.png" id="img-3" data-name="200元京东卡" name="prize_list" style="display:none;" />-->
+	<!--<img src="images/icon-red-500.png" id="img-4" data-name="500元红包" name="prize_list" style="display:none;" />-->
+	<!--<img src="images/icon-red-10.png" id="img-5" data-name="10元红包" name="prize_list" style="display:none;" />-->
+	<!--<img src="images/icon-integral.png" id="img-6" data-name="60积分" name="prize_list" style="display:none;" />-->
+	<!--<img src="images/icon-red-50.png" id="img-7" data-name="50元红包" name="prize_list" style="display:none;" />-->
+    <volist name="turntable_list" id="vo">
+    <img src="{$vo.turntable_img}" id="img-{$vo.turntable_id}" data-name="{$vo.turntable_name}" name="prize_list" style="display:none;" />
+    </volist>
+
+	<!-- banner -->
+	<img class="banner" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/banner.png" >
+
+	<!-- 我的积分 -->
+	<div class="my-info"><hr>我的积分:<span id="integral">{$my_integral}</span><hr></div>
+
+	<!-- 抽奖记录 按钮 -->
+	<a name="btn_myPrize" class="btn-myList" href="javascript:void(0)"></a>
+
+	<!-- 气球背景 -->
+	<img class="balloon" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/img-balloon.png" >
+
+	<!-- 转盘 -->
+	<div class="turnplate-wrap">
+		<div class="turnplate">
+			<canvas class="item" id="wheelcanvas" width="458px" height="458px"></canvas>
+			<a href="javascript:void(0)" class="pointer">{:C('LOTTO_INTEGRAL_VALUE')}积分<b>抽奖</b></a>
+		</div>
+	</div>
+
+	<!-- 转盘阴影 -->
+	<img class="turnplate-shadow" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/img-shadow.png" >
+
+	<!-- 跑马灯(最新五条) -->
+	<div class="marquee-wrap">
+		<div class="marquee">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<!-- 显示最新5条 -->
+                    <volist name="history" id="vo">
+					<div class="swiper-slide">用户<span>{:hiddenMobile($vo['user_telephone'])}</span>抽中<b>{$vo.turntable_name}</b></div>
+                    </volist>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 底部图片 -->
+	<img class="coin" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/img-coin.png" >
+
+	<div class="marsk" name="pop"></div>
+	<div class="shadow"></div>
+	<!-- 登录弹窗 -->
+	<div id="login_wrap"  class="pop-wrap login-wrap" name='pop'>
+		<div class="cont">
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">请登录！</h1>
+			<div>
+				<p>您还未登录哦~快去登录吧！</p>
+				<a href="javascript:void(0)" name="btn_login" class="margin-top-10">去登录/注册</a>
+			</div>
+		</div>
+	</div>
+	<!-- 未中奖弹窗 -->
+	<div id="no_prize_wrap" class="pop-wrap" name='pop' >
+		<div class="cont">
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">真可惜</h1>
+			<div>
+				<p>本次没有中奖哦~再来一次吧！</p>
+				<a href="javascript:void(0)" id="btn_onceMore" class="margin-top-10">再来一次</a>
+			</div>
+		</div>
+	</div>
+	<!-- 中奖弹窗 -->
+	<div id="prize_wrap" class="pop-wrap" name='pop'>
+		<div class="cont">
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">中奖提示</h1>
+			<div>
+				<p>恭喜您抽中<strong id="info"></strong><br>奖品将在1分钟内到账，感谢您的参与!</p>
+				<div class="red-bag-wrap" >
+					<p class="fr"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/icon-red.png">&#65509;<span id="amount"></span></p>
+					<p class="ls" id="condition"></p>
+				</div>
+				<a id="btn_toMyRedBag" href="javascript:void(0)" name="btn_toRedBag" style="display: none;">去查看</a>
+				<a id="btn_know" href="javascript:void(0)" name="btn_close" class="margin-top-10" style="display: none;">我知道了</a>
+			</div>
+		</div>
+	</div>
+	<!-- 实物类中奖弹窗 -->
+	<div id="prize_wrap_JD" class="pop-wrap" name='pop' >
+		<div class="cont">
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">中奖提示</h1>
+			<div>
+				<p class="align-left">恭喜您抽中<strong id="info2"></strong>，请您拨打客服电话核对您的身份信息，我们将在核对完您的身份信息后，将京东卡卡密发送给您！</p>
+				<p class="padding-10 color-999">客服电话：<span>400-835-1108</span></p>
+				<a href="javascript:void(0)" name="btn_close">我知道了</a>
+			</div>
+		</div>
+	</div>
+	<!-- 获奖记录弹窗 -->
+	<div id="my_prize" class="list-wrap" name='pop'>
+		<div class="cont">
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">抽奖记录</h1>
+			<ul id="list">
+                <volist name="my_log" id="vo">
+				<li>{$vo.log_addtime}<span>{$vo.turntable_name}</span></li>
+                </volist>
+			</ul>
+		</div>
+	</div>
+	<!-- 积分不足弹窗 -->
+	<div id="coin_not_enough" class="pop-wrap" name='pop' >
+		<div class="cont">
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">真可惜</h1>
+			<div>
+				<p>您的积分不足，无法参与抽奖。<br>积分获取：投注、每日签到，都能获得积分哦！</p>
+				<a href="javascript:void(0)" name="btn_close" class="margin-top-10" >知道了</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 信息弹窗 -->
+	<div id="msg_pop" class="pop-wrap" name='pop' >
+		<div class="cont" >
+			<a href="javascript:void(0)" class="btn-close" name="btn_close"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/Turntable_activity/img/btn-close.png" /></a>
+			<h1 class="title">提示信息</h1>
+			<div>
+				<p id="msg">系统错误</p>
+				<a href="javascript:void(0)" name="btn_close" class="margin-top-10" >好的</a>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+        function isExitsFunction(funcName) {
+            try {
+                if (typeof(eval(funcName)) == "function") {
+                    return true;
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        function appAutoLogin(){
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            //var isiOS = 1;//test
+            if(isiOS || isAndroid){
+                if(isiOS){
+                    var temp = isExitsFunction("getLoginInfo");
+                }else if(isAndroid){
+                    if (window.Tiger){
+                        var temp = 'getLoginInfo' in window.Tiger;
+                    }else{
+                        var temp = false;
+                    }
+                }
+
+                if(temp){
+                    if(isiOS){
+                        var encrypt_str = getLoginInfo();
+                    }else if(isAndroid){
+                        var encrypt_str = window.Tiger.getLoginInfo();
+                    }
+
+                    $.ajax({
+                        type : 'POST',
+                        url  : "{:U('Integral/Turntable/getSession')}",
+                        data : {"encrypt_str":encrypt_str},
+                       // dataType: "json",
+                        success: function(data){
+                            sessionCode = data.data.session;
+                            //isLogin = true;
+                            //initBtnOnceMore();
+                            if (sessionCode != ""){
+                                //window.location.href = "{:U('Integral/Turntable/index')}?session_code="+sessionCode;
+                                document.cookie = "session_code="+sessionCode;
+                                location.reload();
+                            }else{
+                                setTimeout(function () {
+                                    appAutoLogin();
+                                }, 1000);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        //初始页面，服务端需要提供，奖品列表，及奖品对应的奖品图片列表
+		//抽奖成功后 需要提供抽到的奖品信息（抽奖时间2017/03/12 21:20，奖品名称），以及用户信息（用户账号1525xxxx069，用户积分200）
+
+		//奖品列表
+        var prize_list = new Array();
+        var prize_id = new Array();
+
+		$("img[name='prize_list']").each(function(index) {
+            prize_list.push($(this).attr("data-name"));
+            prize_id.push($(this).attr("id").split("img-")[1]);
+        });
+        var minIntegral = {:C('LOTTO_INTEGRAL_VALUE')};/*抽奖所需积分*/
+
+        var sessionCode = "{$session_code}";
+
+        if (sessionCode == ""){
+            appAutoLogin();
+        }
+
+		var isLogin ;/*用户是否登录*/
+        var sid = "{$uid}";/*用户ID*/
+		if( sessionCode == "" ){
+            isLogin = false;
+		}else{
+            isLogin = true;
+		}
+
+        var bet_url = '{:U('Integral/Turntable/lotto')}';//抽奖请求接口
+        var login_url = '/api/tiger?act=10711';//跳转登录页面
+        var my_red_bag_url = '/api/tiger?act=10710';//跳转我的红包
+
+
+        var mySwiper;
+        var color_list = ["#FFD242", "#FFAE42", "#FFD242", "#FFAE42","#FFD242", "#FFAE42", "#FFD242", "#FFAE42"];
+        var datas = {hit_time:'2017/05/24 10:20',prize:'60积分',nickname:'1865xxxx277',integral_balance:200};
+        var lock = false;
+        var turnplate={
+            restaraunts:[],				//大转盘奖品名称
+            colors:[],					//大转盘奖品区块对应背景颜色
+            outsideRadius:192,			//大转盘外圆的半径
+            textRadius:155,				//大转盘奖品位置距离圆心的距离
+            insideRadius: 40,			//大转盘内圆的半径
+            startAngle:0,				//开始角度
+            bRotate:false				//false:停止;ture:旋转
+        };
+
+        $(document).ready(function(){
+
+            turnplate.restaraunts = prize_list;//设置转盘奖品
+            turnplate.colors = color_list;//设置转盘奖品区域背景颜色
+
+            initBtnPrizeDraw();//初始化抽奖按钮
+            initBtnOnceMore();//初始化再来一次按钮
+
+            initBtnToRedBag();//初始化跳转我的红包按钮
+            initBtnToLogin();//初始化跳转登录按钮
+
+            initBtnClose();//初始化各弹窗关闭按钮
+            initBtnToMyReward();//初始化 获奖记录 按钮
+
+            initMarquee();//初始化跑马灯
+        });
+
+        //页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+        window.onload=function(){
+            drawRouletteWheel();
+            if( $("#list").children().length <= 0 ){
+                $("#list").append("<li class='no-priceList' style='text-align: center;'>当前无记录</li>");
+            }
+        };
+
+        //获取奖品请求
+        function getPrizeAjaxRequest() {
+//            var integral = parseInt($("#integral").html());
+//            resetIntegral(integral-minIntegral);
+//
+//            var index = 7;//奖品序号
+//            rotateFn(index, turnplate.restaraunts[index-1], datas);
+
+            if(lock){
+                return;
+            }
+            lock = true;
+
+            $.ajax({
+                type : 'POST',
+                url  : bet_url,
+                data : {'session_code':window.sessionCode},
+                success: function(data){
+                    lock = false;
+                    //data = JSON.parse(data);
+                    if (data.code == 0) {
+						//抽奖成功后 需要提供抽到的奖品信息（抽奖时间2017/03/12 21:20，奖品名称），以及用户信息（用户账号1525xxxx069，用户积分200）
+						//例如 var datas = {hit_time:'2017/05/24 10:20',prize:'60积分',nickname:'1865xxxx277',integral_balance:200};
+                        var integral = parseInt($("#integral").html());
+                        resetIntegral(integral-minIntegral);
+                        var index = data.data.id;//奖品id
+                        for(var i = 0; i < turnplate.restaraunts.length; i++) {
+                            if( prize_id[i] == index ){
+                                rotateFn(i+1, turnplate.restaraunts[i], data.data);
+							}
+                        }
+                    } else {
+                        showInfoPop(data.msg);
+                    }
+                }
+            });
+        }
+
+        //初始化再来一次按钮
+        function initBtnOnceMore() {
+            $('#btn_onceMore').unbind();
+            $('#btn_onceMore').click(function (){
+                if(isLogin){
+                    var totalIntegral = parseInt($("#integral").html());
+                    var minuendIntegral = parseInt(minIntegral);
+                    if( (totalIntegral-minuendIntegral)>=0 ){
+                        hidePop();
+                        $(".marsk").show();
+                        if(turnplate.bRotate)return;
+                        turnplate.bRotate = !turnplate.bRotate;
+                        getPrizeAjaxRequest();
+                    }else{
+                        showIntegralNotEnoughPop();
+                    }
+                }else{
+                    showLoginPop();
+                }
+            });
+        }
+        //初始化抽奖按钮
+        function initBtnPrizeDraw(){
+            $('.pointer').unbind();
+            $('.pointer').click(function (){
+                if(isLogin){
+                    var totalIntegral = parseInt($("#integral").html());
+                    var minuendIntegral = parseInt(minIntegral);
+                    if( (totalIntegral-minuendIntegral)>=0 ){
+                        $(".marsk").show();
+                        if(turnplate.bRotate)return;
+                        turnplate.bRotate = !turnplate.bRotate;
+                        getPrizeAjaxRequest();
+                    }else{
+                        showIntegralNotEnoughPop();
+                    }
+                }else{
+                    showLoginPop();
+                }
+            });
+        }
+
+        //抽奖成功后重置积分
+        function resetIntegral(num){
+            $("#integral").html(num);
+        }
+
+        //初始化跳转登录按钮
+        function initBtnToLogin() {
+            $("a[name='btn_login']").unbind();
+            $("a[name='btn_login']").bind("click",function () {
+                window.location.href = login_url;
+            });
+        }
+
+        //初始化跳转我的红包页面按钮
+        function initBtnToRedBag() {
+            $("a[name='btn_toRedBag']").unbind();
+            $("a[name='btn_toRedBag']").bind("click",function () {
+                hidePop();
+                window.location.href = my_red_bag_url;
+            });
+        }
+
+        //旋转转盘 item:奖品位置; txt：提示语;
+        function rotateFn(item, txt, datas){
+            var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
+            if( angles < 270){
+                angles = 270 - angles;
+            }else{
+                angles = 360 - angles + 270;
+            }
+            $('#wheelcanvas').stopRotate();
+            $('#wheelcanvas').rotate({
+                angle:0,
+                animateTo:angles+1800,
+                duration:8000,
+                callback:function (){
+                    //显示具体奖品弹窗
+                    if( datas.type == 0 ){
+                        //未中奖
+                        showNotGetPrizeInfo();
+                    }else if( datas.type == 1 ){
+                        //红包
+                        $("#amount").html(datas.prize.split("元")[0]);
+                        if( datas.min_consume_price != 0 ){
+                            $("#condition").html('订单满'+datas.min_consume_price+'可用');
+						}
+                        $(".red-bag-wrap").show();
+                        $("#btn_toMyRedBag").show();
+                        showPrizeInfo(txt);
+                    }else if( datas.type == 2 ){
+                        //积分
+                        $(".red-bag-wrap").hide();
+                        $("#btn_toMyRedBag").hide();
+                        $("#btn_know").show();
+                        showPrizeInfo(txt);
+                    }else if( datas.type == 3 ){
+                        //实物
+                        showPrizeInfoJD(txt);
+                    }
+                    //重设积分数目
+                    resetIntegral(datas.integral_balance);
+                    var prize = datas.prize;
+                    if ( prize.length != 0 ) {
+                        //追加抽奖记录
+                        if( $("#list").children().first().attr("class") == "no-priceList" ){
+                            $("#list").empty();
+                        }
+                        var append_line = "<li>" + datas.hit_time + "<span>" + prize + "</span></li>";
+                        $("#list").prepend(append_line);
+                        if ( datas.type != 0 ) {
+                            //追加跑马灯
+                            mySwiper.appendSlide('<div class="swiper-slide">用户<span>' + datas.nickname + '</span>抽中<b>' + prize + '</b></div>');
+                        }
+					}
+
+                    $(".marsk").hide();
+                    turnplate.bRotate = !turnplate.bRotate;
+                }
+            });
+        };
+        //渲染转盘
+        function drawRouletteWheel() {
+            var canvas = document.getElementById("wheelcanvas");
+            if (canvas.getContext) {
+                //根据奖品个数计算圆周角度
+                var arc = Math.PI / (turnplate.restaraunts.length/2);
+                var ctx = canvas.getContext("2d");
+                ctx.strokeStyle = "#DC7627";
+                //在给定矩形内清空一个矩形
+                ctx.clearRect(0,0,458,458);
+                //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式
+                //font 属性设置或返回画布上文本内容的当前字体属性
+                ctx.font = '20px Microsoft YaHei';
+                for(var i = 0; i < turnplate.restaraunts.length; i++) {
+                    var angle = turnplate.startAngle + i * arc;
+
+                    var color = turnplate.colors[i];
+                    ctx.fillStyle = color;
+
+                    ctx.beginPath();
+                    //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）
+                    ctx.arc(229, 229, turnplate.outsideRadius, angle, angle + arc, false);
+                    ctx.arc(229, 229, turnplate.insideRadius, angle + arc, angle, true);
+                    ctx.stroke();
+                    ctx.fill();
+                    //锁画布(为了保存之前的画布状态)
+                    ctx.save();
+
+                    //----绘制奖品开始----
+                    ctx.fillStyle = "#e94042";
+                    var text = turnplate.restaraunts[i];
+                    //translate方法重新映射画布上的 (0,0) 位置
+                    ctx.translate(229 + Math.cos(angle + arc / 2) * turnplate.textRadius, 229 + Math.sin(angle + arc / 2) * turnplate.textRadius);
+
+                    //rotate方法旋转当前的绘图
+                    ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+                    if(text.indexOf("谢谢")<0){
+                        ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+                    }
+
+                    var idStr = "img-"+prize_id[i];
+
+                    //添加对应图标
+                    if(text.indexOf("谢谢")>=0){
+                        var img= document.getElementById(idStr);
+                        img.onload=function(){
+                            ctx.drawImage(img,-35,-20);
+                        };
+                        ctx.drawImage(img,-35,-20);
+                    }else{
+                        var img= document.getElementById(idStr);
+                        img.onload=function(){
+                            ctx.drawImage(img,-35,15,70,46);
+                        };
+                        ctx.drawImage(img,-35,15,70,46);
+                    }
+                    //把当前画布返回（调整）到上一个save()状态之前
+                    ctx.restore();
+                    //----绘制奖品结束----
+                }
+            }
+        }
+
+        //初始化各弹窗关闭按钮
+        function initBtnClose() {
+            $("a[name='btn_close']").unbind();
+            $("a[name='btn_close']").bind("click",function () {
+                hidePop();
+            });
+        }
+        //初始化 获奖记录 按钮
+        function initBtnToMyReward() {
+            $("a[name='btn_myPrize']").unbind();
+            $("a[name='btn_myPrize']").bind("click",function () {
+                showMyPrizePop();
+            });
+        }
+        //初始化跑马灯
+        function initMarquee(){
+            mySwiper = new Swiper('.marquee .swiper-container', {
+                direction: 'vertical',
+                loop : true ,
+                autoplay : 1200,
+                preventClicks : true
+            });
+        }
+        //隐藏所有弹窗
+        function hidePop() {
+            $(".shadow").hide();
+            $("div[name='pop']").hide();
+        }
+        //显示中奖信息弹窗
+        function showPrizeInfo(info) {
+            $("#info").html(info);
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#prize_wrap").show();
+        }
+        //显示中奖信息弹窗 JD购物卡
+        function showPrizeInfoJD(info) {
+            $("#info2").html(info);
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#prize_wrap_JD").show();
+        }
+        //显示未中奖弹窗
+        function showNotGetPrizeInfo() {
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#no_prize_wrap").show();
+        }
+        //显示获奖记录弹窗
+        function showMyPrizePop() {
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#my_prize").show();
+        }
+        //显示登录弹窗
+        function showLoginPop() {
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#login_wrap").show();
+        }
+        //显示积分不足弹窗
+        function showIntegralNotEnoughPop() {
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#coin_not_enough").show();
+        }
+        //显示各信息弹窗
+        function showInfoPop(msg) {
+            $("#msg").html(msg);
+            $(".shadow").show();
+            $("div[name='pop']").hide();
+            $("#msg_pop").show();
+        }
+
+	</script>
+</body>
+</html>

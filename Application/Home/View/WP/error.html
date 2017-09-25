@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>支付失败</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link rel="stylesheet" href="__PUBLIC__/Home/web/css/style.css">
+</head>
+<body>
+	<div class="state">
+		<div class="stateIcon error"></div>
+		<p class="stateWord">支付失败</p>
+		<p class="hint">{$error_msg}<!-- 抱歉，请返回重新操作 --></p>		
+	</div>
+	<if condition="$jump_page eq 3">
+		<a href="javascript:window.location = 'com.tigercai.www://tigerserver/?page=3';" class="payBtn">快速充值</a>
+	<elseif condition="$jump_page eq 2" />
+		<a href="javascript:window.location = 'com.tigercai.www://tigerserver/?page=0';" class="payBtn">继续投注</a>
+	<elseif condition="$jump_page eq 1" />
+		<a href="javascript:window.location = 'com.tigercai.www://tigerserver/?page=1';" class="payBtn">返回订单列表</a>
+	<else />
+		<a href="javascript:window.location = 'com.tigercai.www://tigerserver/';"  class="payBtn">返回老虎彩票</a>
+	</if>
+</body>
+</html>

@@ -1,0 +1,495 @@
+*{ 
+	margin: 0; 
+	padding: 0;
+	/*-webkit-touch-callout: none;*/
+	/*-webkit-user-select: none;*/
+	/*-khtml-user-select: none;*/
+	/*-moz-user-select: none;*/
+	/*-ms-user-select: none;*/
+	/*user-select: none;*/
+	outline: none;
+}
+
+body{
+	background-color: #FFC100;
+}
+
+.banner{
+	text-align:center;
+}
+.banner img{
+	width: 100%
+}
+
+/*活动规则按钮*/
+.btn-rule{
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	right: 3%;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	background-color:transparent;
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-rule-bg.png);
+	background-repeat: no-repeat;
+	background-position:center top;
+	background-size: 100% auto;
+	color: #fff;
+	text-decoration:underline;
+	font-size: 13px;
+	padding: 13px 3px 28px 3px;
+}
+
+/*奖品展示*/
+.awards-wrap{
+	background-image:url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/awards-wrap-bg.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: 100% 100%;
+	border: 1px solid #480E0A;
+	border-radius: 7px;
+	width: 90%;
+	margin: 20px auto;
+}
+.awards-cont{
+	background-color:#FFB001;
+	border-radius: 6px;
+	width: 95%;
+	margin: 6px auto;
+	padding: 10px 0;
+}
+.device {
+  width: 90%;
+  position: relative;
+  margin: 0 auto;
+}
+.swiper-container{
+
+}
+.content-slide{
+	width: 90%;
+	margin: 0 auto;
+	border: 1px solid #480E0A;
+	overflow: hidden;
+}
+.content-slide img{
+	width: 100%;
+	float: left;
+}
+.content-slide .title {
+	width: 100%;
+	font-size: 10px;
+	background-color: #1F6FD2;
+	color: #fff;
+	text-align: center;
+	overflow: hidden;
+	padding: 5px 0;
+	float: left;
+}
+.device .arrow-left {
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/arrow-left.png);
+	background-repeat: no-repeat;
+	background-position:left top;
+	background-size: 100% auto;
+	position: absolute;
+	left: -5%;
+	top: 50%;
+	margin-top: -15px;
+	width: 5%;
+	height: 30px;
+}
+.device .arrow-right {
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/arrow-right.png);
+	background-repeat: no-repeat;
+	background-position:left top;
+	background-size: 100% auto;
+	position: absolute;
+	right: -5%;
+	top: 50%;
+	margin-top: -15px;
+	width: 5%;
+	height: 30px;
+}
+
+
+
+/*注册*/
+.register-wrap{
+	width: 90%;
+	margin: 20px auto;
+	display: none;
+}
+.register-cont{
+	overflow: hidden;
+	background-image:url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/register-wrap-bg.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: 100% 100%;
+	border: 1px solid #480E0A;
+	border-radius: 7px;
+	margin: 0 auto;
+	padding: 12px 5%;
+}
+.register-cont input{
+	border: 1px solid #480E0A;
+	border-radius: 6px;
+	background-color: #fff;
+	color: #480E0A;
+	font-size:14px;
+	padding: 15px 0 15px 12%;
+	overflow: hidden;
+}
+.register-cont input.tel{
+	width: 88%;
+	margin: 0 auto 12px auto;
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/icon-tel.png);
+	background-repeat: no-repeat;
+	background-position: 3% center;
+	background-size: auto 70%;
+}
+.register-cont input.code{
+	width: 50%;
+	margin: 0 auto 12px auto;
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/icon-lock.png);
+	background-repeat: no-repeat;
+	background-position: 5% center;
+	background-size: auto 60%;
+}
+.register-cont button.code-nor{
+	border-radius: 6px;
+	text-align: center;
+	width: 35%;
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-code-nor.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: 100% 100%;
+	margin: 0 auto 10px auto;
+	color: #030303;
+	font-size: 14px;
+	background-color: transparent;
+	outline: none;
+	box-shadow: none;
+	border: 1px solid #480E0A;
+	padding: 15px 0 15px 0;
+	float: right;
+}
+.register-cont button.code-invalid{
+	border-radius: 6px;
+	text-align: center;
+	width: 35%;
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-code-invalid.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: 100% 100%;
+	margin: 0 auto 10px auto;
+	color: #030303;
+	font-size: 14px;
+	background-color: transparent;
+	outline: none;
+	box-shadow: none;
+	border: 1px solid #480E0A;
+	padding: 15px 0 15px 0;
+	float: right;
+}
+.register-cont button.btn-register{
+	display: block;
+	text-align: center;
+	width: 100%;
+	background-image: url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-register-nor.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: 100% auto;
+	margin: 0 auto 3px auto;
+	background-color: transparent;
+	outline: none;
+	box-shadow: none;
+	border: none;
+	padding: 27px 0;
+}
+.register-wrap h3{
+	text-align: center;
+	color: #480E0A;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 26px 0 12px 0;
+	letter-spacing: 1px;
+}
+.register-wrap h3 span{
+	display: inline-block;
+	margin: 0 2px;
+}
+
+
+/*已领取奖品*/
+.getedAward-wrap{
+	overflow: hidden;
+	width: 90%;
+	margin: 0 auto;
+	text-align:center;	
+	display: none;
+}
+.getedAward-cont{
+	overflow: hidden;
+	position: relative;
+}
+.getedAward-cont img{
+	width: 100%;
+}
+.getedAward-cont p{
+	top: 10%;
+	position: absolute;
+	color:#DC0000;
+	font-size: 20px;
+	width: 100%;
+}
+.getedAward-cont p span{
+	display: block;
+	font-size: 28px;
+	margin: 0 0 10px 0;
+}
+.getedAward-cont h2{
+	position: absolute;
+	width: 100%;
+	top: 78%;
+	display: block;
+	color: #FFEE79;
+	font-size: 14px;
+	font-weight: normal;
+}
+.getedAward-wrap h3{
+	color: #480E0A;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 20px 0 12px 0 ;
+}
+.downLoad-btns-wrap{
+	overflow: hidden;
+	width: 100%;
+	margin: 0 auto;
+	text-align:center;	
+}
+.downLoad-btns-wrap a{
+	display: inline-block;
+	width: 48%;
+	padding: 7.5% 0;
+}
+.downLoad-btns-wrap a:first-child{
+	background-image:url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-ios-nor.png);
+	background-repeat: no-repeat;
+	background-position:center top;
+	background-size: 100% auto;
+	margin: 0 1.5% 0 0;
+}
+.downLoad-btns-wrap a:first-child + a{
+	background-image:url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-android-nor.png);
+	background-repeat: no-repeat;
+	background-position:center top;
+	background-size: 100% auto;
+}
+
+/**/
+.footer{
+	text-align: center;
+	font-size: 12px;
+	color: #333;
+	font-weight: normal;
+	padding: 20px 0;
+}
+
+/*阴影遮罩*/
+.shadow{
+	background:url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/black_bg.png) repeat;
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	width: 100%;
+	padding: 100% 0;
+	display: none;
+
+}
+/*信息提示窗*/
+.pop-info{
+	position: fixed;
+	z-index: 12;
+	top: 29%;
+	width: 80%;
+	padding: 10px 0;
+	margin: 0 10%;
+	background-color: #fff;
+	text-align:center;
+	display: none;
+	border-radius: 6px;
+}
+.pop-info p{
+	color: #999;
+	font-size: 20px;
+	margin: 40px 0;
+}
+.pop-info button{
+	width: 95%;
+	background-color:#FFBA35;
+	color: #DB0003;
+	font-size: 20px;
+	padding: 6px 0;
+	text-align:center;
+	border: none;
+	border-radius: 6px;
+}
+
+/*规则弹窗*/
+.rule-wrap{
+	position: fixed;
+	z-index: 13;
+	top: 18%;
+	width: 90%;
+	margin: 0 5%;
+	text-align:center;
+	display: none;
+
+}
+.rule-wrap .btn-close-wrap{
+	width: 100%;
+	height: 25px;
+	float: left;
+}
+.rule-wrap .btn-close-wrap button{
+	position: absolute;
+	border: none;
+	outline: none;
+	box-shadow: none;
+	background-color: transparent;
+	float: right;
+	width: 25px;
+	height: 25px;
+	background-image:url(http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/btn-close.png);
+	background-repeat: no-repeat;
+	background-position:right top;
+	background-size: contain;
+	right: -2%;
+}
+.rule-wrap .top{
+	width: 100%;
+	float: left;
+	position: relative;
+	z-index: 2;
+}
+.rule-wrap .top img{
+	width: 100%;
+	float: left;
+}
+.rule-wrap .cont{
+	width: 100%;
+	float: left;
+	margin: -1.5% 0 0 0;
+	position: relative;
+	z-index: 1;
+}
+.rule-wrap .cont div.left{
+	width: 6%;
+	float: left;
+}
+.rule-wrap .cont div.left img{
+	width: 100%;
+}
+.rule-wrap .cont div.right{
+	width: 6%;
+	float: right;
+}
+.rule-wrap .cont div.right img{
+	width: 100%;
+}
+.rule-wrap .cont div.txt{
+	width: 88%;
+	float: left;
+	background-color: #FFC100;
+}
+.rule-wrap .cont div.txt div{
+	background-color: #fff;
+	padding: 10px 0 ;
+	width: 93%;
+	margin: 10px auto;
+}
+.rule-wrap .cont div.txt div h1{
+	color: #480E0A;
+	font-size: 16px;
+	line-height: 22px;
+	text-align: left;
+	margin: 0 0 5px 0;
+	padding: 0 5px;
+}
+.rule-wrap .cont div.txt div h1 span{
+	color: #EC0000;
+}
+.rule-wrap .cont div.txt div p{
+	text-align: left;
+	color: #333;
+	line-height: 22px;
+	font-size: 14px;
+	padding: 0 5px;
+}
+.rule-wrap .cont div.txt div p span{
+	display: block;
+	margin: 0 0 5px 0;
+}
+
+/*下载提示窗*/
+.pop-downLoad{
+	position: fixed;
+	z-index: 12;
+	top: 29%;
+	width: 80%;
+	padding: 10px 0;
+	margin: 0 10%;
+	background-color: #fff;
+	text-align:center;
+	display: none;
+	border-radius: 6px;
+}
+.pop-downLoad p{
+	color: #999;
+	font-size: 14px;
+	margin: 30px 0;
+	padding: 0 20px;
+	line-height: 20px;
+}
+.pop-downLoad button{
+	width: 35%;
+	background-color:#FFBA35;
+	border:1px solid #FFBA35;
+	color: #DB0003;
+	font-size: 16px;
+	padding: 8px 0;
+	text-align:center;
+	border-radius: 6px;
+}
+.pop-downLoad a{
+	display: inline-block;
+	text-decoration: none;
+	width: 35%;
+	background-color:#fff;
+	border:1px solid #888888;
+	color: #888888;
+	font-size: 16px;
+	padding: 8px 0;
+	text-align:center;
+	border-radius: 6px;
+	margin: 0 2% 0 0;
+}
+
+/*iphone6*/
+@media (min-device-width : 414px) { 
+
+	
+}
+/*iphone4 iphone5*/
+@media screen and (max-width:320px) {
+	.pop-sign div.cont-wrap{
+		width: 90%;
+		margin: 0 5%;
+	}
+	.pop-sign button{
+		width: 65%;
+		padding: 8% 0;
+	}
+}

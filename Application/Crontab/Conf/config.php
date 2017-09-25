@@ -1,0 +1,141 @@
+<?php
+return array(
+	'INTERFACE_URL_MAP'=>array(
+		'1001'=>'http://jcdata.tigercai.com/index.php/LotteryIssue/getInfo',
+		'1002'=>'http://jcdata.tigercai.com/index.php/Schedule/baseInfo',
+		'1003'=>'http://api.basedata.tigercai.com/v1/matches/base',
+        '1004'=>'http://jcdata.tigercai.com/index.php/Schedule/baseInfo',
+	),
+
+	'LOAD_EXT_CONFIG' => 'redis_key',
+		
+		'SCHEDULE_STATUS' => array(
+				'NO_SALE' => 0,
+				'ON_SALE' => 1,
+				'PRIZE'	  => 4,
+		),
+		
+		'USER_BET_DRAFT_STATUS' => array(
+				'DELETE' => -1,
+				'NO_AVAILABLE' => 0,
+				'AVAILABLE' => 1,
+		),
+		
+		'SCHEDULE_STATUS' => array(
+				'NO_SALE' => 0,
+				'ON_SALE' => 1,
+				'PRIZE'	  => 4,
+		),
+		
+		'SCHEDULE_STOP_SELL_STATUS' => array(
+				'ON_SALE' => 0,
+				'NO_SALE' => 1,
+		),
+
+        'USER_ACCOUNT_LOG_TYPE' => array(
+            // 类型（1 充值、2下注、3购买红包、4提现申请、5提现打款、6中奖、7 拒绝提现、11加奖红包、12夺宝活动红包）
+            'RECHARGE' => 1,
+            'BET' => 2,
+            'BUY_COUPON' => 3,
+            'APPLY_WITHDRAW' => 4,
+            'PAY_DRAW' => 5,
+            'WINNING' => 6,
+            'REFUSE_DRAW' => 7,
+            'CANCEL_FOLLOW' => 8,
+            'FOLLOW_FAILED_REFUND' => 9,
+            'FOLLOW_FOR_FROZEN' => 10,
+            'PLUS_COUPON_REWARD' => 11,
+            'DUOBAO_COUPON_REWARD' => 12,
+            'SYSTEM_FIXED_BUG' => 13,
+            'INTEGRAL_EXCHANGE' => 14,
+            'WCHAT_TRANSFER'=>15,
+            'COBET_BOUGHT'=>16,
+            'COBET_GUARANTEE'=>17,
+            'COBET_BOUGHT_FROZEN'=>18,
+            'COBET_GUARANTEE_FROZEN'=>19,
+            'COBET_BOUGHT_REFUND'=>20,
+            'COBET_GUARANTEE_REFUND'=>21,
+        ),
+
+        'USER_ACCOUNT_LOG_TYPE_DESC' => array(
+            1 => '账户充值',
+            2 => '购买彩票',
+            3 => '购买红包',
+            4 => '提现申请',
+            5 => '提现打款',
+            6 => '派奖',
+            7 => '拒绝提现',
+            8 => '停止追号',
+            9 => '追号失败退款' ,
+            10 => '追号冻结' ,
+            11 => '加奖红包',
+            12 => '夺宝活动红包',
+            13 => '系统修正',
+            14 => '积分兑换',
+            15 => '微信转账',
+            16 => '合买认购扣款',
+            17 => '合买保底扣款',
+            18 => '合买认购冻结',
+            19 => '合买保底冻结',
+            20 => '合买认购退款',
+            21 => '合买保底退款',
+        ),
+        'USER_COUPON_LOG_TYPE' => array(
+            'BUY' => 1,
+            'EXCHANGE' => 2,
+            'USE' => 3,
+            'REFUND' => 4,
+            'GIFT' => 5,
+            'FIRST_RECHARGE_REWARD' => 6 ,
+            'TICKET_FAILED_REFUND' => 9,
+            'PLUS_COUPON_REWARD' => 11,
+            'DUOBAO_COUPON_REWARD' => 12,
+            'INTEGRAL_EXCHANGE' => 14,
+            'WCHAT_TRANSFER'=>15,
+            'COBET_BOUGHT'=>16,
+            'COBET_GUARANTEE'=>17,
+            'COBET_BOUGHT_FROZEN'=>18,
+            'COBET_GUARANTEE_FROZEN'=>19,
+            'COBET_BOUGHT_REFUND'=>20,
+            'COBET_GUARANTEE_REFUND'=>21,
+        ),
+
+        'USER_COUPON_LOG_TYPE_DESC' => array(
+            1 => '购买红包',
+            2 => '兑换红包',
+            3 => '使用消费',
+            4 => '退款红包',
+            5 => '系统赠送',
+            6 => '首充40元赠送',
+            9 => '出票失败退款',
+            11 => '加奖红包',
+            12 => '夺宝活动红包',
+            14 => '积分兑换',
+            15 => '微信转账',
+            16 => '合买认购扣款',
+            17 => '合买保底扣款',
+            18 => '合买认购冻结',
+            19 => '合买保底冻结',
+            20 => '合买认购退款',
+            21 => '合买保底退款',
+        ),
+
+        'JCZQ' => array(
+            'NO_CONCEDE' 	=> 601,
+            'CONCEDE' 		=> 602,
+            'SCORES' 		=> 603,
+            'BALLS' 		=> 604,
+            'HALF' 			=> 605,
+            'MIX' 			=> 606,
+        ),
+        'JCLQ' => array(
+            'NO_CONCEDE'	=> 701,
+            'CONCEDE'		=> 702,
+            'SFC'			=> 703,
+            'DXF'			=> 704,
+            'MIX'			=> 705,
+        ),
+
+
+
+);

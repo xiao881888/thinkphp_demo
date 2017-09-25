@@ -1,0 +1,90 @@
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	padding:12px;
+	background:#F2F2F2;
+}
+
+
+.explain-container h4{
+	font-weight:normal;
+	color:#242424;
+}
+.explain-container p{
+	margin:14px 0 0 0 ;
+	color:#686868;
+	font-size:84.3%;
+	line-height:19px;
+	letter-spacing:0;
+	word-break:break-all;
+	width:100%;
+}
+
+.step-title{
+	margin:10px 0;
+	height:20px;
+}
+.step-title div div{
+	display:inline-block;
+	margin:0;
+}
+.step-title div div:first-child{
+	width:12px;
+	float:left;
+	position:absolute;
+	left:0;
+	height:20px;
+	line-height:20px;
+	vertical-align:middle;
+}
+.step-title div div:first-child img{
+	height:65%;
+}
+.step-title div div:last-child{
+	float:left;
+	color:#00A0EA;
+	font-size:95%;
+	height:20px;
+	line-height:20px;
+	vertical-align:middle;
+}
+
+.step{
+	margin:0;
+}
+.step div{
+	width:100%;
+	font-size:90%;
+}
+.step div p{
+	display:inline-block;
+}
+.step div p:first-child{
+	width:9%;
+	position: absolute;
+	height:21px;
+	line-height:21px;
+	vertical-align: middle;
+}
+.step div p:last-child{
+	width:90%;
+	line-height:21px;
+	margin:0 0 0 37px;
+	font-size:100%;
+	vertical-align: middle;
+}
+.step div p:first-child img{
+	display:inline-block;
+	height:21px;
+	width:auto;
+}
+.step div p span{
+	color:#00A0EA;
+}
+.step img{
+	width:100%;
+	margin:0;
+}

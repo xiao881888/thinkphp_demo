@@ -1,0 +1,25 @@
+<table class="table  table-bordered  table-condensed">
+<thead>
+	<tr>
+		<th width="260px">手机号码</th>
+		<th width="300px">姓名</th>
+		<th width="100px">昵称</th>
+		<th width="100px">认购份数</th>
+		<th width="100px">认购金额</th>
+		<th width="100px">认购时间</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="record_list" id="record_info">
+<tr>
+<td>{$record_info.user_telephone}</td>
+<td>{$record_info.user_real_name}</td>
+<td>{$record_info.user_nick_name}</td>
+<td>{$record_info.record_bought_unit}</td>
+<td>{$record_info.record_bought_amount}</td>
+	<td>{$record_info.record_createtime}</td>
+</tr>
+</volist>
+</tbody>
+</table>
+

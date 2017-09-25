@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>支付成功</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link rel="stylesheet" href="__PUBLIC__/Home/web/css/style.css">
+</head>
+<body>
+	<div class="state">
+		<div class="stateIcon success"></div>
+		<p class="stateWord">支付成功</p>
+	</div>
+	<a href="javascript:window.location = 'com.tigercai.www://tigerserver/?page=1';" class="funcBtn">查看订单</a>
+	<if condition="$lottery_id gt 0">
+	<a href="javascript:window.location = 'com.tigercai.www://tigerserver/?page=2&lotteryid={$lottery_id}';" class="funcBtn">继续投注</a>
+	<else />
+		<a href="javascript:window.location = 'com.tigercai.www://tigerserver/?page=0';" class="funcBtn">继续投注</a>
+	</if>
+
+
+</body>
+</html>

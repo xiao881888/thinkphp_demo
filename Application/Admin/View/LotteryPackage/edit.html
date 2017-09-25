@@ -1,0 +1,94 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['lp_id'])?'编辑':'新增'}数字彩套餐</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="lp_title" class="col-sm-2 control-label">套餐名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="lp_title" id="lp_title" value="{$vo.lp_title}">
+		    </div>
+	 	</div>
+
+		<div class="form-group" id="lp_category_id" >
+			<label for="lp_category_id" class="col-sm-2 control-label" >套餐类别：</label>
+			<div class="col-sm-2">
+				<select name="lp_category_id" class="form-control">
+					<option value="1" <eq name="vo.lp_category_id" value="1"> selected="selected"</eq>>每期1注</option>
+					<option value="2" <eq name="vo.lp_category_id" value="2"> selected="selected"</eq>>每期5注</option>
+					<option value="3" <eq name="vo.lp_category_id" value="3"> selected="selected"</eq>>每期10注</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group" id="lottery_id" >
+			<label for="lottery_id" class="col-sm-2 control-label" >彩种ID：</label>
+			<div class="col-sm-2">
+				<select name="lottery_id"  class="form-control">
+					<option value="1" <eq name="vo.lottery_id" value="1"> selected="selected"</eq>>双色球</option>
+					<option value="3" <eq name="vo.lottery_id" value="3"> selected="selected"</eq>>大乐透</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="lp_stake_count" class="col-sm-2 control-label">注数：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="lp_stake_count" id="lp_stake_count" value="{$vo.lp_stake_count}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="lp_issue_num" class="col-sm-2 control-label">期数：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="lp_issue_num" id="lp_issue_num" value="{$vo.lp_issue_num}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="lp_price" class="col-sm-2 control-label">套餐价格：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="lp_price" id="lp_price" value="{$vo.lp_price}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="lp_remark" class="col-sm-2 control-label">特惠标注：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="lp_remark" id="lp_remark" value="{$vo.lp_remark}">
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+	    <label for="lp_image" class="col-sm-2 control-label">套餐图片：</label>
+	    <div class="col-sm-2">
+	      <notempty name="vo.lp_image">
+			  <img src="{$vo.lp_image}" />
+	      </notempty>
+	      <input type="file" class="" name="lp_image"  id="lp_image">
+	    </div>
+	  	</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="lp_id" value="{$vo.lp_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8">
+CKEDITOR.replace('activity_description');
+</script>
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

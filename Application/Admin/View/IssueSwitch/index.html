@@ -1,0 +1,76 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>彩期开关表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">渠道ID</th>
+                <th class="">版本号</th>
+                <th class="">开关</th>
+				<th class="">类型</th>
+				<th class="">创建时间</th>
+				<th class="">修改时间</th>
+				<th class="">状态</th>
+				<th class=""></th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.is_id}</td>
+                <td>{$vo.is_package_name}</td>
+				<td>{$vo.is_app_version}</td>
+				<td>
+					<eq name="vo.is_switch" value="1">
+					开
+					<else/>
+					关
+				</eq>
+				<td>
+					<eq name="vo.is_type" value="1">
+						购彩开关
+						<else/>
+						注册开关
+					</eq>
+				</td>
+				<td> {$vo.is_createtime} </td>
+				<td> {$vo.is_modifytime} </td>
+				<td>
+					<eq name="vo.is_status" value="1">
+						启用
+						<else/>
+						禁用
+					</eq>
+
+				</td>
+				<td>
+					<eq name="vo.is_status" value="1">
+						<a href="{:U('IssueSwitch/changeStatus?status=0&ids='.$vo['is_id'])}" class="btn ajax-get">禁用</a>
+						<else/>
+						<a href="{:U('IssueSwitch/changeStatus?status=1&ids='.$vo['is_id'])}" class="btn ajax-get">启用</a>
+					</eq>
+					<a href="{:U('edit', array('id'=>$vo['is_id']))}" class="btn">编辑</a>
+					<a href="{:U('del', array('ids'=>$vo['is_id']))}" class="btn">删除</a>
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>老虎彩票-订单支付</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link rel="stylesheet" href="__PUBLIC__/Home/web/css/style.css">
+<script src="__PUBLIC__/Home/web/js/zepto.min.js"></script>
+<script>
+    var order_amount = {$total_amount};
+	(function($){
+		$(document).ready(function(){
+			$('.deduction').bind("touchend",function(){
+				if ($(this).attr("s")==0) {
+					$("#deduction").show();
+					$(".arrow").addClass("active");
+					$(this).attr("s",1);
+				}else{
+					$("#deduction").hide();
+					$(".arrow").removeClass("active");
+					$(this).attr("s",0);
+				}
+			});
+			$('.deductionItem').bind("touchend",function(){
+				if( $(this).attr("s")== 0 ){
+					$(".selected").attr("s","0");
+					$(".selected").attr("class","deductionItem");
+					$(this).attr("class","deductionItem selected");
+					$(this).attr("s","1");
+
+					var coupon_id = $(this).attr('id');
+					$("#c").val(coupon_id);
+					var coupon_balance = $(this).attr('data-balance');
+					if (coupon_balance > order_amount) {
+						var discount_string = '-' + order_amount + '元';
+						$("#pay_money").html("0元");
+					} else {
+						var discount_string = '-' + coupon_balance + '元';
+						$("#pay_money").html((order_amount-coupon_balance)+"元");
+					}
+					$("#discount").text(discount_string);
+
+				}else if( $(this).attr("s")== 1 ){
+					$(this).attr("class","deductionItem");
+					$(this).attr("s","0");
+
+					$("#c").val(0);
+					var discount_string = '-0元';
+					$("#discount").text(discount_string);
+					$("#pay_money").html(order_amount+"元");
+				}
+			});
+			$('.deductionTab ul li').bind("touchend",function(){
+				$(this).attr("class","on");
+				$(this).siblings().attr("class","");
+				if ($(this).attr("sType")==0) {
+					$("#deductionWrap_cash").show();
+					$("#deductionWrap_man").hide();
+				}else{
+					$("#deductionWrap_cash").hide();
+					$("#deductionWrap_man").show();
+				}
+			});
+
+	
+		})
+	})(Zepto);
+
+</script>
+</head>
+<body>
+<!-- <form action="{:U('WP/payOrder')}" enctype="application/x-www-form-urlencoded" method="post" class="form-horizontal"> -->
+<form action="{$pay_url}" enctype="application/x-www-form-urlencoded" method="post" class="form-horizontal">
+	<div class="info">
+		<p class="total">￥{$total_amount}</p>
+        <p class="gameInfo">{$lottery_name}</p>
+        <if condition="($pay_scheme_type eq 10709)">
+        	<p class="together blue"><span>发起合买</span></p>
+        <else />
+       		<p class="together green"><span>合买认购</span></p>
+        </if>
+		
+	</div>
+	<ul class="detail">
+		<li class="deduction" s="0">
+			<div <if condition="($has_coupon_list gt 0)">class="arrow"<else /></if>></div>
+			<span>红包抵扣</span>			
+			<span class="money" id="discount" style="margin-right:10%;"><if condition="($has_coupon_list gt 0)">-{$cost_coupon_money}元<else />无可用红包</if></span>
+		</li>
+		<if condition="($has_coupon_list gt 0)"><include file="coupon_list" /><else /></if>		
+		<li>
+			<span>账户余额</span>
+			<span class="money">{$user_balance}元</span>
+		</li>
+        <!--<li>
+			<span>还需支付</span>
+			<span class="money" id="pay_money"><if condition="($has_coupon_list gt 0)">{$total_amount-$cost_coupon_money}<else />{$total_amount}</if>元</span>
+		</li>-->
+	</ul>
+	<div class="agreement checked" s="0">
+		<input type="checkbox" value="1" name="" class="checkbox" />
+		<label class="label">我已阅读并同意<a id="btn_toAgreement" href="http://phone.api.tigercai.com/index.php?s=/Content/help/betagreement/app_id/{$app_id}" target="_blank"></a></label>
+	</div>
+	<input type="submit" value="立即支付" class="payBtn" />
+	<input type="hidden" name="s" value="{$Think.request.s}" />
+	<input type="hidden" name="p" value="{$Think.request.p}" />
+	<input type="hidden" name="t" value="{$Think.request.t}" />
+	<input type="hidden" id="c" name="c" value="<if condition="($Think.request.c gt 0)">{$Think.request.c}<else/>{$biggest_user_coupon_info['id']}</if>" />
+</form>
+
+<p class="tel" id="tel">客服热线 {:C('TECH_SUPPORT_CALL')}</p>
+
+<script type="text/javascript">
+    var app_id = '<?php echo $app_id; ?>';
+    var str = '';
+    var tel = '';
+    if( app_id == 1 || app_id == '1' ){
+        str = '《老虎彩票服务协议》';
+        tel = '400-835-1108';
+    }else if( app_id == 2 || app_id == '2' ){
+        str = '《百万彩票服务协议》';
+        tel = '400-135-1315';
+    }else if( app_id == 3 || app_id == '3' ){
+        str = '《新彩票服务协议》';
+        tel = '400-869-3691';
+    }
+    document.getElementById("btn_toAgreement").innerHTML = str;
+    document.getElementById("tel").innerHTML = tel;
+</script>
+</body>
+</html>

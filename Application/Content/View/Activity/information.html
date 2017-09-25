@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$information_detail.information_title}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link href="__PUBLIC__/Content/css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
+<script src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/baiduStatisticalCode/baiduStatisticalCode.js"></script>
+</head>
+
+<body>
+<!-- 	<header class="header">
+    	正文
+        <div class="back"><a href="{:U('index')}">{$category_name}</a></div>
+    </header> -->
+    <div class="mainbody">
+    	<h1>{$information_detail.information_title}</h1>
+        <p class="time tiger_time">{$information_title.information_create_time}</p>
+        <div class="text">
+        	{$information_detail.information_content}     	      
+        </div>
+        <if condition="$op_code gt 0">
+            <a href="#" class="target">{$des}</a>
+        </if> 
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+    $('.target').bind('click',function(){
+        location.href = '/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}';
+        // alert('/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}');
+    });
+});
+</script>
+
+

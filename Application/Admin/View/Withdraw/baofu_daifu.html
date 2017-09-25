@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<trans_content>
+	<trans_reqDatas>
+		<trans_reqData>
+			<trans_no>{$withdraw_info['withdraw_id']}</trans_no>
+			<trans_money>{:number_format($withdraw_info['withdraw_amount']-$withdraw_info['withdraw_fee'], 2, ".", "")}</trans_money>
+			<to_acc_name>{$withdraw_info['user_bank_card_account_name']}</to_acc_name>
+			<to_acc_no>{$withdraw_info['user_bank_card_number']}</to_acc_no>
+			<to_bank_name></to_bank_name>
+			<to_pro_name></to_pro_name>
+			<to_city_name></to_city_name>
+			<to_acc_dept></to_acc_dept>
+			<trans_summary>用户提现</trans_summary>
+		</trans_reqData>
+	</trans_reqDatas>
+</trans_content>

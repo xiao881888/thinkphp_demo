@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>活动详情</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
+<link href="__PUBLIC__/Content/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="container">
+	<div >
+    	<div class="content">
+        	<h2>{$activity_detail.activity_name}</h2>
+            <p class="time activety_time">活动时间: {$activity_detail.activity_start_time}&nbsp;至&nbsp;{$activity_detail.activity_end_time}</p>
+            <!--<div class="img">
+                <img src="{$activity_detail.activity_image}" />
+            </div>-->
+            <div class="details">
+            	{$activity_detail.activity_description}
+            </div>
+            <if condition="$op_code gt 0">
+                <a href="#" class="target">{$des}</a>
+            </if> 
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+$(function(){
+	$('.target').bind('click',function(){
+		location.href = '/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}';
+        // alert('/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}');
+	});
+});
+</script>
+</html>

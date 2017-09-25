@@ -1,0 +1,28 @@
+<table class="table  table-bordered  table-condensed">
+<caption>礼包名称：{$vg_info.vg_title}<br>
+会员名称：{$level_name}</caption>
+<thead>
+	<tr>
+		<th width="260px">礼包类型</th>
+		<th width="300px">礼包名称</th>
+		<th width="100px">红包</th>
+		<th width="100px">积分面额</th>
+		<th width="100px">数量</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="vg_content_list" id="vg_content_info">
+<tr>
+<td>
+	{$vg_content_info.type}
+</td>
+<td>{$vg_content_info.name}</td>
+	<?php $coupon_info = D('Coupon')->getCouponInfoById($vg_content_info['coupon_id']); $coupon_name = $coupon_info['coupon_name']; ?>
+<td>{$coupon_name}</td>
+<td>{$vg_content_info.integral}</td>
+<td>{$vg_content_info.num}</td>
+</tr>
+</volist>
+</tbody>
+</table>
+

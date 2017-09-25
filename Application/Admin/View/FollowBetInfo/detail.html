@@ -1,0 +1,23 @@
+<table class="table  table-bordered  table-condensed">
+<thead>
+	<tr>
+		<th width="260px">期次</th>
+		<th width="260px">期号</th>
+		<th width="300px">金额</th>
+		<th width="100px">状态</th>
+		<th width="100px">奖金</th>
+	</tr>
+</thead>
+<tbody>
+<volist name="detail_list" id="info">
+<tr>
+	<td>{$info.index}</td>
+	<td>{$info.issue_no}</td>
+	<td>{$info.amount}</td>
+	<td>{$info.status_desc}</td>
+	<td>{$info.winnings_bonus}</td>
+</tr>
+</volist>
+</tbody>
+</table>
+

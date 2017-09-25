@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+<title>老虎彩票，充20送20，加奖10%!</title>
+<link href="__ROOT__/Public/Content/fz518/css/style.css" rel="stylesheet"> 
+</head>
+<body>
+    <div class="img-box">
+        <img src="__ROOT__/Public/Content/fz518/images/bg2.png" />
+    </div>
+    <div class="imgTxt-box" align="center">
+        <img src="__ROOT__/Public/Content/fz518/images/txt1.png" />
+    </div>
+    
+    <div class="bottom-box" align="center">
+        <div>
+            <span>兑换码：{$code}</span>
+        </div>
+        <!--<div align="center">
+            <a class="btn_ios" id="btn_ios_download" href="http://phone.api.tigercai.com/index.php/Content/Activity/getiOSUrl"><img src="__ROOT__/Public/Content/fz518/images/ios2.png" height="28"/>苹果下载</a><a class="btn_android" id="btn_android_download" href="http://phone.api.tigercai.com/index.php/Content/Activity/getLastestAndroidApk"><img src="__ROOT__/Public/Content/fz518/images/android2.png" height="28"/>安卓下载</a>
+        </div>-->
+        <div align="center">
+            <a class="btn_ios" id="btn_ios_download"><img src="__ROOT__/Public/Content/fz518/images/ios2.png" height="28"/>苹果下载</a><a class="btn_android" id="btn_android_download"><img src="__ROOT__/Public/Content/fz518/images/android2.png" height="28"/>安卓下载</a>
+        </div>
+    </div>
+    <div class="imgTxt-box2" align="center">
+        <img src="__ROOT__/Public/Content/fz518/images/txt2.png" />
+    </div>
+    
+    <div class="shade" id="shadow"></div>
+    <div class="prompt" align="right" id="prompt">
+        <img src="__ROOT__/Public/Content/fz518/images/press.png" width="10%">
+        <img src="__ROOT__/Public/Content/fz518/images/text.png" width="55%" id="pic">
+    </div>
+    
+    <input type="hidden" id="iosUrl" value="http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Content/Activity/getiOSUrl">
+    <input type="hidden" id="androidUrl" value="http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Content/Activity/getLastestAndroidApk">
+</body>
+<script type="text/javascript">
+    var isWeixin = function (){ 
+        var u = navigator.userAgent;
+        if(u.toLowerCase().match(/MicroMessenger/i)=="micromessenger") {
+            if(u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1){
+                document.getElementById('pic').src = "__ROOT__/Public/Content/fz518/images/text.png";
+				initBtnIos("ios");
+            	initBtnAndroid();
+            }else if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1){
+                document.getElementById('pic').src = "__ROOT__/Public/Content/fz518/images/text2.png";
+				initBtnIos("android");
+            	initBtnAndroid();
+            }
+            initBtnPrompt();
+        }else{
+			document.getElementById('btn_ios_download').href = document.getElementById('iosUrl').value;
+			document.getElementById('btn_android_download').href = document.getElementById('androidUrl').value;
+		}
+    }();
+
+    function initBtnIos(phoneType){  
+        var btn_ios = document.getElementById('btn_ios_download');
+        btn_ios.addEventListener('touchstart',touch, false);  
+        btn_ios.addEventListener('touchmove',touch, false);  
+        btn_ios.addEventListener('touchend',touch, false);  
+           
+        function touch (event){  
+            var event = event || window.event;
+            var touchFlag = false;        
+            switch(event.type){  
+                case "touchstart":  
+                   touchFlag = false;
+                    break;  
+                case "touchend":  
+                    if( !touchFlag ){
+                        document.getElementById('shadow').style.display = "block";
+                        document.getElementById('prompt').style.display = "block";
+						if( phoneType == "ios"){
+							window.location.href = "http://phone.api.tigercai.com/index.php/Content/Activity/getiOSUrl";
+						}
+                    }
+                    break;  
+                case "touchmove":  
+                    touchFlag = true;
+                    break;  
+            }      
+        } 
+    }
+
+    function initBtnAndroid(){  
+        var btn_android = document.getElementById('btn_android_download');
+        btn_android.addEventListener('touchstart',touch, false);  
+        btn_android.addEventListener('touchmove',touch, false);  
+        btn_android.addEventListener('touchend',touch, false);  
+           
+        function touch (event){  
+            var event = event || window.event;
+            var touchFlag = false;        
+            switch(event.type){  
+                case "touchstart":  
+                   touchFlag = false;
+                    break;  
+                case "touchend":  
+                    if( !touchFlag ){
+                        document.getElementById('shadow').style.display = "block";
+                        document.getElementById('prompt').style.display = "block";
+                    }
+                    break;  
+                case "touchmove":  
+                    touchFlag = true;
+                    break;  
+            }    
+        } 
+    }
+
+    function initBtnPrompt(){  
+        var prompt = document.getElementById('prompt');
+        prompt.addEventListener('touchstart',touch, false);  
+        prompt.addEventListener('touchmove',touch, false);  
+        prompt.addEventListener('touchend',touch, false);  
+           
+        function touch (event){  
+            var event = event || window.event;
+            var touchFlag = false;        
+            switch(event.type){  
+                case "touchstart":  
+                   touchFlag = false;
+                    break;  
+                case "touchend":  
+                    if( !touchFlag ){
+                        document.getElementById('shadow').style.display = "none";
+                        document.getElementById('prompt').style.display = "none";
+                    }
+                    break;  
+                case "touchmove":  
+                    touchFlag = true;
+                    break;  
+            }    
+        } 
+    }
+
+    
+</script>
+</html>

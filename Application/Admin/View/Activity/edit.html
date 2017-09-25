@@ -1,0 +1,215 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['activity_id'])?'编辑':'新增'}活动</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="activity_name" class="col-sm-2 control-label">活动名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="activity_name" id="activity_name" value="{$vo.activity_name}">
+		    </div>
+	 	</div>
+	 	 
+	 	 <div class="form-group">
+		    <label for="lottery_id" class="col-sm-2 control-label">彩种：</label>
+		    <div class="col-sm-2">
+		      <select name="lottery_id" id="lottery_id" class="form-control">
+		      <option value="">选彩种</option>
+		      <volist name="lottery_map" id="lottery">
+		      <option value="{$key}"
+		      <eq name="vo.lottery_id" value="$key">selected="selected"</eq>
+		      >{$lottery}</option>
+		      </volist>
+		      </select>
+		    </div>
+	 	</div>
+	 	
+	 	<div class="form-group">
+	    <label for="activity_image" class="col-sm-2 control-label">图片：</label>
+	    <div class="col-sm-2">
+	      <notempty name="vo.activity_image">
+	      <img src="{$vo.activity_image}" />
+	      </notempty>
+	      <input type="file" class="" name="activity_image"  id="activity_image">
+	    </div>
+	  	</div>
+
+	 	<div class="form-group">
+	    <label for="activity_image_big" class="col-sm-2 control-label">图片-大图：</label>
+	    <div class="col-sm-2">
+	      <notempty name="vo.activity_image_big">
+	      <img src="{$vo.activity_image_big}" />
+	      </notempty>
+	      <input type="file" class="" name="activity_image_big"  id="activity_image_big">
+	    </div>
+	  	</div>
+
+		<div class="form-group">
+			<label for="app_id" class="col-sm-2 control-label" >APP名称：</label>
+			<div class="col-sm-2">
+				<select name="app_id" id="app_id" class="form-control">
+					<option value="0" <if condition="$vo[app_id] eq 0">selected</if>>全部</option>
+					<option value="1" <if condition="$vo[app_id] eq 1">selected</if>>老虎彩票</option>
+					<option value="2" <if condition="$vo[app_id] eq 2">selected</if>>百万彩票</option>
+					<option value="3" <if condition="$vo[app_id] eq 3">selected</if>>新彩票</option>
+				</select>
+			</div>
+		</div>
+
+
+      <div class="form-group">
+	    <label for="activity_platform" class="col-sm-2 control-label" >支持平台：</label>
+	    <div class="col-sm-2">
+	    <select name="activity_platform" id="activity_platform" class="form-control">
+        	<option value="0" <if condition="$vo[activity_platform] eq 0">selected</if>>全部</option>
+        	<option value="1" <if condition="$vo[activity_platform] eq 1">selected</if>>Android</option>
+        	<option value="2" <if condition="$vo[activity_platform] eq 2">selected</if>>iPhone</option>
+			<option value="3" <if condition="$vo[activity_platform] eq 3">selected</if>>H5</option>
+	    </select>
+	    </div>
+	  </div>
+
+	 	<div class="form-group">
+	    <label for="activity_target" class="col-sm-2 control-label">跳转地址：</label>
+	    <div class="col-sm-7">
+	      <input type="text" class="form-control" name="activity_target"  id="activity_target" value="{$vo.activity_target}">
+	    </div>
+	  	</div>
+	  
+	    <div class="form-group">
+		    <label for="activity_description" class="col-sm-2 control-label">活动描述：</label>
+		    <div class="col-sm-8">
+		     <textarea class="form-control" rows="8" name="activity_description" id="activity_description" >{$vo.activity_description}</textarea>
+		    </div>
+	 	</div>
+	  <div class="form-group">
+	    <label for="activity_start_time" class="col-sm-2 control-label">开始时间：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control datePicker" name="activity_start_time" id="activity_start_time"  value="{$vo.activity_start_time}">
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="activity_end_time" class="col-sm-2 control-label">结束时间：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control datePicker" name="activity_end_time" id="activity_end_time"  value="{$vo.activity_end_time}">
+	    </div>
+	  </div>
+	  
+      <div class="form-group">
+	    <label for="activity_position" class="col-sm-2 control-label" >位置：</label>
+	    <div class="col-sm-2">
+	    <select name="activity_position" id="activity_position" class="form-control">
+	    <volist name=":C('ACTIVITY_POSITION')" id="position">
+        	<option value="{$key}" <eq name="key" value="$vo.activity_position">selected="selected"</eq>>{$position}</option>
+        </volist>
+	    </select>
+	    </div>
+	  </div>
+      
+	  <div class="form-group">
+	    <label for="activity_carousel" class="col-sm-2 control-label" >是否轮播：</label>
+	    <div class="col-sm-2">
+	    <select name="activity_carousel" id="activity_carousel" class="form-control">
+	    
+	    <option value="0" <eq name="vo.activity_carousel" value="0"> selected="selected"</eq>>非轮播</option>
+	    <option value="1" <eq name="vo.activity_carousel" value="1"> selected="selected"</eq>>轮播</option>
+	    </select>
+	    </div>
+	  </div>
+	  
+	 
+	  
+	  <div class="form-group">
+	    <label for="activity_sort" class="col-sm-2 control-label">排序：</label>
+	    <div class="col-sm-2">
+	   		<input type="text" class="form-control" name="activity_sort" id="activity_sort"  value="{$vo.activity_sort}">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="activity_is_protect_vip" class="col-sm-2 control-label">大R保护：</label>
+	    <div class="col-sm-2">
+	   		<input type="radio"  name="activity_is_protect_vip" id="activity_is_protect_vip"  value="0" <if condition="$vo['activity_is_protect_vip'] eq 0">checked</if>> 不开启 &nbsp;&nbsp;&nbsp;
+	   		<input type="radio"  name="activity_is_protect_vip" id="activity_is_protect_vip"  value="1" <if condition="$vo['activity_is_protect_vip'] eq 1">checked</if>> 开启
+	    </div>
+	  </div>
+
+		<div class="form-group">
+			<label for="activity_is_popup" class="col-sm-2 control-label">是否弹窗显示：</label>
+			<div class="col-sm-2">
+				<input type="radio"  name="activity_is_popup" id="activity_is_popup"  value="0" <if condition="$vo['activity_is_popup'] eq 0">checked</if>> 不显示 &nbsp;&nbsp;&nbsp;
+				<input type="radio"  name="activity_is_popup" id="activity_is_popup"  value="1" <if condition="$vo['activity_is_popup'] eq 1">checked</if>> 显示
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="activity_popup_img1" class="col-sm-2 control-label">弹窗图片IOS600*600：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.activity_popup_img1">
+					<img src="{$vo.activity_popup_img1}" />
+				</notempty>
+				<input type="file" class="" name="activity_popup_img1"  id="activity_popup_img1">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="activity_popup_img2" class="col-sm-2 control-label">弹窗图片IOS900*900：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.activity_popup_img2">
+					<img src="{$vo.activity_popup_img2}" />
+				</notempty>
+				<input type="file" class="" name="activity_popup_img2"  id="activity_popup_img2">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="activity_popup_img3" class="col-sm-2 control-label">弹窗图片Android400*400：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.activity_popup_img3">
+					<img src="{$vo.activity_popup_img3}" />
+				</notempty>
+				<input type="file" class="" name="activity_popup_img3"  id="activity_popup_img3">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="activity_popup_img4" class="col-sm-2 control-label">弹窗图片Android600*600：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.activity_popup_img4">
+					<img src="{$vo.activity_popup_img4}" />
+				</notempty>
+				<input type="file" class="" name="activity_popup_img4"  id="activity_popup_img4">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="activity_popup_img5" class="col-sm-2 control-label">弹窗图片Android900*900：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.activity_popup_img5">
+					<img src="{$vo.activity_popup_img5}" />
+				</notempty>
+				<input type="file" class="" name="activity_popup_img5"  id="activity_popup_img5">
+			</div>
+		</div>
+
+		<div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="activity_id" value="{$vo.activity_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8">
+CKEDITOR.replace('activity_description');
+</script>
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

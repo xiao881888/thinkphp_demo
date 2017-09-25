@@ -1,0 +1,98 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['apk_id'])?'编辑':'新增'}活动</h2>
+    </div>
+    <form action="{:U()}" method="post" id="myform" class="form-horizontal" role="form" enctype="multipart/form-data"  >
+
+        <div class="form-group">
+            <label for="apk_name" class="col-sm-2 control-label">apk名称：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="apk_name" id="apk_name" value="<?php echo $vo['apk_name']; ?>">
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label" >手动/自动：</label>
+            <div class="col-sm-2">
+                <select name="type" id="type" class="form-control" onchange="checkType()">
+                    <option value="">请选择</option>
+                    <option value="1" <eq name="vo.type" value="1"> selected="selected"</eq>>安卓</option>
+                    <option value="2" <eq name="vo.type" value="2"> selected="selected"</eq>>IOS</option>
+                </select>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    checkType();
+                });
+
+                function checkType(){
+                    var type = $('#type').val();
+                    if(type == 1){
+                        $('#url1').show();
+                        $('#url2').hide();
+                    }else if(type == 2){
+                        $('#url1').hide();
+                        $('#url2').show();
+                    }else{
+                        $('#url1').hide();
+                        $('#url2').hide();
+                    }
+                }
+            </script>
+        </div>
+
+
+
+
+
+
+        <div id="url1" class="form-group" style="display: none">
+            <label for="apk_url" class="col-sm-2 control-label">apk地址：</label>
+            <div class="col-sm-2">
+
+                <notempty name="vo.apk_url">
+                    <input type="text" class="form-control" name="apk_url" value="{$vo.apk_url}">
+                </notempty>
+
+                <input type="file" class="" name="apk_url"  id="apk_url">
+            </div>
+        </div>
+
+        <div id="url2" class="form-group" style="display: none">
+            <label for="apk_url" class="col-sm-2 control-label">apk地址：</label>
+            <div class="col-sm-2">
+            <input type="text" class="form-control" name="apk_url" value="{$vo.apk_url}">
+                </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="status" class="col-sm-2 control-label" >是否显示：</label>
+            <div class="col-sm-2">
+                <select name="status" id="status" class="form-control">
+                    <option value="0" <eq name="vo.status" value="0"> selected="selected"</eq>>不显示</option>
+                    <option value="1" <eq name="vo.status" value="1"> selected="selected"</eq>>显示</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="apk_id" value="{$vo.apk_id}">
+                <button type="submit" class="btn btn-default">提交</button>
+            </div>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        highlight_subnav("{:U('index')}");
+    </script>
+</block>

@@ -1,0 +1,82 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>草稿列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			
+			<div class="form-group">
+				<label  for="user_telephone">手机号或姓名：</label>
+				<input type="text" class="form-control"
+					id="user_telephone" placeholder="输入手机号或姓名" name="user_keyword" value="{$Think.request.user_keyword}">
+			</div>
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed" >
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">手机号</th>
+				<th class="">彩种</th>
+				<th class="">倍数</th>
+				<th class="">串数</th>			
+				<th class="">注数</th>
+				<th class="">总额</th>
+				<th class="">预计奖金范围</th>
+				<th class="">草稿内容</th>
+				<th class="">最早比赛时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.ubd_id}</td>
+				<td>{$user_list[$vo['uid']]}</td>
+				<td>{$lottery_map[$vo['lottery_id']]}</td>
+				<td>{$vo.ubd_multiple}</td>
+				<td>{$vo.bet_type|showJCBetType}</td>
+				<td>{$vo.ubd_stake_count}</td>		
+				<td>{$vo.ubd_total_amount}</td>		
+				<td>{$vo.ubd_bonus_range}</td>					
+				<td>
+				<notempty name="vo.ubd_content">
+					<volist name="vo.ubd_content" id="draft_content">
+						{$schedule_list[$draft_content['schedule_id']]['schedule_day']}-{$schedule_list[$draft_content['schedule_id']]['schedule_round_no']}
+						<br>
+						{$schedule_list[$draft_content['schedule_id']]['schedule_home_team']}-{$schedule_list[$draft_content['schedule_id']]['schedule_guest_team']}
+						<br>
+						<notempty name="draft_content.bet_options">
+						<volist name="draft_content.bet_options" id="bet_option">
+							{$bet_option}
+						</volist>
+						</notempty>
+						<br>---------------------<br>
+					</volist>
+				</notempty>
+				
+				</td>
+				<td>{$vo.ubd_first_time}</td>
+				
+			</tr>
+			</volist> 
+			
+			<else />
+			<td colspan="10" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>

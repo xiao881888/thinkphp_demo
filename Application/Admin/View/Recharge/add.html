@@ -1,0 +1,45 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['recharge_id'])?'编辑':'新增'}充值</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    	
+   		<div class="form-group">
+		    <label for="uid" class="col-sm-2 control-label">用户</label>
+		    <div class="col-sm-2">
+		      <select name="uid" id="uid" class="select2 ">
+		      <option value="">选择用户</option>
+		      <volist name="user_map" id="user">
+		      <option value="{$key}">{$user}</option>
+		      </volist>
+		      </select>
+		    </div>
+	 	</div>
+	 	
+	 	
+	 	<div class="form-group">
+		    <label for="recharge_amount" class="col-sm-2 control-label">充值金额</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="recharge_amount" id="recharge_amount" value="{$vo.recharge_amount}">
+		    </div>
+	 	</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="recharge_operator_id" value="{:get_curr_uid()}">
+	    	<input type="hidden" name="recharge_source" value="3">
+	    	<input type="hidden" name="recharge_status" value="1">
+	    	<input type="hidden" name="recharge_id" value="{$vo.recharge_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

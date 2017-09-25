@@ -1,0 +1,330 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首单最高返利100元</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="format-detection" content="telephone=no" />
+<link href="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/css/style.css" rel="stylesheet" type="text/css">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var isApp = false;/*是否在APP中*/
+		var timer;
+		var get_function_index = 1;
+		var get_function_result = false;
+		$(document).ready(function(){
+			timer = setInterval(function () {
+				get_function_result_fun();
+			}, 200);
+		});
+
+		function get_function_result_fun(){
+
+			var u = navigator.userAgent;
+			var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 || u.indexOf('android') > -1 || u.indexOf('adr') > -1;//android终端
+			var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端  alert("<?php echo U('Index/autoLogin'); ?>");
+
+			if (u.match(/MicroMessenger/i) == "MicroMessenger" || ( u.indexOf('QQ/') > -1 && u.match(/Mobile/i)=="Mobile") ){
+				window.clearInterval(timer);
+			}else{
+				if(isiOS || isAndroid){
+					if(isiOS){
+						get_function_result = isExitsFunction("getLoginInfo");
+					}else if(isAndroid){
+						get_function_result = 'getLoginInfo' in window.Tiger;
+					}
+					if(get_function_result || get_function_index > 10){
+						window.clearInterval(timer);
+						isApp = true;
+					}
+				}
+			}
+			get_function_index ++;
+
+		}
+
+		function isExitsFunction(funcName) {
+			try {
+				if (typeof(eval(funcName)) == "function") {
+					return true;
+				}
+			} catch(e) {}
+			return false;
+		}
+	</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?ff3fe8d7424d80083f130a5e0bb80176";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+	<!-- logo -->
+	<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/logo.png" class="logo" style="display: none" />
+    <!-- banner -->
+	<div class="banner"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/banner-app.png" /><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/banner-out.png" /></div>
+    <!-- 活动规则 -->
+    <div class="rule-wrap">
+    	<a id="btn_bet" href="javascript:void(0)"></a>
+        <h1>活动期间，每天首笔含“中国VS韩国”比赛的任意订单，成功下单后即可返还订单投注金的3%，最高可返现100元！<strong>（新用户首充20送20）</strong></h1>
+    	<div class="title"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/title-rule.png"/></div>
+        <div class="cont">
+        	<ul>
+            	<li><span>1</span><p>活动时间:3月22日00:00-3月23日中国队比赛投注截止；</p></li>
+				<li><span>2</span><p>仅限活动期间，每日首笔含“中国VS韩国”比赛的竞猜订单，不限玩法、投注金额和过关方式！</p></li>
+                <li><span>3</span><p>返现红包=订单投注金3%，单个用户总计可获得的红包上限为100元，中奖金额可以提现，红包只能用于购彩不能提现，红包金额保留至小数点后2位；</p></li>
+                <li><span>4</span><p>返现红包在订单投注成功，出票成功后派发，到账后立即生效，红包全场通用，有效期5天。</p></li>
+                <li><span>5</span><p>若发现作弊等违规情况将取消作弊人员活动资格和奖励，“老虎彩票”保留此活动的最终解释权。</p></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="shadow" style="display: none" ></div>
+    <!-- 注册弹窗 -->
+    <div class="register-wrap" style="display: none"  >
+    	<button class="btn-close" id="btn_close"></button>
+    	<div class="title"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/txt-head.png"/></div>
+        <div class="cont">
+        	<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/icon-coin.png"/>
+        	<div id="form">
+            	<input id="tel" type="text" dataType="tel" placeholder="输入手机号免费领取" errorMsg="请输入正确手机号" maxlength="11" />
+                <input id="code" type="text" class="code" dataType="code" placeholder="输入验证码" errorMsg="请输入验证码" maxlength="6"/><button id="btn_code" class="btn-code">发送验证码</button>
+            </div>
+        </div>
+        <div class="btn-wrap">
+        	<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/chinaVSkorea_activity/icon-coin.png"/>
+        	<button id="btn_register" class="btn-register"></button>
+        </div>
+    </div>
+	
+    <div class="shadow2" style="display: none" ></div>
+    <!-- 提示弹窗 -->
+    <div class="bet-pop-wrap" style="display: none" >
+        <p class="msg" id="msg">获取验证码失败，请稍后再试！</p>
+        <button class="btn-ok" id="btn_ok"></button>
+    </div>
+
+	<input id="sendSmsMsg_url" value="{:U('WebReg/sendSmsVerifyCode')}" type="hidden"/>
+	<input id="register_url" value="{:U('WebReg/register')}" type="hidden"/>
+	<input id="success_url" value="{:U('WebReg/chinaVSkoreaDownLoad')}" type="hidden"/>
+	<input id="cc" value="{$Think.request.cc}" type="hidden"/>
+
+<script type="text/javascript">
+	var get_code_url = $("#sendSmsMsg_url").val();/*获取验证码请求*/
+	var register_url = $("#register_url").val();/*注册请求地址*/
+	var downLoad  = $("#success_url").val();/*下载页地址*/
+	var bet_url  = "/api/tiger?act=10701&em=0&data=eyJsb3R0ZXJ5X2lkIjoiNiJ9";/*app内跳转下注页地址*/
+
+	var LOCK = false;
+	var WAIT = 60; /*倒计时*/
+	//数据类型的检测标准
+	var defaultVal = {
+		tel : "^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$"
+	};
+
+	$(document).ready(function(){
+		setTimeout(function () {
+			if( isApp ){
+				$(".banner").children().eq(0).show();
+
+				$("#btn_bet").attr("href",bet_url);
+			}else{
+				$(".banner").children().eq(1).show();
+				$(".logo").show();
+				initBtnRegister();
+				initBtnBet();
+				initBtnClose();
+				initGetCodeButton();
+			}
+		}, 1000);
+
+	});
+
+    /*注册ajax请求*/
+    function userRegisterAjaxRequest(){
+        if(LOCK){
+            return;
+        }
+        LOCK = true;
+        $.ajax({
+            type : 'POST',
+            url  : register_url,
+            data: {
+				user_tel: $("#tel").val(),
+				user_password: $("#code").val(),
+				cc:$('#cc').val()
+            },
+            dataType: "json",
+			success: function (info) {
+				LOCK = false;
+				console.log(info);
+
+				if (info.error == 0) {
+					window.location.href = downLoad;
+				} else if (info.error == 1) {
+					showPrompt(info.info);
+				}
+			}
+        });
+    }
+	/*获取验证码ajax请求*/
+	function getCodeAjaxRequest(tel){
+		$.ajax({
+			type : 'POST',
+			url  : get_code_url,
+			data : { "tel":tel, type: 1 },
+			dataType: "json",
+			success: function (info) {
+				console.log(info);
+
+				if (info.error == 1) {
+					showPrompt(info.info);
+				} else if (info.error == 0) {
+					time();
+				}
+			}
+		});
+	}
+
+	function initBtnBet(){
+		$("#btn_bet").unbind();
+		$("#btn_bet").bind("click",function () {
+			$(".shadow").show();
+			$(".register-wrap").show();
+		});
+
+	}
+
+    function  initBtnRegister() {
+        $("#btn_register").unbind();
+        $("#btn_register").bind("click",function () {
+			if( checkInput() ){
+				userRegisterAjaxRequest();
+			}   
+        });
+    }
+	
+	/*初始化获取验证码按钮*/
+	function initGetCodeButton(){
+		$("#btn_code").unbind();
+		$("#btn_code").bind("click",function(){
+			var dataType = $("#tel").attr("dataType");
+			var tel = $("#tel").val();
+			var errorMsg = $("#tel").attr("errorMsg");
+			
+			if( checknull(tel,errorMsg) ){
+				if( dataType in defaultVal ) {
+					var flag = new RegExp(defaultVal[dataType]).test(tel);
+					if( !flag ){
+						showPrompt(errorMsg);
+					}else{
+						getCodeAjaxRequest(tel);
+					}
+				}
+			}
+		});	
+	}
+	
+	/*获取手机验证码 倒计时60s*/
+	function time() {
+		$("#btn_code").unbind();
+		if(WAIT == 0) {
+			$("#btn_code").html("发送验证码");
+			$("#btn_code").attr("class","btn-code");
+			WAIT = 60;
+			initGetCodeButton();
+		}else{
+			$("#btn_code").html("重新发送(" + WAIT + "s)");
+			$("#btn_code").attr("class","btn-code-no");
+			WAIT--;
+			setTimeout(function(){time()},1000);
+		}
+	}
+
+	function checkInput(){	
+		var formObj = $("#form");
+		var inputList = formObj.children("input");
+		var inputLen = inputList.length;
+		var totalInputCount = 0;
+			
+		/*遍历input*/
+		for( var i =0 ; i < inputLen ; i++ ){
+			var dataType = $(inputList[i]).attr("dataType");
+			var val = trim($(inputList[i]).val());
+			var errorMsg = trim($(inputList[i]).attr("errorMsg"));
+			if( checknull(val,errorMsg) ){
+				if( dataType in defaultVal ) {
+					var flag = new RegExp(defaultVal[dataType]).test(val);
+					if( !flag ){
+						showPrompt(errorMsg);
+						break;
+					}else{
+						totalInputCount ++;
+					}
+					
+				}else{
+					if( dataType == "pwd_r" ){
+						if( val == trim($('#pwd').val()) ){
+							totalInputCount ++;		
+						}else{
+							showPrompt("两次密码输入不一致");
+							break;
+						}
+					}else{
+						totalInputCount ++;		
+					}
+									
+				}
+			}else{
+				break;
+			}
+			
+			if( totalInputCount == inputLen ) return true;
+		}
+	}
+
+	/*字符串去空格*/
+	function trim(val){
+		return val.replace(/\s/g, "");
+	}
+	/*检查是否为空*/
+	function checknull(val,errorMsg){	
+		if (val == "" || val == null){
+			showPrompt(errorMsg);
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function  initBtnClose() {
+        $("#btn_close").unbind();
+		$("#btn_ok").unbind();
+		
+        $("#btn_close").bind("click",function(){
+            $(".shadow").hide();
+            $(".register-wrap").hide();
+        });
+		
+		$("#btn_ok").bind("click",function(){
+            $(".shadow2").hide();
+            $(".bet-pop-wrap").hide();
+        });
+    }
+
+	function showPrompt(msg) {
+        $("#msg").html(msg);
+        $(".shadow2").show();
+        $(".bet-pop-wrap").show();
+    }
+	
+	
+</script>
+</body>
+</html>

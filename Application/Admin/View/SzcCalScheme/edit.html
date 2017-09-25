@@ -1,0 +1,63 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['scheme_id'])?'编辑':'新增'}方案</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="lottery_id" class="col-sm-2 control-label">彩种：</label>
+		    <div class="col-sm-2">
+		    <select name="lottery_id" id="lottery_id" class="form-control">
+		      <volist name="lottery_map" id="lottery">
+		      <option value="{$key}" 
+		      <eq name="vo.lottery_id" value="$key">selected="selected"</eq>
+		      >{$lottery}</option>
+		      </volist>
+		    </select>  
+		    </div>
+	 	</div>
+	    <div class="form-group">
+		    <label for="scheme_name" class="col-sm-2 control-label">方案名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="scheme_name" id="scheme_name" value="{$vo.scheme_name}">
+		    </div>
+	 	</div>
+	  <div class="form-group">
+	    <label for="scheme_val" class="col-sm-2 control-label">方案值：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control" name="scheme_val" id="scheme_val"  value="{$vo.scheme_val}">
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="start_issueno" class="col-sm-2 control-label">开始期号：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control" name="start_issueno" id="start_issueno" 
+	       value="{$vo.start_issueno}">
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="end_issueno" class="col-sm-2 control-label">结束期号：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control" name="end_issueno" id="end_issueno" 
+	       value="{$vo.end_issueno}">
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	   	  <input type="hidden" name="scheme_id" value="{$vo.scheme_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>  
+</block>

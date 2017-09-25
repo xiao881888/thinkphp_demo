@@ -1,0 +1,75 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>启动页列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a href="{:U('add')}" class="btn">新增</a>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">名称</th>
+				<th class="">启动优先级</th>
+				<th class="">APP名称</th>
+				<th class="">平台</th>
+				<th class="">图片</th>
+				<th class="">类型</th>
+				<th class="">有效时间</th>
+				<th class="">状态</th>
+				<th class="">操作</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> 
+			<volist name="list" id="vo">
+			<tr>
+				<td>{$vo.open_page_title}</td>
+				<td>{$vo.open_page_level}</td>
+				<td>
+					<?php if($vo['app_id'] == 0){ ?>
+					全部
+					<?php }elseif($vo['app_id'] == 1){ ?>
+					老虎彩票
+					<?php }elseif($vo['app_id'] == 2){ ?>
+					百万彩票
+					<?php }elseif($vo['app_id'] == 3){ ?>
+					新彩票
+					<?php } ?>
+				</td>
+				<td>{$vo.open_page_os|getConfText='DEVICE_OS_TYPE_LIST'}</td>
+				<td><img src="{$vo.open_page_image_640}" width="30" height="30"></td>
+				<td>{$open_page_type[$vo[open_page_type]]}</td>
+				<td>{$vo.open_page_expiretime}</td>
+				<td>{$vo.open_page_status|getConfText='COMMON_STATUS'}</td>	
+				<td>
+					<a href="{:U('edit', array('id'=>$vo['open_page_id']))}" class="btn btn-mini">编辑</a>
+                <a href="{:U('del', array('ids'=>$vo['open_page_id']))}" class="btn btn-mini confirm ajax-get">删除</a>
+
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="7" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	$('.date').datetimepicker({
+    	format: 'yyyy-mm-dd',
+    	language: 'zh-CN',
+    });
+});
+</script>
+</block>

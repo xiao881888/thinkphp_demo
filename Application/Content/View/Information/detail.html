@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>资讯详情</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link href="__PUBLIC__/Content/css/style.css?20161228" rel="stylesheet" type="text/css">
+<script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/baiduStatisticalCode/baiduStatisticalCode.js"></script>
+<!--<script>
+	//获取cookie中key的值
+	function getCookie(c_name){
+		if (document.cookie.length>0){　　//先查询cookie是否为空，为空就return ""
+			c_start=document.cookie.indexOf(c_name + "=");　　//通过String对象的indexOf()来检查这个cookie是否存在，不存在就为 -1　　
+			if (c_start!=-1){
+				c_start=c_start + c_name.length+1;　　//最后这个+1其实就是表示"="号啦，这样就获取到了cookie值的开始位置
+				c_end=document.cookie.indexOf(";",c_start);　　//其实我刚看见indexOf()第二个参数的时候猛然有点晕，后来想起来表示指定的开始索引的位置...这句是为了得到值的结束位置。因为需要考虑是否是最后一项，所以通过";"号是否存在来判断
+				if (c_end==-1) c_end=document.cookie.length;
+				return unescape(document.cookie.substring(c_start,c_end));　　//通过substring()得到了值。想了解unescape()得先知道escape()是做什么的，都是很重要的基础，想了解的可以搜索下，在文章结尾处也会进行讲解cookie编码细节
+			}
+		}
+		return "";
+	}
+	//设置cookie
+	function setCookie(c_name, value, expiredays){
+		var exdate=new Date();
+		exdate.setTime(exdate.getTime() + expiredays*24*3600*1000);
+		document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+	}
+	
+	var cookie = getCookie('c_count');
+	
+	if( cookie !="" ){
+		setCookie('c_count', "2", 1000);
+	}else if( cookie =="" ){
+		
+	}
+	
+	window.onbeforeunload = function(){
+		setCookie('c_count', "1", 1000);
+	}
+		
+</script>-->
+</head>
+
+<body>
+	<div class="mainbody">
+    	<h1>{$information_detail.information_title}</h1>
+        <p class="time">{$information_detail.information_create_time|substr=0,10} </p>
+        <hr>
+        <div class="text">
+        	<!-- 正文区域 -->
+            {$information_detail.information_content}
+        </div>
+    </div>
+
+    <?php if(!empty($information_detail['recommentLottery'])){ ?>
+        <div class="recommend">
+            <p>本场推荐</p>
+            <span>{$information_detail.recommentLottery.schedule_home_team}</span><span>VS</span><span>{$information_detail.recommentLottery.schedule_guest_team}</span><br>
+
+            <?php foreach($information_detail['recommentLottery']['schedule_odds'] as $k => $schedule_odd){ ?>
+                <?php
+                    if(strpos($information_detail['recommentLottery']['recomment_content'],',') > -1){
+                    $recomment_content_arr = explode(',',$information_detail['recommentLottery']['recomment_content']);
+                ?>
+                    <span <?php if(in_array($k,$recomment_content_arr)){ ?>  class="on" <?php } ?>>
+                    <?php if($k == 'v3'){ ?>主胜<?php } ?>
+                    <?php if($k == 'v1'){ ?>平<?php } ?>
+                    <?php if($k == 'v0'){ ?>主负<?php } ?><b>{$schedule_odd}</b></span>
+
+                <?php }else{ ?>
+                    <span <?php if($k == $information_detail['recommentLottery']['recomment_content']){ ?>  class="on" <?php } ?>>
+                    <?php if($k == 'v3'){ ?>主胜<?php } ?>
+                    <?php if($k == 'v1'){ ?>平<?php } ?>
+                    <?php if($k == 'v0'){ ?>主负<?php } ?><b>{$schedule_odd}</b></span>
+                <?php } ?>
+
+
+            <?php } ?>
+            <p>{$information_detail.recommentLottery.schedule_league_matches}&nbsp;&nbsp;&nbsp;{$information_detail.recommentLottery.schedule_end_time}分截止</p>
+        </div>
+    <?php } ?>
+    
+
+    
+    <hr class="last"> 
+    
+    <div class="btn-group user_support">
+         <div>
+             <a id="btn_zan"></a>
+             <!--<a id="btn_share" class="btn-share"></a>-->
+             <br>
+             <b id="count_zan">{$information_detail.supportCount}</b>
+         </div>
+        <?php if(!empty($information_detail['recommentLottery'])){ ?>
+        <button id="btn_bet">去投注</button>
+        <?php } ?>
+         <!--<span>1000位虎友已去投注</span>-->
+    </div>
+
+    <div class="errorPop" align="center" id="errorPop" style="display: none"><p class="errorMsg" id="errorMsg"></p></div>
+
+    <script type="text/javascript">
+        /*消息提示*/
+        function createErrorPop(msg){
+            $("#errorMsg").html(msg);
+            $("#errorPop").show();
+            setTimeout('hidenErrorPop()',2000);
+        }
+
+        function hidenErrorPop(){
+            $("#errorPop").hide();
+        }
+    </script>
+        
+    <h2>相关推荐</h2>
+        
+    <div class="about">
+        <ul>
+            <?php foreach($information_detail['relatedInformationList'] as $relateInfo){ ?>
+                <li class="sec">
+                    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+                    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$relateInfo['information_id'])); ?>" >
+                    <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+                        <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$relateInfo['information_id'])); ?>" >
+
+                    <?php } else { ?>
+                            <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$relateInfo['information_id'])); ?>" >
+                    <?php } ?>
+
+
+                   <!-- -->
+                   <!-- -->
+                    <p name="txt_title">{$relateInfo.information_title}</p>
+                    <?php if(!empty($relateInfo['information_tag'])){ ?>
+                        <p>{$relateInfo.information_tag}</p>
+                    <?php } ?>
+                    <p>{$relateInfo.information_create_time|substr=0,10} </p>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+    
+    
+    <!-- 分享 -->
+    <div class="shadow" name="btn_share"></div>
+    <div class="share" align="center">
+    	<p>分享</p>
+        <div><a><i></i>微信好友</a><a><i></i>朋友圈</a><a><i></i>新浪微博</a><a><i></i>QQ好友</a></div>
+        <button>取消</button>
+    </div>
+
+    <input type="hidden" id="login_uid" value="">
+    
+    <script>
+        $("div[name=recommend_img]").each(function(index, element) {
+            $(this).height($(this).next().height());
+        });
+		$(".shadow").height(document.body.scrollHeight);
+		
+		/*点赞 按钮*/
+		$("#btn_zan").bind("click",function(){
+            var uid = $('#login_uid').val();
+            if(uid == ''){
+                createErrorPop('请先登录才能点赞');
+                return false;
+            }
+            var informationId = "<?php echo $information_detail['information_id']; ?>";
+            $.ajax({
+                type : 'POST',
+                url  : "<?php echo $support_url; ?>",
+                data : {uid:uid,informationId:informationId},
+                dataType: "json",
+                success: function(data){
+                    $("#btn_zan").unbind();
+                    var count_zan = parseInt($("#count_zan").html());
+                    count_zan++;
+                    $("#count_zan").html(count_zan);
+                }
+            });
+            $(this).toggleClass("on");
+		});
+		
+		/*去投注 按钮*/
+		$("#btn_bet").bind("click",function(){
+            window.location.href = "<?php echo $information_detail['recommentLottery']['jump_url']; ?>";
+		});
+		
+		/*分享 按钮*/
+		$("#btn_share").bind("click",function(){
+            var uid = $('#login_uid').val();
+            var informationId = "<?php echo $information_detail['information_id']; ?>";
+            $.ajax({
+                type : 'POST',
+                url  : "<?php echo $share_url; ?>",
+                data : {uid:uid,informationId:informationId},
+                dataType: "json",
+                success: function(data){}
+            });
+			window.location.href = 'api/tiger?act=10705&em=0&data='+"<?php echo $information_detail['shareData']; ?>";
+        });
+
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?a5ed9d009e392bc2167010a85eaba0ed";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+
+        $(document).ready(function(){
+            setTimeout(function () {
+                appAutoLogin();
+            }, 200);
+        });
+        function isExitsFunction(funcName) {
+            try {
+                if (typeof(eval(funcName)) == "function") {
+                    return true;
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        function appAutoLogin(){
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if(isiOS || isAndroid){
+                if(isiOS){
+                    var temp = isExitsFunction("getLoginInfo");
+                }else if(isAndroid){
+                    if (window.Tiger){
+                        var temp = 'getLoginInfo' in window.Tiger;
+                    }else{
+                        var temp = false;
+                    }
+                }
+                
+                if(temp){
+                    if(isiOS){
+                        var encrypt_str = getLoginInfo();
+                    }else if(isAndroid){
+                        var encrypt_str = window.Tiger.getLoginInfo();
+                    }
+                    var informationId = "<?php echo $information_detail['information_id']; ?>";
+                    $.ajax({
+                        type : 'POST',
+                        url  : "<?php echo $get_userid_url; ?>",
+                        data : {encrypt_str:encrypt_str,informationId:informationId},
+                        dataType: "json",
+                        success: function(data){
+                            var uid = data.uid;
+                            var isSupport = data.isSupport;
+                            var user_tel = data.user_tel;
+                            $('#login_uid').val(uid);
+                            if(isSupport == 1){
+                                $("#btn_zan").addClass("on");
+                                $("#btn_zan").unbind();
+                            }
+                        }
+                    });
+                }else{
+                    $('.user_support').remove();
+                }
+            }else{
+                $('.user_support').remove();
+            }
+        }
+
+		
+    </script>
+
+</body>
+</html>

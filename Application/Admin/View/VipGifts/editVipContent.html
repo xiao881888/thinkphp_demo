@@ -1,0 +1,85 @@
+<div style="width:1200px;height:500px;">
+<div style="display:none;" id="goods-select-view">
+	<div class="goods-select" style="margin:5px;">
+		<label>礼包类型</label>
+		<select name="vg_content_type[]"  class="form-control">
+			<option value="1" <eq name="vo.vg_content_type" value="1"> selected="selected"</eq>>红包</option>
+			<option value="2" <eq name="vo.vg_content_type" value="2"> selected="selected"</eq>>积分</option>
+			<option value="3" <eq name="vo.vg_content_type" value="3"> selected="selected"</eq>>实物</option>
+		</select>
+
+		<label>礼包名称</label>
+		<input type="text" name="vg_content_name[]" value="" class="form-control" style="width:100px;"></input>
+
+		<label>选择红包</label>
+		<select name="vg_content_coupon[]">
+			<option value="0" selected="selected">请选择</option>
+			<?php foreach($coupon_list as $coupon_id => $coupon_name){ ?>
+			<option value="{$coupon_id}">{$coupon_name}</option>
+			<?php } ?>
+		</select>
+
+		<label>积分数值</label>
+		<input type="number" name="vg_content_integral[]" value="0" class="form-control" style="width:100px;"></input>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<label>数量</label>
+		<input type="number" name="vg_content_num[]" value="0" class="form-control" style="width:100px;"></input>
+				<a href="#" class="goods-select-del">删除</a>
+			</div>
+</div>
+<form action="{:U('addVipContent')}" method="post" class="form-inline" role="form" enctype="multipart/form-data">
+<div class="fr">
+	<button type="submit" class="btn btn-default">新 增</button>   	
+</div>
+
+<div class="data-table table-striped">
+	<p class="main-title">礼包内容</p>
+	<div class="form-group goods-box" style="margin:5px;">
+		<div class="goods-select-box">
+			<div class="goods-select" style="margin:5px;">
+				<label>礼包类型</label>
+				<select name="vg_content_type[]"  class="form-control">
+					<option value="1" <eq name="vo.vg_content_type" value="1"> selected="selected"</eq>>红包</option>
+					<option value="2" <eq name="vo.vg_content_type" value="2"> selected="selected"</eq>>积分</option>
+					<option value="3" <eq name="vo.vg_content_type" value="3"> selected="selected"</eq>>实物</option>
+				</select>
+
+				<label>礼包名称</label>
+				<input type="text" name="vg_content_name[]" value="" class="form-control" style="width:100px;"></input>
+
+				<label>选择红包</label>
+				<select name="vg_content_coupon[]">
+					<option value="0" selected="selected">请选择</option>
+					<?php foreach($coupon_list as $coupon_id => $coupon_name){ ?>
+					<option value="{$coupon_id}">{$coupon_name}</option>
+					<?php } ?>
+				</select>
+
+				<label>积分数值</label>
+				<input type="number" name="vg_content_integral[]" value="0" class="form-control" style="width:100px;"></input>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<label>数量</label>
+				<input type="number" name="vg_content_num[]" value="0" class="form-control" style="width:100px;"></input>
+			</div>
+			
+		</div>
+		
+		<div class="goods-add" style="margin:10px;">
+			<a class="btn btn-min goods-select-add">+</a>
+		</div>
+		<input type="hidden" name="vg_id" value="{$vg_id}">
+	</div>
+</div>
+</form>
+</div>
+<block name="script">
+	<script type="text/javascript">
+		$(".goods-select-add").on('click',function(){
+			var view = $('#goods-select-view').html();
+			$('.goods-select-box').append(view);
+		});
+		$(document).on('click',".goods-select-del",function(){
+			$(this).parent('.goods-select').remove();
+		});
+	</script>
+</block>

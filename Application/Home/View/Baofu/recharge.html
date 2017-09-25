@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>您的充值请求正在提交</title>
+</head>
+
+<body onload="document.form1.submit()">
+请稍候，您的充值请求正在提交...
+<form id="form1" name="form1" method="post" action="{$pay_url}">
+        <input type='hidden' name='MemberID' value="{$member_id}" />
+        <input type='hidden' name='TerminalID' value="{$terminal_id}"/>
+        <input type='hidden' name='InterfaceVersion' value="{$interface_version}"/>
+        <input type='hidden' name='KeyType' value="{$key_type}"/>
+        <input type='hidden' name='PayID' value="{$pay_id}" />
+        <input type='hidden' name='TradeDate' value="{$trade_date}" />
+        <input type='hidden' name='TransID' value="{$trans_id}" />
+        <input type='hidden' name='OrderMoney' value="{$order_money}" />
+        <input type='hidden' name='ProductName' value="" />
+        <input type='hidden' name='Amount' value="" />
+        <input type='hidden' name='Username' value="" />
+        <input type='hidden' name='AdditionalInfo' value="" />
+        <input type='hidden' name='PageUrl' value="{$page_url}" />
+        <input type='hidden' name='ReturnUrl' value="{$return_url}" />
+        <input type='hidden' name='Signature' value="{$signature}" />
+        <input type='hidden' name='NoticeType' value="{$notify_type}" />
+</form>
+</body>
+</html>

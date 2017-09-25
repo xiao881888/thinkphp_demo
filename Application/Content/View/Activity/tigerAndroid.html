@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<title>老虎彩票安卓版下载</title>
+</head>
+<style>
+body{
+	margin:0;padding:0;
+}
+.cont{
+	width:100%;
+}
+.bg{
+	position: fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%; 
+}
+.topImg{
+	position:absolute; 
+	bottom:55%; 
+	left:11%;
+	margin:0;
+	padding:0;
+	display:block;
+	width:78%; 
+}
+.wei{
+	position:absolute; 
+	bottom:26%; 
+	left:27.5%;
+	margin:0;
+	padding:0;
+	display:block;
+	width:45%;
+}
+.promt{
+	position:absolute; 
+	bottom:6%; 
+	left:17%;
+	margin:0;
+	padding:0;
+	display:block;
+	width:68%;
+}
+.btn-app{
+	border-radius:50px;
+	background-color:#FFE512;
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/btn_bg.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:83%;
+	box-shadow:0px 3.5px #E39704;
+	position:absolute; 
+	display: block;
+	width:48%;
+	bottom:16%; 
+	left:26%;
+	margin: 0;
+	padding: 5.2% 0;
+	border:0;
+	outline:0;
+}
+.btn-share{
+	border-radius:50px;
+	background-color:#FFE512;
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/app_img/btn_share_bg.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:83%;
+	box-shadow:0px 3.5px #E39704;
+	position:absolute; 
+	display: block;
+	width:48%;
+	bottom:16%; 
+	left:26%;
+	margin: 0;
+	padding: 5.2% 0;
+	border:0;
+	outline:0;
+}
+.btn-app:active{
+	background-color:#F1D700;
+}
+.shadow{
+	display: none;;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: #000;
+	opacity: 0.5;
+}
+.prompt{
+	display: none;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	width: 100%;
+	z-index: 3;
+}
+.prompt img{
+	display: block;
+	margin:10px 5px 0 0;
+}
+</style>
+<body>
+<div class="cont" align="center">
+    <img class="bg" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/bg.png" />
+    <img class="topImg" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/40.png" />
+    <img class="wei" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/二维码.png"  />
+    <if condition="$src eq 1">
+        <a id="btn_download" class="btn-share" href="/api/tiger?act={$op_code}&em=0&data={$jump_data}"></a>
+    <else/>
+        <a id="btn_download" class="btn-app" href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Content/Activity/getLastestAndroidApkOnly"></a>
+    </if>
+    <img class="promt" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/友情提示.png" />
+</div>
+
+<div class="shadow" id="shadow"></div>
+<div class="prompt" align="right" id="prompt">
+    <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/press.png" width="10%">
+    <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/text.png" width="50%" id="pic">
+</div>
+    
+<script type="text/javascript">
+    var isWeixin = function (){ 
+        var u = navigator.userAgent;
+        if(u.toLowerCase().match(/MicroMessenger/i)=="micromessenger") {
+            if(u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1){
+                document.getElementById('pic').src = "http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/text.png";
+            }else if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1){
+                document.getElementById('pic').src = "http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/android_apk/text2.png";
+            }
+            document.getElementById('btn_download').addEventListener('click',function() {
+                document.getElementById('shadow').style.display = "block";
+                document.getElementById('prompt').style.display = "block";
+            });
+        }
+    }();
+</script>
+</body>
+</html>

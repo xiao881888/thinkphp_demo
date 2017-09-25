@@ -1,0 +1,8 @@
+<option value="">选择方案</option>
+<volist name="schemes" id="scheme">
+<option value="{$scheme.scheme_id}" 
+<eq name="scheme.scheme_status" value="1">style="color: green"</eq>>
+{$scheme.scheme_name}
+<eq name="scheme.scheme_status" value="1">(当前方案)</eq>
+</option>
+</volist>

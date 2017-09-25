@@ -1,0 +1,46 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['web_channel_id'])?'编辑':'新增'}红包渠道</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="coupon_name" class="col-sm-2 control-label">名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="web_channel_name" id="web_channel_name" value="{$vo.web_channel_name}">
+		    </div>
+	 	</div>   		
+	 	<div class="form-group">
+		    <label for="coupon_value" class="col-sm-2 control-label">对接商务：</label>
+		    <div class="col-sm-2">
+		    <select name="saler_id">
+		    	<option value="0" <if condition="$so['saler_id'] == 0">selected</if>>暂无</option>
+		    	<volist name="salers" id="so">
+		    	<option value="{$so.saler_id}" <if condition="$so['saler_id'] == $vo['saler_id']">selected</if>>{$so.saler_name}</option>
+		    	</volist>
+		    </select>
+		    </div>
+	 	</div>
+		<div class="form-group">
+			<label for="web_channel_reg_url" class="col-sm-2 control-label">注册地址：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="web_channel_reg_url" id="web_channel_reg_url" value="{$vo.web_channel_reg_url}">
+			</div>
+		</div>
+
+		<div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="web_channel_id" value="{$vo.web_channel_id}">
+              	<button type="submit" class="btn btn-default">提交</button>
+            </div>
+	  	</div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

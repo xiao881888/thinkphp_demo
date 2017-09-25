@@ -1,0 +1,211 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['coupon_id'])?'编辑':'新增'}红包类别</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="coupon_name" class="col-sm-2 control-label">名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="coupon_name" id="coupon_name" value="{$vo.coupon_name}">
+		    </div>
+	 	</div>
+		<div class="form-group">
+			<label for="coupon_display_name" class="col-sm-2 control-label">前端显示名称：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="coupon_display_name" id="coupon_display_name" value="{$vo.coupon_display_name}">
+			</div>
+		</div>
+   		<div class="form-group">
+		    <label for="coupon_slogon" class="col-sm-2 control-label">说明：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="coupon_slogon" id="coupon_slogon" value="{$vo.coupon_slogon}">
+		    </div>
+	 	</div>
+	 	<div class="form-group">
+		    <label for="coupon_is_sell" class="col-sm-2 control-label">是否可购买：</label>
+		    <div class="col-sm-2">
+		    <select name="coupon_is_sell" class="form-control">
+		    
+		    <volist name=":C('COUPON_IS_SELL')" id="type">
+		    <option value="{$key}" 
+		     <eq name="key" value="$vo.coupon_is_sell">selected="selected"
+		    </eq>
+		    >{$type}
+		    </option>
+		      </volist>
+		    
+		    </select>
+		      
+		    </div>
+	 	</div>
+
+		<div class="form-group">
+			<label for="lottery_ids" class="col-sm-2 control-label">可用彩种：</label>
+			<div class="col-sm-2">
+				<?php foreach($lottery_list as $lottery_id => $lottery_name){ ?>
+				<label><input name="lottery_ids" type="checkbox" value="{$lottery_id}" onchange="get_lottery_ids()" <?php if(in_array($lottery_id,$coupon_lottery_ids)){ ?>  checked="checked"   <?php } ?> />{$lottery_name}</label>
+				<?php } ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="coupon_min_consume_price" class="col-sm-2 control-label">最低消费：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="coupon_min_consume_price" id="coupon_min_consume_price" value="{$vo.coupon_min_consume_price}">
+			</div>
+		</div>
+
+		<input type="hidden" id="coupon_lottery_ids" name="coupon_lottery_ids" value="">
+
+		<script type="text/javascript">
+
+			$(document).ready(function(){
+				get_lottery_ids();
+			});
+
+
+			function get_lottery_ids(){
+				var lottery_ids ='';
+				var check_length = $('input[name="lottery_ids"]:checked').length;
+				$('input[name="lottery_ids"]:checked').each(function(key,value){
+					if(key == check_length - 1){
+						lottery_ids = lottery_ids + $(this).val();
+					}else{
+						lottery_ids = lottery_ids + $(this).val() + ',';
+					}
+				});
+				if(check_length > 0){
+					$("#coupon_lottery_ids").val(lottery_ids);
+				}else{
+					$("#coupon_lottery_ids").val('');
+				}
+				/*if(lottery_ids.length > 0){
+					var lottery_ids_json = JSON.stringify(lottery_ids);
+					$("#coupon_lottery_ids").val(lottery_ids_json);
+				}else{
+					$("#coupon_lottery_ids").val('');
+				}*/
+			}
+
+
+		</script>
+
+
+	 	
+	 	
+	 	
+	 	<div class="form-group">
+		    <label for="coupon_image" class="col-sm-2 control-label">图片：</label>
+		    <div class="col-sm-2">
+		      <input type="file" name="coupon_image">
+		    </div>
+	 	</div>
+	 	<div class="form-group">
+		    <label for="coupon_select_image" class="col-sm-2 control-label">选中状态图片：</label>
+		    <div class="col-sm-2">
+		      <input type="file" name="coupon_select_image">
+		    </div>
+	 	</div>	 	
+	  
+	  <div class="form-group">
+		    <label for="coupon_valid_date_type" class="col-sm-2 control-label">类型：</label>
+		    <div class="col-sm-2">
+		    <select name="coupon_valid_date_type" class="form-control" id="coupon_valid_date_type">
+		    
+		    <volist name=":C('COUPON_VALID_DATE_TYPE')" id="type">
+		    <option value="{$key}" 
+		    
+		     <eq name="key" value="$vo.coupon_valid_date_type">selected="selected"
+		    </eq>
+		    >{$type}</option>
+		      </volist>
+		    
+		    </select>
+		      
+		    </div>
+	 	</div>
+	 	<div id="datetype_div">
+	 	{:R('Coupon/datetype', array('type'=>$vo['coupon_valid_date_type']))}
+	 	</div>
+	    
+	 
+	  <div class="form-group">
+		    <label for="coupon_value" class="col-sm-2 control-label">面额：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control" name="coupon_value" id="coupon_value" value="{$vo.coupon_value}">
+		    </div>
+	 	</div>
+	 	
+	 	 <div class="form-group">
+		    <label for="coupon_price" class="col-sm-2 control-label">价格：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control" name="coupon_price" id="coupon_price" value="{$vo.coupon_price}">
+		    </div>
+	 	 </div>
+
+		<div class="form-group">
+			<label for="coupon_type" class="col-sm-2 control-label">红包类型：</label>
+			<div class="col-sm-2">
+				<select name="coupon_type" id="coupon_type" class="form-control">
+					<option value="1" <eq name="vo.coupon_type" value="1">selected="selected"</eq>>现金红包</option>
+					<option value="2" <eq name="vo.coupon_type" value="2">selected="selected"</eq>>满减红包</option>
+				</select>
+			</div>
+		</div>
+
+	 	 
+	 	 <div class="form-group">
+		    <label for="coupon_status" class="col-sm-2 control-label">状态：</label>
+		    <div class="col-sm-2">
+		   <select name="coupon_status" id="coupon_status" class="form-control">
+		  
+		   <option value="1" <eq name="vo.coupon_status" value="1">selected="selected"</eq>>正常</option>
+		   <option value="0" <eq name="vo.coupon_status" value="0">selected="selected"</eq>>禁用</option>
+		   </select>
+		    </div>
+	 	 </div>
+
+		<div class="form-group">
+			<label for="activity_id" class="col-sm-2 control-label">活动ID：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="activity_id" id="activity_id" value="{$vo.activity_id}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="coupon_exchange_limit_times" class="col-sm-2 control-label">兑换码兑换次数：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="coupon_exchange_limit_times" id="coupon_exchange_limit_times" value="{$vo.coupon_exchange_limit_times}">
+			</div>
+		</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="coupon_id" value="{$vo.coupon_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+   $(function(){
+	   $('#coupon_valid_date_type').bind('change', function(){
+		   var type = $(this).val();
+		   $.ajax({
+			  url:"{:U('Coupon/datetype')}",
+			  data:{type:type},
+			  success:function(data){
+				  $('#datetype_div').html(data);
+			  }
+		   });
+		   
+	   })
+   });
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

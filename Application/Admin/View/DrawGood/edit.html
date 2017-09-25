@@ -1,0 +1,92 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['dg_id'])?'编辑':'新增'}抽奖设置</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="dg_title" class="col-sm-2 control-label">奖品标题：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="dg_title" id="dg_title" value="{$vo.dg_title}">
+            </div>
+        </div>
+
+		<div class="form-group">
+			<label for="dg_type" class="col-sm-2 control-label" >奖品类型：</label>
+			<div class="col-sm-2">
+				<select name="dg_type" id="dg_type" class="form-control">
+					<option value="1" <eq name="vo.dg_type" value="1"> selected="selected"</eq>>发红包</option>
+					<option value="2" <eq name="vo.dg_type" value="2"> selected="selected"</eq>>积分翻倍</option>
+					<option value="3" <eq name="vo.dg_type" value="3"> selected="selected"</eq>>未中奖</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="dg_desc" class="col-sm-2 control-label">中奖信息描述：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="dg_desc" id="dg_desc"
+					   value="{$vo.dg_desc}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="dg_winning_percent" class="col-sm-2 control-label">中奖概率：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="dg_winning_percent" id="dg_winning_percent"
+					   value="{$vo.dg_winning_percent}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="dg_extral_id" class="col-sm-2 control-label">商品ID（红包ID）：</label>
+			<div class="col-sm-2">
+				<select name="dg_extral_id" class="form-control">
+					<option value="0" >请选择</option>
+					<?php foreach($coupon_list as $key => $value){ ?>
+					<option value="{$key}" <?php if($vo['dg_extral_id'] == $key){ ?> selected="selected" <?php } ?> >{$value}</option>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="dg_img_url" class="col-sm-2 control-label">中奖显示图片：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.dg_img_url">
+					<img src="{$vo.dg_img_url}" />
+				</notempty>
+				<input type="file" class="" name="dg_img_url" id="dg_img_url">
+			</div>
+		</div>
+      
+	  <div class="form-group">
+	    <label for="dg_status" class="col-sm-2 control-label" >奖品状态：</label>
+	    <div class="col-sm-2">
+	    <select name="dg_status" id="dg_status" class="form-control">
+	    <option value="1" <eq name="vo.dg_status" value="1"> selected="selected"</eq>>启用</option>
+	    <option value="0" <eq name="vo.dg_status" value="0"></eq>>禁用</option>
+	    </select>
+	    </div>
+	  </div>
+
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="dg_id" value="{$vo.dg_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+
+   <script type="text/javascript">
+    highlight_subnav("{:U('index')}");
+</script>
+</block>

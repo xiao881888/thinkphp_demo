@@ -1,0 +1,70 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>积分兑换商品</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">类型</th>
+                <th class="">名称</th>
+                <th class="">描述</th>
+				<th class="">图片</th>
+				<th class="">所需积分</th>
+				<th class="">数量</th>
+				<th class="">状态</th>
+				<th class=""></th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.ig_id}</td>
+                <td>
+					<?php if($vo['ig_good_type'] == 1){ ?>
+					红包
+					<?php }elseif($vo['ig_good_type'] == 2){ ?>
+					实物
+					<?php } ?>
+				</td>
+                <td>{$vo.ig_good_name}</td>
+				<td>{$vo.ig_desc}</td>
+				<td><img src="{$vo.ig_img_url}"></td>
+				<td> {$vo.ig_integral} </td>
+				<td> {$vo.ig_good_num} </td>
+				<td>
+					<eq name="vo.ig_status" value="1">
+						上架
+						<else/>
+						下架
+					</eq>
+
+				</td>
+				<td>
+					<eq name="vo.ig_status" value="1">
+						<a href="{:U('IntegralGood/changeStatus?status=0&ids='.$vo['ig_id'])}" class="btn ajax-get">禁用</a>
+						<else/>
+						<a href="{:U('IntegralGood/changeStatus?status=1&ids='.$vo['ig_id'])}" class="btn ajax-get">启用</a>
+					</eq>
+					<a href="{:U('edit', array('id'=>$vo['ig_id']))}" class="btn">编辑</a>
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

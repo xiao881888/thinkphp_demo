@@ -1,0 +1,76 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>发送通知列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			<div class="form-group">
+				<label  for="event_id">事件类型：</label>
+				<select name="event_id" id="event_id" class="form-control">
+				<option value="">全部类型</option>
+				<volist name="event_map" id="event">
+				<option value="{$key}"
+				<eq name="Think.request.event_id" value="$key">
+				 selected="selected"
+				 </eq>
+				 >{$event}</option>
+				</volist>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label  for="el_launch">发起方：</label>
+				<input type="text" class="form-control"
+					id="el_launch" placeholder="" name="el_launch" value="{$Think.request.el_launch}">
+			</div>
+			
+			
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">事件类型</th>
+				<th class="">发送方式</th>
+				<th class="">发送内容</th>
+				<th class="">发起方</th>
+				<th class="">接收方</th>
+				<th class="">发送结果</th>
+				<th class="">创建时间</th>		
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$event_map[$vo['event_id']]}</td>				
+				<td>{$vo.el_type|getEventSendTypeText}</td>	
+				<td>{$vo.el_content}</td>
+				<td>{$vo.el_launch}</td>
+				<td>{$vo.el_receive}</td>
+				<td>{$vo.el_send_status|getMessageSendStatusText}</td>
+				<td>{$vo.el_createtime}</td>
+				
+			</tr>
+			</volist> <else />
+			<td colspan="7" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

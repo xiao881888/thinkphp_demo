@@ -1,0 +1,110 @@
+<?php
+define(LOTTERY_PRICE, 2);
+define(TICKET_STATUS_OF_UN_PRINTOUT, 0);
+define(TICKET_STATUS_OF_PRINTOUTED, 1);
+define(JC_PLAY_TYPE_MULTI_STAGE, 52);
+define(ORDER_STATUS_OF_UNPAID, 0);
+
+define(HENGPENG_BET_TICKET_NUMBER_LIMIT, 500); // 投注请求限制500票
+define(HENGPENG_BET_TICKET_AMOUNT_LIMIT, 20000); // 单票投注金额限制20000
+define(HENGPENG_BET_TICKET_TIME_LIMIT, 99); // 单票投注倍数限制99
+
+define(BET_TICKET_NUMBER_LIMIT, 100); // 投注请求限制100票
+define(BET_TICKET_AMOUNT_LIMIT, 20000); // 单票投注金额限制20000
+define(BET_JC_TICKET_TIME_LIMIT, 99); // 竞彩单票投注倍数限制99
+define(BET_SZC_TICKET_TIME_LIMIT, 50); // 竞彩单票投注倍数限制99
+
+define(COUPON_DATE_FOREVER, '2099-12-31 23:59:59'); // 永久红包有效期
+
+define(PAYMENT_CHANNEL_ID_OF_LIANLIAN, 1); // 连连支付
+define(PAYMENT_CHANNEL_ID_OF_ALIPAY, 2); // 支付宝
+define(PAYMENT_CHANNEL_ID_OF_LIANLIANSDK, 5); // 连连支付SDK版
+define(PAYMENT_CHANNEL_ID_OF_WEIXINGONGZHONG, 3); // 微信公众号支付
+define(PAYMENT_CHANNEL_ID_OF_MANUAL, 6); // 手动转账页面
+define(PAYMENT_CHANNEL_ID_OF_MANUAL_ALIPAY, 7); // 微信支付
+define(PAYMENT_CHANNEL_ID_OF_HEEPAY, 9); // 汇付宝
+define(PAYMENT_CHANNEL_ID_OF_YEEPAY, 11); // 易宝支付
+define(PAYMENT_CHANNEL_ID_OF_ZWX, 12); //梓微兴支付
+define(PAYMENT_CHANNEL_ID_OF_BAOFU, 10);//宝付银行卡支付
+define(PAYMENT_CHANNEL_ID_OF_ZXWXH5, 13);//中信银行微信H5支付
+define(PAYMENT_CHANNEL_ID_OF_ZXWXSDK, 14);//中信银行微信SDK支付
+define(PAYMENT_CHANNEL_ID_OF_ZWXSDK, 15);//梓微兴微信SDK支付
+define(PAYMENT_CHANNEL_ID_OF_XYWXSDK, 16);//兴业微信SDK支付
+define(PAYMENT_CHANNEL_ID_OF_DZFWXH5, 19);//丁兆峰微信H5支付
+define(PAYMENT_CHANNEL_ID_OF_WFTWX, 20);//威富通微信H5支付
+
+
+define(COUPON_IS_FOR_SALE, 1); // 红包可购买
+define(COUPON_IS_NOT_FOR_SALE, 0); // 红包不可购买
+
+define(COUPON_VALID_DATE_OF_FOREVER, 0); // 永久有效
+define(COUPON_VALID_DATE_OF_DAY_NUMBER, 1); // 有效天数
+define(COUPON_VALID_DATE_OF_DATE_RANGE, 2); // 有效起止时间段
+
+define(USER_ACCOUNT_LOG_TYPE_OF_RECHARGE, 1); // 账户充值
+define(USER_ACCOUNT_LOG_TYPE_OF_BET, 2); // 购彩
+define(USER_ACCOUNT_LOG_TYPE_OF_BUY_COUPON, 3); // 购买红包
+define(USER_ACCOUNT_LOG_TYPE_OF_APPLY_WITHDRAW, 4); // 提现申请
+define(USER_ACCOUNT_LOG_TYPE_OF_PAY_DRAW, 5); // 提现打款
+define(USER_ACCOUNT_LOG_TYPE_OF_WINNING, 6); // 派奖
+define(USER_ACCOUNT_LOG_TYPE_OF_REFUSE_DRAW, 7); // 拒绝提现
+define(USER_ACCOUNT_LOG_TYPE_OF_CANCEL_FOLLOW, 8); // 停止追号
+define(USER_ACCOUNT_LOG_TYPE_OF_FOLLOW_FAILED_REFUND, 9); // 追号失败退款
+
+define(PRINTOUT_MODE, 0);
+
+define(ORDER_NOTICE_TYPE_OF_WIN_PRIZE, 1);
+define(ORDER_NOTICE_TYPE_OF_FAIL_TO_BUY, 2);
+define(ORDER_NOTICE_TYPE_OF_FAIL_TO_FOLLOW, 3);
+define(ORDER_NOTICE_TYPE_OF_FAIL_TO_PRINTOUT_TICKET, 4);
+define(ORDER_NOTICE_TYPE_OF_SUCCESS_TO_PRINTOUT_TICKET, 5);
+
+define(ORDER_TYPE_OF_NORMAL, 0);
+define(ORDER_TYPE_OF_FOLLOW, 1);
+define(ORDER_TYPE_OF_OPTIMIZE, 2);
+define(ORDER_TYPE_OF_COBET, 3);
+
+define(SYXW_PLAY_TYPE_OF_RENXUAN8, 28);
+define(BET_TYPE_OF_DASHI, 1);
+define(BET_TYPE_OF_FUXUAN, 2);
+
+define(OS_OF_ANDROID, 1);
+define(OS_OF_IOS, 2);
+
+define(RECHARGE_URL_MD5_SALT, 'youcannotdoit');
+
+
+define(TIGER_LOTTERY_ID_OF_SSQ, 1); // 双色球
+define(TIGER_LOTTERY_ID_OF_FC3D, 2); // 福彩3D
+define(TIGER_LOTTERY_ID_OF_DLT, 3); // 超级大乐透
+define(TIGER_LOTTERY_ID_OF_SD_11X5, 4); // 山东11选5
+define(TIGER_LOTTERY_ID_OF_AH_11X5, 8); // 安徽11选5
+define(TIGER_LOTTERY_ID_OF_HB_11X5, 18); // 湖北11选5
+
+define(TIGER_LOTTERY_ID_OF_JL_K3, 5); // 吉林快三
+define(TIGER_LOTTERY_ID_OF_JX_K3, 19); // 江西快三
+define(TIGER_LOTTERY_ID_OF_JS_K3, 22); // 江苏快三
+
+define(TIGER_LOTTERY_ID_OF_JZ, 6); // 竞彩足球
+define(TIGER_LOTTERY_ID_OF_JZ_SPF, 601); // 足球胜平负
+define(TIGER_LOTTERY_ID_OF_JZ_RQSPF, 602); // 足球让球胜平负
+define(TIGER_LOTTERY_ID_OF_JZ_BF, 603); // 足球比分
+define(TIGER_LOTTERY_ID_OF_JZ_ZJQ, 604); // 足球总进球
+define(TIGER_LOTTERY_ID_OF_JZ_BQC, 605); // 足球半全场
+define(TIGER_LOTTERY_ID_OF_JZ_HHTZ, 606); // 足球混合投注
+define(TIGER_LOTTERY_ID_OF_JL, 7); // 竞彩篮球
+define(TIGER_LOTTERY_ID_OF_JL_SF, 701); // 篮球胜负
+define(TIGER_LOTTERY_ID_OF_JL_RFSF, 702); // 篮球让分胜负
+define(TIGER_LOTTERY_ID_OF_JL_SFC, 703); // 篮球胜分差
+define(TIGER_LOTTERY_ID_OF_JL_DXF, 704); // 篮球大小分
+define(TIGER_LOTTERY_ID_OF_JL_HHTZ, 705); // 篮球混合投注
+
+define(TIGER_LOTTERY_ID_OF_SFC_14, 20); // 胜负彩14场
+define(TIGER_LOTTERY_ID_OF_SFC_9, 21); // 胜负彩任选九
+
+define(TIGER_PLAY_ID_OF_NORMAL, 101); // 普通
+
+define(TIGER_PLAY_ID_OF_LEXUAN2, 34); // 乐选二（11选5 安徽支持，山东不支持）
+define(TIGER_PLAY_ID_OF_LEXUAN3, 35); // 乐选三（11选5）
+define(TIGER_PLAY_ID_OF_LEXUAN4, 36); // 乐选四（11选5）
+define(TIGER_PLAY_ID_OF_LEXUAN5, 37); // 乐选五（11选5）

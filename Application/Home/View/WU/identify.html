@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>身份认证</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="format-detection" content="telephone=no" />
+	<style>
+		*{margin: 0;padding: 0;outline: none;-webkit-tap-highlight-color:transparent;}
+		body{background-color: #F2F2F2;}
+		h1{text-align: center;color: #333333;font-size: 18px;margin: 30px 0;font-weight: normal;}
+		input{font-size:15px;display:block;width: 84%;margin: 0 auto 20px auto;color: #999999;padding: 13px 3%;border: 1px solid #cccccc;border-radius: 5px;}
+		.btn-submit{display:block;width: 90%;margin: 20px auto 20px auto;color: #ffffff;background-color: #E73F40;font-size: 17px;border: none;border-radius: 6px;padding: 13px 0; }
+		.btn-submit:active{background-color: #CF3939;}
+		.info{width: 90%;font-size: 12px;color: #999999;line-height: 22px; margin: 0 auto 6px auto;}
+		.shadow{background-color:#000;opacity:.6;position:fixed;z-index:10;top:0;width:100%;padding:100% 0;display:none;}
+		.pop-wrap{position:fixed;z-index:16;top:29%;width:80%;padding:15px 0;margin:0 10%;background-color:#fff;text-align:center;border-radius:6px;display:none;}
+		.pop-wrap .msg{padding:15% 12% 15% 12%;color:#134d25;font-size:16px;text-align:center;}
+		.pop-wrap button{border:0;border-radius:6px;background-color:#e85138;padding:3% 0;width:30%;margin:0;color:#fff;-webkit-tap-highlight-color:rgba(0,0,0,0);font-size:16px;}
+		/*iphone4 iphone5*/
+		@media screen and (max-width:320px) {
+			h1{font-size: 16px;}
+		}
+	</style>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+	<h1>完成实名认证后方可使用银行卡充值</h1>
+	<div id="form">
+		<input id="name" type="text" placeholder="姓名" errorMsg="请输入姓名" dataType="name"/>
+		<input id="idCard" type="text" placeholder="身份证号码" errorMsg="请输入正确身份证号码" dataType="iDCard" maxlength="18"/>
+		<button id="btn_submit" class="btn-submit">提交</button>
+	</div>
+	<p class="info">请务必如实填写真实姓名和身份证号、两者信息必须和身份证上的内容完全一致，否则无法领取；护照、军官证、台胞证、香港身份证、社会保证卡、机动车驾驶证等均不能领奖；</p>
+	<p class="info">购买彩票是个人行为，请保证以上信息是您个人的真实信息，不要使用公司或他人信息，身份证信息暂时不支持修改，请慎重填写；</p>
+	<p class="info">依据财政部《彩票发行与销售管理暂行规定》未满18周岁不得购买彩票；</p>
+
+	<div class="shadow"></div>
+	<div class="pop-wrap">
+		<p class="msg" id="msg"></p>
+		<button class="btn-ok" id="btn_close">确定</button>
+	</div>
+
+	<input id="identify_url" value="{:U('WU/submitIdentifyInfo')}" type="hidden"/><!--认证请求地址-->
+	<input id="s" name="s" value="{$Think.request.s}" type="hidden"/><!--认证请求地址-->
+	<input id="r" name="r" value="{$Think.request.r}" type="hidden"/><!--认证请求地址-->
+
+	<script>
+		var identify_url = $("#identify_url").val();/*认证请求地址*/
+		var lock = false;
+		var defaultVal = {iDCard : ""};
+
+		$(document).ready(function () {
+			initBtnSubmit();
+			initBtnClose();
+		});
+
+		/*身份认证请求*/
+		function submitAjaxRequest() {
+			if(lock){
+				return;
+			}
+			lock = true;
+
+			$.ajax({
+				type : 'POST',
+				url  : identify_url,
+				data: {
+					'name': $("#name").val(),
+					'idCard': $("#idCard").val(),
+					's': $("#s").val(),
+					'r': $("#r").val(),
+				},
+				success: function(data_jason){
+					lock = false;
+					var data = eval("("+data_jason+")");
+					console.log(data);
+					if (data.error == 0) {
+						window.location.href = data.data.success_url;
+					} else if (data.error == 1) {
+						showPrompt(data.msg);
+					}
+				}
+			});
+		}
+
+		function initBtnSubmit() {
+			$("#btn_submit").unbind();
+			$("#btn_submit").bind("click", function () {
+				if( checkInput() ){
+					submitAjaxRequest();
+				}
+			});
+		}
+
+		function checkInput(){
+			var formObj = $("#form");
+			var inputList = formObj.children("input");
+			var inputLen = inputList.length;
+			var totalInputCount = 0;
+
+			/*遍历input*/
+			for( var i =0 ; i < inputLen ; i++ ){
+				var dataType = $(inputList[i]).attr("dataType");
+				var val = trim($(inputList[i]).val());
+				var errorMsg = trim($(inputList[i]).attr("errorMsg"));
+				if( checknull(val,errorMsg) ){
+					if( dataType in defaultVal ) {
+						if( val.length > 15 ){
+							if ( !( /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/i.test(val) ) ) {
+								showPrompt(errorMsg);
+								break;
+							}else {
+								totalInputCount ++;
+							}
+						}else if( val.length <= 15 ){
+							if ( !( /^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$/i.test(val) ) ) {
+								showPrompt(errorMsg);
+								break;
+							}else {
+								totalInputCount ++;
+							}
+						}
+					}else{
+						totalInputCount ++;
+					}
+				}else{
+					break;
+				}
+				if( totalInputCount == inputLen ) return true;
+			}
+		}
+
+		function initBtnClose() {
+			$("#btn_close").unbind();
+			$("#btn_close").bind("click", function () {
+				$(".shadow").hide();
+				$(".pop-wrap").hide();
+			});
+		}
+
+		function showPrompt(msg) {
+			$("#msg").html(msg);
+			$(".shadow").show();
+			$(".pop-wrap").show();
+		}
+
+		/*字符串去空格*/
+		function trim(val){
+			return val.replace(/\s/g, "");
+		}
+
+		/*检查是否为空*/
+		function checknull(val,errorMsg){
+			if (val == "" || val == null){
+				showPrompt(errorMsg);
+				return false;
+			}else{
+				return true;
+			}
+		}
+	</script>
+</body>
+</html>

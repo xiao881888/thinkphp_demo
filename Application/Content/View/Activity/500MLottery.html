@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>5亿大乐透加奖</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" >
+<meta name="apple-touch-fullscreen" content="yes" >
+<meta name="format-detection" content="telephone=no" />
+<style>
+    *{margin:0;padding:0;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+    body{background-color:#1d1c56;}
+    .banner{width:100%;}
+    div{overflow:hidden;}
+    .red-bag{width:100%;float:left;}
+    h1{position:absolute;z-index:2;margin:-18% 0 0 0;color:#fdf9ea;font-size:15px;line-height:24px;width:100%;left:0;text-align:center;font-weight:normal;}
+    p{position:absolute;width:90%;left:3%;margin:-48% 0 0 0;border:1px solid #fff;border-radius:6px;color:#fdf9ea;font-size:16px;text-align:left;padding:3% 2%;line-height:28px;word-break:break-all;word-wrap:break-word;}
+    p span{display:block;font-size:18px;}
+    a{position:absolute;display:inline-block;width:60%;left:20%;padding:8% 0;background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/500MLottery_activity/img/btn-nor.png);background-repeat:no-repeat;background-size:100% auto;margin:58% 0 0 0;}
+</style>
+<script src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/baiduStatisticalCode/baiduStatisticalCode.js"></script>
+</head>
+<body>
+<img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/500MLottery_activity/img/banner.jpg" class="banner">
+<h1>4月17日20:10分起-6月3日止<br>（17044期至17603期）</h1>
+<?php $jump_data =urlencode(base64_encode(json_encode(array('lottery_id'=>3)))); ?>
+<a href="/api/tiger?act=10701&em=0&data=<?php echo $jump_data; ?>"></a>
+<div><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/500MLottery_activity/img/red-bag.png" class="red-bag"></div>
+<p><span>加奖对象：</span>为选择“追号投注”并中奖的彩单，“追号投注”的 彩单单注下单金额为3元。</p>
+</body>
+</html>

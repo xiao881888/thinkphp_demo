@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>开春足球季</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="format-detection" content="telephone=no" />
+    <link href="__PUBLIC__/Home/RegisterActivity/css/style.css?2017020802" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/RegisterActivity/css/idangerous.swiper.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?a5ed9d009e392bc2167010a85eaba0ed";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="banner"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/banner.png" /></div>
+<button id="btn_rule" class="btn-rule">活动规则</button>
+
+<!-- 奖品展示 -->
+<div class="awards-wrap">
+    <div class="awards-cont">
+        <div class="device">
+            <a class="arrow-left" href="#"></a>
+            <a class="arrow-right" href="#"></a>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/1.png"><p class="title">iphone7plus</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/2.png"><p class="title">卡西欧TR750</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/3.png"><p class="title">乐视电视 超4</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/4.png"><p class="title">iPad mini</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/5.png"><p class="title">500购彩红包</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/6.png"><p class="title">200购彩红包</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/7.png"><p class="title">100购彩红包</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/8.png"><p class="title">5购彩红包</p></div></div>
+                    <div class="swiper-slide"><div class="content-slide"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/9.png"><p class="title">2购彩红包</p></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 注册 -->
+<div class="register-wrap">
+    <div class="register-cont">
+        <input id="tel" type="text" placeholder="输入手机号免费领取" class="tel" maxlength="11"/>
+        <input id="code" type="text" placeholder="输入验证码" class="code" maxlength="8"/>
+        <button id="btn_code" class="code-nor">发送验证码</button>
+        <button id="btn_register" class="btn-register"></button>
+    </div>
+    <h3>注册老虎彩票<span>|</span>即可参与抽奖</h3>
+    <div class="downLoad-btns-wrap"><a id="btn_downLoadWin_ios" href="javascript:void(0)"></a><a id="btn_downLoadWin_android" href="javascript:void(0)"></a></div>
+</div>
+
+<!-- 已领取到的奖品 -->
+<div class="getedAward-wrap">
+    <div class="getedAward-cont">
+        <img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/geted-bg.png"/>
+        <p><span>2元</span>优惠购彩红包</p>
+        <!--<h2>已发放到 15259806069 账户中</h2>-->
+        <h2>红包已直接发送到账户中</h2>
+    </div>
+    <h3>下载安装老虎彩票</h3>
+    <div class="downLoad-btns-wrap">
+
+        <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+        <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>2))}"></a>
+        <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>1))}"></a>
+        <?php }elseif( get_cfg_var('PROJECT_RUN_MODE') == 'TEST' ){ ?>
+        <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>2))}"></a>
+        <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>1))}"></a>
+        <?php }else { ?>
+        <a href="http://192.168.1.171:81/index.php{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>2))}"></a>
+        <a href="http://192.168.1.171:81/index.php{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>1))}"></a>
+        <?php } ?>
+
+    </div>
+</div>
+
+<!-- 页脚 -->
+<div class="footer">本活动最终解释权归老虎彩票所有</div>
+<div class="shadow"></div>
+<!-- 活动规则 -->
+<div class="rule-wrap">
+    <div class="btn-close-wrap"><button class="btn-close"></button></div>
+    <div class="top"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/rule-top.png"/></div>
+    <div class="cont">
+        <div class="left"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/rule-left.png"/></div>
+        <div class="txt">
+            <div>
+                <h1>活动时间：<span>2月21日~3月7日</span></h1>
+                <h1>活动规则：</h1>
+                <p><span>①活动期间通过活动页注册成为老虎彩票用户，即可参与抽奖机会；</span><span>②如发现用户有恶意刷奖行为，将不予兑换奖品；</span><span>③虚拟物品奖励将直接发放到注册账户， 实物奖励凭借中奖信息与官方联系领取；</span>
+                </p>
+            </div>
+        </div>
+        <div class="right"><img src="http://oss.aliyuncs.com/tclottery/activity_image/kmi_activity/rule-right.png"/></div>
+    </div>
+</div>
+
+<div class="pop-info">
+    <p id="msg"></p>
+    <button id="btn_sure">确认</button>
+</div>
+
+<?php
+if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') {
+        $register_url = U('RegisterActivity/kMiActivityRegister');
+        $get_code_url = U('RegisterActivity/sendSmsVerifyCode');
+}elseif( get_cfg_var('PROJECT_RUN_MODE') == 'TEST' ){
+        $register_url = U('RegisterActivity/kMiActivityRegister');
+        $get_code_url = U('RegisterActivity/sendSmsVerifyCode');
+}else {
+        $register_url = "http://192.168.1.171:81/index.php/".U('RegisterActivity/kMiActivityRegister');
+        $get_code_url = "http://192.168.1.171:81/index.php/".U('RegisterActivity/sendSmsVerifyCode');
+}
+?>
+
+
+<div class="pop-downLoad" id="ios_pop">
+    <p id="msg">为了您能顺利地参与本活动，建议您在本活动页注册并成功抽奖后，再进行下载！感谢您的参与和支持！</p>
+    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+    <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>2))}">坚持下载</a><button name="btn_cancle">取&ensp;消</button>
+    <?php }elseif( get_cfg_var('PROJECT_RUN_MODE') == 'TEST' ){ ?>
+    <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>2))}">坚持下载</a><button name="btn_cancle">取&ensp;消</button>
+    <?php }else { ?>
+    <a href="http://192.168.1.171:81/index.php{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>2))}">坚持下载</a><button name="btn_cancle">取&ensp;消</button>
+    <?php } ?>
+
+</div>
+
+<div class="pop-downLoad" id="android_pop">
+    <p id="msg">为了您能顺利地参与本活动，建议您在本活动页注册并成功抽奖后，再进行下载！感谢您的参与和支持！</p>
+    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+    <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>1))}">坚持下载</a><button name="btn_cancle">取&ensp;消</button>
+    <?php }elseif( get_cfg_var('PROJECT_RUN_MODE') == 'TEST' ){ ?>
+    <a href="{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>1))}">坚持下载</a><button name="btn_cancle">取&ensp;消</button>
+    <?php }else { ?>
+    <a href="http://192.168.1.171:81/index.php{:U('RegisterActivity/kMiActivityDownLoad',array('os'=>1))}">坚持下载</a><button name="btn_cancle">取&ensp;消</button>
+    <?php } ?>
+</div>
+
+<script src="__PUBLIC__/Home/RegisterActivity/js/idangerous.swiper.min.js"></script>
+<script type="text/javascript">
+
+    var clickCount = 0;
+    var WAIT = 60;
+    var defaultVal = {
+        mobile : "^1(3[0-9]|5[0-35-9]|8[0235-9])\\d{8}$"
+    };
+
+    var register_url;/*注册请求地址*/
+    var get_code_url;/*验证码请求地址*/
+
+    $(document).ready(function(){
+
+        /*register_url = "{:U('RegisterActivity/kMiActivityRegister')}";
+        get_code_url = "{:U('RegisterActivity/sendSmsVerifyCode')}";*/
+
+        register_url = "<?php echo $register_url; ?>";
+        get_code_url = "<?php echo $get_code_url; ?>";
+
+        initView();
+        initAwardViewHeight();/*初始化奖品栏高度*/
+        initGetVerificationCodeButton();/*初始化获取验证码按钮*/
+        initBtnRegister();/*初始化注册按钮*/
+        initBtnSure();/*初始化信息提示窗确定按钮*/
+        initBtnClose();/*初始化弹窗关闭按钮*/
+        initBtnShowRule();/*初始化显示活动规则按钮*/
+		initBtnDownLoadIOS();
+		initBtnDownLoadAndroid();
+		initBtnCancle();/*初始化下载提示窗取消按钮*/
+    });
+
+    function initView(){
+        $(".register-wrap").show();
+        $(".getedAward-wrap").hide();
+    }
+
+    /*注册ajax请求*/
+    function userSignAjaxRequest(){
+        var tel = $("#tel").val();
+        var code = $("#code").val();
+
+        if( checkTel() && checkCode() ){
+            $.ajax({
+                type : 'POST',
+                url  : register_url,
+                data : { "tel":tel,"code":code },
+                dataType: "json",
+                success: function(data){
+                    console.log(data);
+                    if (data.error_code == 0) {
+                        //注册成功
+                        $(".register-wrap").hide();
+                        $(".getedAward-wrap").show();
+                    }else {
+                        //注册失败
+                        showPrompt(data.data);
+                    }
+                }
+            });
+        }
+    }
+
+    /*初始化获取验证码按钮*/
+    function initGetVerificationCodeButton(){
+        $("#btn_code").bind("click",function(){
+            var tel = $("#tel").val();
+            if( checkTel() ){
+                $.ajax({
+                    type : 'POST',
+                    url  : get_code_url,
+                    data : { "tel":tel,"type":1},
+                    dataType: "json",
+                    success: function(data){
+                        console.log(data);
+                        if (data.error_code == 0) {
+                            //获取验证码成功
+                            time();
+                        }else {
+                            //获取验证码失败
+                            showPrompt(data.data);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /*初始化注册按钮*/
+    function initBtnRegister(){
+        $('#btn_register').bind("click",function(){
+            clickCount ++;
+            if( clickCount == 1 ){
+                userSignAjaxRequest();
+            }else{
+                clickCount = 0;
+            }
+        });
+    }
+
+    /*初始化奖品栏高度*/
+    function initAwardViewHeight(){
+        var mySwiper = new Swiper('.swiper-container',{
+            loop:false,
+            grabCursor: true,
+            paginationClickable: true,
+            slidesPerView : 3,
+            slidesPerGroup : 3,
+            nextButton: '.arrow-right',
+            prevButton: '.arrow-left',
+            autoHeight: true
+        });
+    }
+
+    /*初始化显示活动规则按钮*/
+    function initBtnShowRule(){
+        $("#btn_rule").bind("click",function(){
+            $(".shadow").show();
+            $(".rule-wrap").show();
+        });
+    }
+
+
+    /*初始化弹窗关闭按钮*/
+    function initBtnClose(){
+        $(".btn-close").bind("click",function(){
+            $(".shadow").hide();
+            $(this).parent().parent().hide();
+        });
+    }
+
+    /*初始化信息提示窗确定按钮*/
+    function initBtnSure(){
+        $("#btn_sure").bind("click",function(){
+            $(".shadow").hide();
+            $(".pop-info").hide();
+        });
+    }
+	/*初始化下载提示窗取消按钮*/
+	function initBtnCancle(){
+		$("button[name='btn_cancle']").bind("click",function(){
+			$(".shadow").hide();
+			$(".pop-downLoad").hide();
+		});
+	}
+	
+	function initBtnDownLoadIOS(){
+		$("#btn_downLoadWin_ios").bind("click",function(){
+			$(".shadow").show();
+			$("#ios_pop").show();
+		});
+	}
+	
+	function initBtnDownLoadAndroid(){
+		$("#btn_downLoadWin_android").bind("click",function(){
+			$(".shadow").show();
+			$("#android_pop").show();
+		});
+	}
+	
+    /*显示提示信息*/
+    function showPrompt(msg){
+        $("#msg").html(msg);
+        $(".shadow").show();
+        $(".pop-info").show();
+    }
+
+    /*检查手机号码*/
+    function checkTel(){
+        var tel = $("#tel").val();
+
+        if ( tel == "" || tel == null ){
+            showPrompt('请填写手机号码');
+            return false;
+        }else{
+            var flag = new RegExp(defaultVal['mobile']).test(tel);
+            if( !flag ){
+                showPrompt('请填写正确手机号码');
+                return false;
+            }else{
+                return true;
+            }
+
+        }
+
+    }
+    /*检查验证码*/
+    function checkCode(){
+        var code = $("#code").val();
+        if ( code == "" || code == null ){
+            showPrompt('请填写验证码');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /*获取手机验证码 倒计时60s*/
+    function time() {
+        $("#btn_code").unbind();
+        if(WAIT == 0) {
+            $("#btn_code").attr("class","code-nor");
+            $("#btn_code").html("发送验证码");
+            WAIT = 60;
+            initGetVerificationCodeButton();
+        }else{
+            if( $("#btn_code").attr("class") != "code-invalid" ) $("#btn_code").attr("class","code-invalid");
+            $("#btn_code").html("重新发送(" + WAIT + "s)");
+            WAIT--;
+            setTimeout(function(){time()},1000);
+        }
+    }
+
+</script>
+</body>
+</html>

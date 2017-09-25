@@ -1,0 +1,126 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>彩期列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			
+			<div class="form-group">
+				<label  for="lottery_id">彩种：</label>
+				<select name="lottery_id" id="lottery_id">
+				<option value="">全部彩种</option>
+				<volist name="lottery_map" id="lottery">
+				<option value="{$key}" <eq name="Think.request.lottery_id" value="$key"> selected="selected" </eq>>	{$lottery}</option>
+				</volist>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label  for="issue_is_current">是否当前期：</label>
+				<select name="issue_is_current" id="issue_is_current">
+				<option value="">全部</option>
+				<option value="1" <eq name="Think.request.issue_is_current" value="1">selected="selected"</eq>>当前期</option>
+				
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label  for="issue_no">彩期号：</label>
+				<input type="text" class="form-control"
+					id="issue_no" placeholder="输入彩期号" name="issue_no" value="{$Think.request.issue_no}">
+			</div>
+			
+			<div class="form-group">
+				<label  for="is_finish">完成情况：</label>
+				<select name="is_finish" id="is_finish">
+				<option value="">全部</option>
+				<option value="0" <eq name="Think.request.is_finish" value="0"> selected="selected" </eq>>未完成</option>
+				<option value="1" <eq name="Think.request.is_finish" value="1"> selected="selected" </eq>>已完成</option>
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">彩期号</th>
+				<th class="">彩种</th>
+				<th class="">开奖号码</th>
+				<th class="">开奖时间</th>
+				<th class="">开奖状态</th>
+				<th class="">任务状态</th>
+				<th class="">奖池金额</th>
+				<th class="">开始时间</th>
+				<th class="">结束时间</th>
+				<th class="">是否当前期</th>
+				<th class="">描述</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+
+				<td>{$vo.issue_no}</td>
+				<td>{$lottery_map[$vo['lottery_id']]}</td>
+				<td>{$vo.issue_prize_number}</td>
+				<td>{$vo.issue_prize_time}</td>
+				<td>{$vo.issue_prize_status|prize_status_text}</td>
+				<td>
+				<span data-toggle="tooltip" data-placement="top" title="{$vo.issue_task_status|taskNearStatusText}">
+				{$vo.issue_task_status|taskStatusText}</span>
+				</td>
+				<td>{$vo.issue_winnings_pool}</td>
+				<td>{$vo.issue_start_time}</td>
+				<td>{$vo.issue_end_time}</td>
+				<td>{$vo.issue_is_current|is_current_text}</td>
+				<td>{$vo.issue_slogon}</td>
+				<td>
+				<a href="{:U('edit', array('id'=>$vo['issue_id']))}" class="btn btn-mini" >编辑</a>
+				
+				<div class="btn-group">
+				  <button type="button" class="btn btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				    更多 <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li><a href="{:U('Bee/reprintoutSzc', array('lottery_id'=>$vo['lottery_id'],'issue_no'=>$vo['issue_no']))}">补票</a></li>
+				    <li><a href="{:U('Bee/revokeSzc', array('lottery_id'=>$vo['lottery_id'],'issue_no'=>$vo['issue_no']))}">撤票</a></li>
+					<in name="vo.lottery_id" value="20,21">
+				    <li><a href="{:U('Bee/startSchedule', array('lottery_id'=>$vo['lottery_id'],'issue_no'=>$vo['issue_no']))}">请求比赛结果</a></li>
+					</in>
+				    <li><a href="{:U('Bee/prizeNumber', array('lottery_id'=>$vo['lottery_id'],'issue_no'=>$vo['issue_no']))}">请求中奖号码</a></li>
+				     <li><a href="{:U('Bee/prizeScheme', array('lottery_id'=>$vo['lottery_id'],'issue_no'=>$vo['issue_no']))}">请求中奖方案</a></li>
+				    <li><a href="{:U('Bee/prizeIssue', array('lottery_id'=>$vo['lottery_id'],'issue_no'=>$vo['issue_no']))}">请求开奖</a></li>
+				  </ul>
+				</div>
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> 
+<script type="text/javascript">
+$(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+})
+</script>
+</block>

@@ -1,0 +1,76 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2><?php echo $channel_name; ?></h2>
+</div>
+<div class="cf">
+	<!--<div class="fl">
+		<volist name="search_button" id="btn">
+			<a class="btn" href="{:U('channel',array('s_date'=>$btn['start'],'e_date'=>$btn['end'],'is_search'=>1))}">{$btn.name}</a>
+		</volist>
+	</div>-->
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<!--<form class="form-inline" role="form" action="{:U('channel')}" method="post">
+			<div class="form-group">
+				<label  for="s_date">时间：</label>
+				<input type="text" class="form-control input-sm" name="s_date" value="{$search_time['s_date']}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+				~
+				<input type="text" class="form-control input-sm" name="e_date" value="{$search_time['e_date']}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+			</div>
+			<input type="hidden" name="is_search" value="1">
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>-->
+		
+	
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed" >
+		<thead>
+		<tr>
+			<th class="">日期</th>
+			<th class="">注册用户数</th>
+			<th class="">ARPU值</th>
+			<th class="">ARPPU值</th>
+			<th class="">转化率</th>
+			<th class="">充值金额</th>
+			<th class="">消费金额</th>
+			<th class="">用户余额</th>
+			<th class="">消费用户数</th>
+			<th class="">新增消费用户数</th>
+		</tr>
+		</thead>
+		<tbody>
+		<notempty name="channel_detail"> <volist name="channel_detail" id="vo">
+			<tr>
+				<td>{$vo['title']}</td>
+				<td>{$vo['register_count']|default=0}</td>
+				<td>{:ceil($vo['consume']/$vo['channel_detail']['count'])}</td>
+				<td>{:ceil($vo['consume']/$vo['consume_sum']['count'])}</td>
+				<td>{:ceil($vo['consume_sum_new']['count']/$vo['channel_detail']['count'])}</td>
+				<td>{$vo['statistics_count']['recharge']|default='0.00'}</td>
+				<td>{$vo['statistics_count']['consume']|default='0.00'}</td>
+				<td>{$vo['channel_detail']['balance']}</td>
+				<td>{$vo['consume_sum']['count']|default=0}</td>
+				<td>{$vo['consume_sum_new']['count']|default=0}</td>
+			</tr>
+		</volist>
+
+			<else />
+			<td colspan="10" class="text-center">aOh! 暂时还没有内容!</td>
+		</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+
+</script>
+</block>

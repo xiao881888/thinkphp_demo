@@ -1,0 +1,78 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['frcc_id'])?'编辑':'新增'}红包类别</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="frcc_name" class="col-sm-2 control-label">名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="frcc_name" id="frcc_name" value="{$vo.frcc_name}">
+		    </div>
+	 	</div>
+
+		<div class="form-group">
+			<label for="frcc_grant_type" class="col-sm-2 control-label">发放方式：</label>
+			<div class="col-sm-2">
+				<select name="frcc_grant_type" id="frcc_grant_type" class="form-control">
+					<option value="0" <eq name="vo.frcc_grant_type" value="0">selected="selected"</eq>>无</option>
+					<option value="1" <eq name="vo.frcc_grant_type" value="1">selected="selected"</eq>>首次登陆发放</option>
+					<option value="2" <eq name="vo.frcc_grant_type" value="2">selected="selected"</eq>>下单发放</option>
+					<option value="3" <eq name="vo.frcc_grant_type" value="3">selected="selected"</eq>>手动发放</option>
+				</select>
+			</div>
+		</div>
+
+	 	<div class="form-group">
+		    <label for="coupon_id" class="col-sm-2 control-label">发放红包：</label>
+		    <div class="col-sm-2">
+		    <select name="coupon_id" class="form-control">
+		    	<?php foreach($coupon_list as $key => $value){ ?>
+					<option value="{$key}" <?php if($vo['coupon_id'] == $key){ ?> selected="selected" <?php } ?> >{$value}</option>
+		    	<?php } ?>
+		    </select>
+		    </div>
+	 	</div>
+	 
+	  	<div class="form-group">
+		    <label for="frcc_consume_order_amount" class="col-sm-2 control-label">订单满多少赠送：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control" name="frcc_consume_order_amount" id="frcc_consume_order_amount" value="{$vo.frcc_consume_order_amount}">
+		    </div>
+	 	</div>
+
+		<div class="form-group">
+			<label for="frcc_user_list" class="col-sm-2 control-label">手动发放用户列表：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="frcc_user_list" id="frcc_user_list" value="{$vo.frcc_user_list}">
+			</div>
+		</div>
+	 	
+
+	 	 <div class="form-group">
+		    <label for="frcc_status" class="col-sm-2 control-label">状态：</label>
+		    <div class="col-sm-2">
+		   <select name="frcc_status" id="frcc_status" class="form-control">
+		  
+		   <option value="1" <eq name="vo.frcc_status" value="1">selected="selected"</eq>>正常</option>
+		   <option value="0" <eq name="vo.frcc_status" value="0">selected="selected"</eq>>禁用</option>
+		   </select>
+		    </div>
+	 	 </div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="frcc_id" value="{$vo.frcc_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+    highlight_subnav('{:U('FullReducedCouponConfig/index')}');
+</script>
+</block>

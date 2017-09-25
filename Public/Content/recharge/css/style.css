@@ -1,0 +1,181 @@
+@charset "utf-8";
+
+body{  margin: 0; padding: 0; background-color: #F2F2F2;  }
+
+/*银行卡转账*/
+.bank-cont{
+	width:100%;
+	margin:0 0 0 0;
+}
+.bank-title{
+	width:90%;
+	font-size:16px;
+	color:#333333;
+	line-height:28px;
+	text-align:left;
+}
+.bank-info{
+	width:100%;
+	border-bottom:1px solid #CCC2C2;
+	border-top:1px solid #CCC2C2;
+	background:#FFFFFF;
+}
+.bank-box{
+	width:90%;
+	height:100px;
+}
+
+.bank-icon{
+	float:left;
+	display:inline-block;
+	margin:0 20px 0 0;
+	width:30%;
+	padding:0;
+}
+.bank-box img{
+	float:left;
+	display:inline-block;
+	margin:25px 17px 0 0;
+	padding:0;
+}
+.bank-detail{
+	float:left;
+	display:inline-block;
+}
+.bank-detail p{
+	margin:10px 0;
+	padding:0;
+}
+.title{
+	color:#666161;
+	font-size:16px;
+}
+.blue-p{
+	color:#1f4ccf;
+	font-size:16px;
+}
+.tishi{
+	width:100%;
+	margin:20px 0 0 0;
+}
+.tishi p{
+	width:90%;
+	text-align:left;
+	color:#999999;
+	line-height:26px;
+	margin:7px 0 0 0;
+}
+.tishi-title{
+	line-height:20px;
+	color:#333;
+}
+.tishi-title span{
+	display:inline-block;
+	margin: 0 0 0 26px;
+	color:#333;
+}
+.tishi-title i{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	background:url(../img/%E6%8F%90%E7%A4%BA@2x.png) no-repeat;
+	background-size:100%;
+	margin:2px 0 0 0 ;
+	padding:0 0 0 0;
+	position: absolute;
+}
+.blue-s{
+	color:#1f4ccf;
+}
+
+/*支付宝*/
+.zfb-img{
+	width:100%;
+	margin:20px 0 0 0;
+}
+.zfb-img p{
+	color:#333;
+	font-size:18px;
+	margin:10px 0 20px 0;
+}
+.ali-box{
+	width:90%;
+	height:80px;
+	padding:10px 0 0 0;
+}
+.ali-box img{
+	float:left;
+	display:inline-block;
+	margin:10px 17px 0 0;
+	padding:0;
+}
+
+
+/*微信*/
+.weixin{
+	margin: 25px 0 0 0;
+}
+
+.black-p{
+	color:#333333;
+	font-size:18px;
+}
+
+.gray-p{
+	width:80%;
+	font-size:16px;
+	color:#999999;
+	text-align:left;
+}
+
+.step-p{
+	width:80%;
+	font-size:16px;
+	color:#999999;
+	text-align:left;
+}
+
+.left-icon{
+	display:inline-block;
+	position: absolute;
+	margin-top:12px;
+	
+}
+.left2-icon{
+	display:inline-block;
+	position: absolute;
+	margin-top:-350px;
+	
+}
+.tt{
+	width:85%; display:inline-block; color:#999; font-size:14px; margin-left:20px;
+}
+.tt span{
+	width:auto;
+	display:inline-block;
+	text-align:left;
+}
+.hand-img{
+	position:absolute; top:0; right:15px;
+}
+
+.step-box{
+	width:100%; margin:-30px 0 0 0;
+}
+
+.step1-icon-box{
+	width:100%; position:absolute;
+}
+.step1-1-box{
+	width:60%;
+}
+.step1-1-box img{
+	margin:40px 0 0 0;
+}
+.step1-1-box p{
+	text-align:left;font-size:14px;color:#999999; position:absolute;height:30px;margin-left:-28px;
+}
+
+.step2-box{
+	width:100%;
+}

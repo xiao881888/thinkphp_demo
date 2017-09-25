@@ -1,0 +1,56 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['pac_id'])?'编辑':'新增'}加奖方案</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+    
+   		<div class="form-group">
+		    <label for="lottery_id" class="col-sm-2 control-label">彩种：</label>
+		    <div class="col-sm-2">
+		    <select name="lottery_id" id="lottery_id" class="form-control">
+		      <volist name="lottery_map" id="lottery">
+		      <option value="{$key}" 
+		      <eq name="Think.request.Lottery_id" value="$key">selected="selected"</eq>
+		      >{$lottery}</option>
+		      </volist>
+		    </select>  
+		    </div>
+	 	</div>
+		
+		<div class="form-group">
+			<label for="scheme_val" class="col-sm-2 control-label">加奖比例：</label>
+			<div class="col-sm-2">
+			  <input type="text" class="form-control" name="pac_rate" id="pac_rate"  value="{$vo.pac_rate}">
+			</div>
+		</div>
+	  
+		<div class="form-group">
+		    <label for="ce_start_time" class="col-sm-2 control-label">起始时间：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control " name="pac_start_time" id="pac_start_time" value="{$vo.pac_start_time}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+		    </div>
+	 	 </div>
+	 	
+	 	 <div class="form-group">
+		    <label for="ce_end_time" class="col-sm-2 control-label">截止时间：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control " name="pac_end_time" id="pac_end_time" value="{$vo.pac_end_time}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+		    </div>
+	 	 </div>	 
+	  
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+			  <input type="hidden" name="pac_id" value="{$vo.pac_id}">
+			  <button type="submit" class="btn btn-default">提交</button>
+			</div>
+		</div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>  
+</block>

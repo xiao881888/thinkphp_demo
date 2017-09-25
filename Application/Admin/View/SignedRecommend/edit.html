@@ -1,0 +1,105 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['sr_id'])?'编辑':'新增'}内容推荐</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="sr_title" class="col-sm-2 control-label">标题：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="sr_title" id="sr_title" value="{$vo.sr_title}">
+            </div>
+        </div>
+
+		<div class="form-group">
+			<label for="sr_desc" class="col-sm-2 control-label">推荐说明：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="sr_desc" id="sr_desc" value="{$vo.sr_desc}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="sr_type" class="col-sm-2 control-label" >奖品类型：</label>
+			<div class="col-sm-2">
+				<select name="sr_type" id="sr_type" class="form-control">
+					<option value="1" <eq name="vo.sr_type" value="1"> selected="selected"</eq>>彩种</option>
+					<option value="2" <eq name="vo.sr_type" value="2"> selected="selected"</eq>>资讯</option>
+					<option value="3" <eq name="vo.sr_type" value="3"> selected="selected"</eq>>活动</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="sr_content" class="col-sm-2 control-label">推荐内容：</label>
+			<div class="col-sm-2">
+
+				<textarea type="text" class="form-control" name="sr_content" id="sr_content"
+				>{$vo.sr_content}</textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="sr_lottery_id" class="col-sm-2 control-label">彩种：</label>
+			<div class="col-sm-2">
+				<select name="sr_lottery_id" id="sr_lottery_id" class="form-control">
+					<option value="0" > 请选择</option>
+					<?php foreach($lottery_list as $lottery){ ?>
+						<?php if($vo['sr_lottery_id'] ==  $lottery['lottery_id']) { ?>
+						<option value="<?php echo $lottery['lottery_id']; ?>" selected="selected"> <?php echo $lottery['lottery_name']; ?></option>
+						<?php }else{ ?>
+						<option value="<?php echo $lottery['lottery_id']; ?>"> <?php echo $lottery['lottery_name']; ?> </option>
+						<?php } ?>
+					<?php } ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="sr_skip_url" class="col-sm-2 control-label">跳转链接：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="sr_skip_url" id="sr_skip_url"
+					   value="{$vo.sr_skip_url}">
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="sr_icon_url" class="col-sm-2 control-label">icon图片：</label>
+			<div class="col-sm-2">
+				<notempty name="vo.sr_icon_url">
+					<img src="{$vo.sr_icon_url}" />
+				</notempty>
+				<input type="file" class="" name="sr_icon_url" id="sr_icon_url">
+			</div>
+		</div>
+
+      
+	  <div class="form-group">
+	    <label for="sr_status" class="col-sm-2 control-label" >奖品状态：</label>
+	    <div class="col-sm-2">
+	    <select name="sr_status" id="sr_status" class="form-control">
+	    <option value="1" <eq name="vo.sr_status" value="1"> selected="selected"</eq>>启用</option>
+	    <option value="0" <eq name="vo.sr_status" value="0"></eq>>禁用</option>
+	    </select>
+	    </div>
+	  </div>
+
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="sr_id" value="{$vo.sr_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+
+   <script type="text/javascript">
+    highlight_subnav("{:U('index')}");
+</script>
+</block>

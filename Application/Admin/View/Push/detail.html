@@ -1,0 +1,93 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>查看推送</h2>
+    </div>
+    <form action="" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+   
+ 	 	<div class="form-group">
+		    <label for="push_content" class="col-sm-2 control-label">推送内容</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control input-lg" name="push_content" readonly="readonly" id="push_content" value="{$vo.push_content}">
+		    </div>
+	 	</div>
+
+ 	 	<div class="form-group">
+		    <label for="uid" class="col-sm-2 control-label">接收用户id</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" readonly="readonly" name="uid" id="uid" value="{$vo.uid}">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="push_type" class="col-sm-2 control-label">跳转类型</label>
+		    <div class="col-sm-2">
+		      <select name="push_type">
+		      	<volist name="push_type" id="name">
+		      	<option value="{$key}"  <if condition="$vo['push_type'] == $key">selected</if>>{$name}</option>
+		      	</volist>
+		      </select>
+		    </div>
+	 	</div>
+
+ 	 	<div class="form-group">
+		    <label for="refer_order_id" class="col-sm-2 control-label">关联订单ID</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" readonly="readonly" name="refer_order_id" id="refer_order_id" value="{$refer_order_id}">
+		    </div>
+	 	</div>
+
+ 	 	<div class="form-group">
+		    <label for="refer_order_status" class="col-sm-2 control-label">关联订单状态</label>
+		    <div class="col-sm-2">
+				<select name="refer_order_status" id="refer_order_status"  class="form-control input-sm">
+					<option value="">无关联</option>
+					<volist name=":C('ORDER_STATUS')" id="order_status">
+					<option value="{$key}"
+						<if condition="$refer_order_status === (String)$key">
+						selected="selected"
+						</if>
+					>{$order_status}</option>
+					</volist>
+				</select>
+			</div>
+	 	</div>
+
+ 	 	<div class="form-group">
+		    <label for="refer_lottery_id" class="col-sm-2 control-label">关联彩种</label>
+		    <div class="col-sm-2">
+			    <select name="refer_lottery_id" id="refer_lottery_id" class="form-control input-sm">
+					<option value="">无关联</option>
+					<volist name="lottery_map" id="lotter_name">
+					<option value="{$key}"
+						<if condition="$refer_lottery_id === (String)$key">
+						selected="selected"
+						</if>
+					>{$lotter_name}</option>
+					</volist>
+				</select>
+			</div>
+	 	</div>
+
+ 	 	<div class="form-group">
+		    <label for="refer_url" class="col-sm-2 control-label">关联URL</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" readonly="readonly" name="refer_url" id="refer_url" value="{$refer_url}">
+		    </div>
+	 	</div>
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    
+	    	<input type="hidden" name="push_id" value="{$vo.push_id}">
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

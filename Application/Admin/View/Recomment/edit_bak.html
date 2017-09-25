@@ -1,0 +1,241 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['recomment_id'])?'编辑':'新增'}活动</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+	 	 <div class="form-group">
+		    <label for="lottery_id" class="col-sm-2 control-label">彩种：</label>
+		    <div class="col-sm-2">
+		      <select name="lottery_id" id="lottery_id" class="form-control" onchange="changeType()">
+		      <option value="">选彩种</option>
+		      <volist name="lottery_map" id="lottery">
+		      <option value="{$key}"
+		      <eq name="vo.lottery_id" value="$key">selected="selected"</eq>
+		      >{$lottery}</option>
+		      </volist>
+		      </select>
+		    </div>
+	 	</div>
+
+        <div class="form-group">
+            <label for="recomment_play_type" class="col-sm-2 control-label" >玩法：</label>
+            <div class="col-sm-2">
+                <select name="recomment_play_type" id="recomment_play_type" class="form-control">
+                    <option value="">选玩法</option>
+                    <option value="1" <eq name="vo.recomment_play_type" value="1"> selected="selected"</eq>>标准（双色球、超级大乐透）</option>
+                    <option value="2" <eq name="vo.recomment_play_type" value="2"> selected="selected"</eq>>追加投注（超级大乐透）</option>
+                    <option value="11" <eq name="vo.recomment_play_type" value="11"> selected="selected"</eq>>直选（福彩3D）</option>
+                    <option value="12" <eq name="vo.recomment_play_type" value="12"> selected="selected"</eq>>组选三（福彩3D）</option>
+                    <option value="13" <eq name="vo.recomment_play_type" value="13"> selected="selected"</eq>>组选六（福彩3D）</option>
+                    <option value="21" <eq name="vo.recomment_play_type" value="21"> selected="selected"</eq>>任选一（11选5）</option>
+                    <option value="22" <eq name="vo.recomment_play_type" value="22"> selected="selected"</eq>>任选二（11选5）</option>
+                    <option value="23" <eq name="vo.recomment_play_type" value="23"> selected="selected"</eq>>任选三（11选5）</option>
+                    <option value="24" <eq name="vo.recomment_play_type" value="24"> selected="selected"</eq>>任选四（11选5）</option>
+                    <option value="25" <eq name="vo.recomment_play_type" value="25"> selected="selected"</eq>>任选五（11选5）</option>
+                    <option value="26" <eq name="vo.recomment_play_type" value="26"> selected="selected"</eq>>任选六（11选5）</option>
+                    <option value="27" <eq name="vo.recomment_play_type" value="27"> selected="selected"</eq>>任选七（11选5）</option>
+                    <option value="28" <eq name="vo.recomment_play_type" value="28"> selected="selected"</eq>>任选八（11选5）</option>
+                    <option value="29" <eq name="vo.recomment_play_type" value="29"> selected="selected"</eq>>前一（暂不使用）（11选5）</option>
+                    <option value="30" <eq name="vo.recomment_play_type" value="30"> selected="selected"</eq>>前二直选（11选5）</option>
+                    <option value="31" <eq name="vo.recomment_play_type" value="31"> selected="selected"</eq>>前二组选（11选5）</option>
+                    <option value="32" <eq name="vo.recomment_play_type" value="32"> selected="selected"</eq>>前三直选（11选5）</option>
+                    <option value="33" <eq name="vo.recomment_play_type" value="33"> selected="selected"</eq>>前三组选（11选5）</option>
+                    <option value="41" <eq name="vo.recomment_play_type" value="41"> selected="selected"</eq>>和值投注（快三）</option>
+                    <option value="42" <eq name="vo.recomment_play_type" value="42"> selected="selected"</eq>>三同号单选（快三）</option>
+                    <option value="43" <eq name="vo.recomment_play_type" value="43"> selected="selected"</eq>>三同号通选（快三）</option>
+                    <option value="44" <eq name="vo.recomment_play_type" value="44"> selected="selected"</eq>>三连号通选（快三）</option>
+                    <option value="45" <eq name="vo.recomment_play_type" value="45"> selected="selected"</eq>>三不同号投注（快三）</option>
+                    <option value="46" <eq name="vo.recomment_play_type" value="46"> selected="selected"</eq>>二同号单选（快三）</option>
+                    <option value="47" <eq name="vo.recomment_play_type" value="47"> selected="selected"</eq>>二同号复选（快三）</option>
+                    <option value="48" <eq name="vo.recomment_play_type" value="48"> selected="selected"</eq>>二不同号投注（快三）</option>
+                    <option value="51" <eq name="vo.recomment_play_type" value="51"> selected="selected"</eq>>单关（竞彩）</option>
+                    <option value="52" <eq name="vo.recomment_play_type" value="52"> selected="selected"</eq>>过关（竞彩）</option>
+
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="recomment_play_id" class="col-sm-2 control-label">推荐场次ID或者彩号：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="recomment_play_id" id="recomment_play_id" value="{$vo.recomment_play_id}">
+            </div>
+        </div>
+
+        <!--<div class="form-group">
+            <label for="recomment_play_type" class="col-sm-2 control-label">推荐玩法：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="recomment_play_type" id="recomment_play_type" value="{$vo.recomment_play_type}">
+            </div>
+        </div>-->
+
+        <div class="form-group">
+            <label for="recomment_content" class="col-sm-2 control-label">推荐内容：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="recomment_content" id="recomment_content" value="{$vo.recomment_content}">
+            </div>
+        </div>
+
+        <div id="zucai" style="display:none">
+
+            <div class="form-group">
+                <label for="recomment_logo" class="col-sm-2 control-label">竞足主队logo：</label>
+                <div class="col-sm-2">
+                  <notempty name="vo.recomment_logo">
+                  <img src="{$vo.recomment_logo}" />
+                  </notempty>
+                  <input type="file" class="" name="recomment_logo"  id="recomment_logo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="recomment_logo2" class="col-sm-2 control-label">竞足客队logo：</label>
+                <div class="col-sm-2">
+                    <notempty name="vo.recomment_logo2">
+                        <img src="{$vo.recomment_logo2}" />
+                    </notempty>
+                    <input type="file" class="" name="recomment_logo2"  id="recomment_logo2">
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="fucai" style="display:none">
+            <div class="form-group">
+                <label for="is_rank" class="col-sm-2 control-label" >是否随机：</label>
+                <div class="col-sm-2">
+                    <select name="is_rank" id="is_rank" class="form-control" onchange="isRank()">
+                        <option value="0" <eq name="vo.is_rank" value="0"> selected="selected"</eq>>不随机</option>
+                        <option value="1" <eq name="vo.is_rank" value="1"> selected="selected"</eq>>随机</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="issue_desc" class="col-sm-2 control-label">彩单描述：</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="issue_desc" id="issue_desc" value="{$vo.issue_desc}">
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+	 	<!--<div class="form-group">
+	    <label for="activity_target" class="col-sm-2 control-label">跳转地址：</label>
+	    <div class="col-sm-7">
+	      <input type="text" class="form-control" name="activity_target"  id="activity_target" value="{$vo.activity_target}">
+	    </div>
+	  	</div>-->
+	  
+	    <!--<div class="form-group">
+		    <label for="activity_description" class="col-sm-2 control-label">活动描述：</label>
+		    <div class="col-sm-8">
+		     <textarea class="form-control" rows="8" name="activity_description" id="activity_description" >{$vo.activity_description}</textarea>
+		    </div>
+	 	</div>-->
+	  <div class="form-group">
+	    <label for="recomment_starttime" class="col-sm-2 control-label">开始时间：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control datePicker" name="recomment_starttime" id="recomment_starttime"  value="{$vo.recomment_starttime}">
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="recomment_endtime" class="col-sm-2 control-label">结束时间：</label>
+	    <div class="col-sm-2">
+	      <input type="text" class="form-control datePicker" name="recomment_endtime" id="recomment_endtime"  value="{$vo.recomment_endtime}">
+	    </div>
+	  </div>
+	  
+      <!--<div class="form-group">
+	    <label for="activity_position" class="col-sm-2 control-label" >位置：</label>
+	    <div class="col-sm-2">
+	    <select name="activity_position" id="activity_position" class="form-control">
+	    <volist name=":C('ACTIVITY_POSITION')" id="position">
+        	<option value="{$key}" <eq name="key" value="$vo.activity_position">selected="selected"</eq>>{$position}</option>
+        </volist>
+	    </select>
+	    </div>
+	  </div>-->
+      
+	  <div class="form-group">
+	    <label for="recomment_status" class="col-sm-2 control-label" >是否显示：</label>
+	    <div class="col-sm-2">
+	    <select name="recomment_status" id="recomment_status" class="form-control">
+	    <option value="0" <eq name="vo.recomment_status" value="0"> selected="selected"</eq>>不显示</option>
+	    <option value="1" <eq name="vo.recomment_status" value="1"> selected="selected"</eq>>显示</option>
+	    </select>
+	    </div>
+	  </div>
+
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="recomment_id" value="{$vo.recomment_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        changeType();
+    });
+
+    function changeType(){
+        var lottery_id = $('#lottery_id').val();
+        if(lottery_id == 2 || lottery_id == 4 || lottery_id == 8){
+            $('#fucai').show();
+            $('#zucai').hide();
+
+        }else if(lottery_id == 6){
+            $('#fucai').hide();
+            $('#zucai').show();
+        }else{
+            $('#fucai').hide();
+            $('#zucai').hide();
+        }
+    }
+
+    function isRank(){
+        var is_rank = $('#is_rank').val();
+        if(is_rank == 1){
+            var play_type = $('#recomment_play_type').val();
+            $.ajax({
+                url:"<?php echo U('ajaxPlayType'); ?>",
+                type:'post',
+                dataType:'json',
+                data:{
+                    'play_type' : play_type
+                },
+                success:function(data){
+                     alert(11);
+                }
+            });
+        }
+
+    }
+
+
+
+
+
+    </script>
+   <script type="text/javascript">
+    highlight_subnav("{:U('index')}");
+</script>
+</block>

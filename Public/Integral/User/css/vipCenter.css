@@ -1,0 +1,251 @@
+html, body, div, hr, span, h3, p { margin: 0; padding: 0; box-sizing: border-box;}
+html, body { height: 100%;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.text-red {
+  color: #e64140;
+}
+.container {
+  height: 100%;
+  overflow-y: auto;
+  background: url("../img/bg.png") no-repeat;
+  background-size: 100% 100%; 
+  padding-bottom: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.grade-container {
+  padding: 20px 10px 20px 45px;
+  position: relative;
+}
+.grade-container .grade-icon {
+  width: 25%; float: left;
+  padding-left: 33px;
+  position: relative;
+  height: 33px;
+}
+.grade-container .grade-icon.active .grade-icon-wrap {
+  width: 45px; height: 45px;
+  background: white;
+  opacity: 1;
+  margin-top: -6px;
+  margin-left: -6px;
+}
+.grade-container .grade-icon .cur-grade {
+  position: absolute; 
+  bottom: -25px; left: -9px;
+  font-size: 12px;
+  width: 50px;
+  text-align: center;
+  color: white;
+}
+.grade-container .grade-icon-wrap {
+  width: 33px; height: 33px;
+  border-radius: 50%;
+  border: 1px solid white;
+  opacity: 0.7;
+  position: absolute;
+  left: 0;
+}
+.grade-container .grade-icon.active .icon-item {
+  opacity: 1;
+}
+.grade-icon .icon-item {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  opacity: 0.4;
+  float: left;
+  position: relative;
+  background: white;
+}
+.grade-container .division-line {
+  height: 1px;
+  border: none;
+  background: white;
+  opacity: 0.7;
+  margin-top: 16px;
+}
+.grade-icon .vip-1-icon,
+.grade-icon .vip-2-icon,
+.grade-icon .vip-3-icon,
+.grade-icon .vip-4-icon {
+  width: 18px; height: 18px;
+  position: absolute; z-index: 3;
+  top: 7px; left: 7px;
+}
+.grade-icon.active .vip-1-icon,
+.grade-icon.active .vip-2-icon,
+.grade-icon.active .vip-3-icon,
+.grade-icon.active .vip-4-icon {
+  width: 25px; height: 25px;
+  top: 9px; left: 9px;
+}
+.grade-icon .vip-1-icon {
+  background: url("../img/vip1.png") no-repeat;
+  background-size: 100% 100%;
+}
+.grade-icon .vip-2-icon {
+  background: url("../img/vip2.png") no-repeat;
+  background-size: 100% 100%;
+}
+.grade-icon .vip-3-icon {
+  background: url("../img/vip3.png") no-repeat;
+  background-size: 100% 100%;
+}
+.grade-icon .vip-4-icon {
+  background: url("../img/vip4.png") no-repeat;
+  background-size: 100% 100%;
+}
+.container .box {
+  margin: 15px 10px 0 15px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+.container .box .title {
+  font-size: 16px;
+  background: url('../img/gift.png') no-repeat;
+  background-size: auto 100%; 
+  padding-left: 25px;
+}
+.container .box .title.point-icon {
+  background: url('../img/current_point.png') no-repeat;
+  background-size: auto 100%;   
+}
+.container .box .no-gift {
+  font-size: 14px;
+  background: url('../img/no_gift.png') no-repeat top center;
+  background-size: auto 50%; 
+  padding-top: 50px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #999;
+}
+.container .box .gift-item {
+  height: 35px; 
+  line-height: 35px;
+  padding-left: 40px;
+  color: white;
+  position: relative;
+  margin-top: 5px;
+}
+.container .box .gift-item .icon {
+  width: 25px; height: 25px;
+  position: absolute;
+  left: 10px; top: 5px;
+}
+.container .box .gift-item.redpack-active {
+  background: url('../img/redpack_active_bg.png') no-repeat;
+  background-size: 100% 100%;
+}
+.container .box .gift-item.redpack-active .icon {
+  background: url("../img/redpack_active.png") no-repeat;
+  background-size: 100% 100%;
+}
+.container .box .text-right {
+  float: right; margin-right: 10px;
+}
+.container .box .gift-item.redpack {
+  background: url('../img/redpack_bg.png') no-repeat;
+  background-size: 100% 100%;
+}
+.container .box .gift-item.redpack .icon {
+  background: url("../img/redpack.png") no-repeat;
+  background-size: 100% 100%;
+}
+.container .box .gift-item.point {
+  background: url('../img/point_bg.png') no-repeat;
+  background-size: 100% 100%;
+}
+.container .box .gift-item.point .icon {
+  background: url("../img/point.png") no-repeat;
+  background-size: 100% 100%;
+}
+.container .carousel {
+  height: 130px;
+  width: 100%;
+  padding: 10px 15%;
+}
+.container .carousel img {
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 100%;
+  height: 110px;
+  position: absolute;
+  z-index: 0;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  left: 0; top: 0;
+  opacity: 0;
+}
+.container .carousel .carousel-scroll {
+  position: relative;
+}
+.container .carousel img.img-left {
+  -webkit-transform: translate(-70px, 0) scale(0.8);
+        transform: translate(-70px, 0) scale(0.8);
+  opacity: 1;
+  z-index: 2;
+}
+.container .carousel img.img-right {
+  -webkit-transform: translate(70px, 0) scale(0.8);
+        transform: translate(70px, 0) scale(0.8);
+  opacity: 1;
+  z-index: 2;
+}
+.container .carousel img.img-active {
+  z-index: 5; opacity: 1;
+}
+.container .box .title.privilege {
+  background: url('../img/privilege.png') no-repeat left center;
+  background-size: auto 80%; 
+}
+.container .box .privilege-grade a {
+  color: #666;
+  width: 25%;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  float: left;
+  padding: 10px 0 5px 0;
+  text-decoration: none;
+  outline: none;
+}
+.container .box .privilege-grade a:active {
+  background: none;
+  opacity: 0.8;
+}
+.container .box .privilege-grade a.active {
+  border-bottom: 1px solid #e6403f;
+  color: #e6403f;
+}
+.container .box .privilege-panel {
+  padding: 0 10px;
+}
+.container .box .privilege-item {
+  padding: 10px 10px 10px 50px;
+  border-bottom: 1px dotted #ddd;
+}
+.container .box .privilege-item h3 {
+  line-height: 24px; 
+  font-size: 16px;
+}
+.container .box .privilege-item p {
+  font-size: 14px;
+  color: #999;
+}
+.container .box .privilege-item.accelerate {
+  background: url("../img/accelerate.png") no-repeat left center;
+  background-size: auto 60%; 
+}
+.container .box .privilege-item.gift {
+  background: url("../img/gift.png") no-repeat left center;
+  background-size: auto 60%; 
+}
+.container .box .privilege-item.service {
+  background: url("../img/service.png") no-repeat left center;
+  background-size: auto 60%; 
+}
+.container .box .privilege-item.no-privilege-gift {
+  background: url("../img/no-gift.png") no-repeat left center;
+  background-size: auto 60%; 
+}

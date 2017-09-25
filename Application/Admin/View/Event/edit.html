@@ -1,0 +1,54 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['event_id'])?'编辑':'新增'}事件</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" >
+    
+   		<div class="form-group">
+		    <label for="event_name" class="col-sm-2 control-label">事件名称：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="event_name" id="event_name" value="{$vo.event_name}">
+		    </div>
+	 	</div>
+
+	 	 
+	 	 <div class="form-group">
+		     <label for="event_level" class="col-sm-2 control-label">事件等级：</label>
+		    <div class="col-sm-2">
+		    	<select class="form-control" name="event_level" id="event_level">
+		    	<option value="">选择等级</option>
+		    	<volist name=":C('EVENT_LEVEL')" id="level">
+		    	<option value="{$key}" 
+		    	<eq name="vo.event_level" value="$key">
+		    	selected="selected"
+		    	</eq>
+		    	>{$level}</option>
+		    	</volist>
+		    	</select>
+		     
+		    </div>
+	 	 </div>
+	 	 
+	 	 <div class="form-group">
+		     <label for="event_retry_times" class="col-sm-2 control-label">重试次数：</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="event_retry_times" id="event_retry_times" value="{$vo.event_retry_times}">
+		    </div>
+	 	 </div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="event_id" value="{$vo.event_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+   <script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

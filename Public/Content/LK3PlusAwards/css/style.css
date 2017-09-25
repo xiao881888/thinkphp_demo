@@ -1,0 +1,165 @@
+*{ 
+	margin: 0; 
+	padding: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+}
+body{
+	background-image: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/bg.jpg);
+	background-position: center top;
+	background-size: cover;
+}
+
+/*banner*/
+.banner{
+	text-align: center;
+}
+.banner img{
+	margin: 0 0 0 0;
+	width: 100%;
+}
+
+.wrap{
+	width: 94%;
+	margin: 0 auto 2% auto;
+	padding: 0 0;
+	background-image: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/black-bg.png);
+	background-repeat: repeat;
+	border-radius: 6px;
+	padding: 4% 0 3% 0;
+}
+.wrap p{
+	width:94%;
+	margin: 0 3% 2% 3%;
+	padding: 0 0;
+	font-size: 16px;
+	line-height: 26px;
+	overflow: hidden;
+}
+.wrap p span{
+	width: 85px;
+	display: inline-block;
+	color: #54c677;
+	float: left;
+}
+.wrap p b{
+	width: 73%;
+	display: inline-block;
+	color: #ffffff;
+}
+table{
+	width:94%;
+	margin: 0 3%;
+	border: none;
+	border-spacing:0;
+}
+table th{
+	font-weight: normal;
+	padding: 3% 0;
+	color:#165329;
+	background-color: #51A76A;
+	font-size:14px;
+	text-align:center;
+	border-right: 1px solid #178137;
+}
+table td{
+	font-weight: normal;
+	padding: 3% 0;
+	color:#666666;
+	background-color: #F5FFF7;
+	font-size:14px;
+	text-align:center;
+	border-right: 1px solid #178137;
+	border-bottom: 1px solid #178137;
+}
+table tr td:last-child {
+	border-right: none;
+}
+table th:first-child{
+	border-top-left-radius: 5px;
+}
+table th:last-child{
+	border-top-right-radius: 5px;
+	border-right: none;
+}
+tr.more{
+	display: none;
+}
+.btn-more-wrap{
+	background-color: #50A869;
+	width:94%;
+	margin: 0 auto;
+	text-align: center;
+	padding: 2.5% 0;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.btn-more{
+	display: inline-block;
+	margin: 0 auto 0 auto;
+	border: none;
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/arrow-down.png);
+	background-repeat: no-repeat;
+	background-position: right center;
+	background-size: auto 50%;
+	padding: 0 5.5% 0 0 ;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 16px;
+	text-decoration: none;
+}
+.btn-more.top{
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/arrow-top.png);
+}
+
+/*去投注按钮*/
+.btn-wrap{
+	margin: 0 auto 0 auto;
+	padding: 0.5% 0;
+	background-image: url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/black_bg.png);
+	background-repeat: repeat;
+}
+a.btn{
+	display: block;
+	position: relative;
+	width: 50%;
+	margin: 0 auto 0 auto;
+	border: none;
+	background-color:transparent;
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/btn.png);
+	background-repeat:no-repeat;
+	background-position: center center;
+	background-size: 100% auto;
+	padding: 8% 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	z-index: 2;
+}
+/*iphone4 iphone5*/
+@media screen and (max-width:320px) {
+	.wrap p{
+		width:94%;
+		margin: 0 3% 2% 3%;
+		padding: 0 0;
+		font-size: 14px;
+		line-height: 20px;
+		overflow: hidden;
+	}
+	.wrap p span{
+		width: 70px;
+		display: inline-block;
+		color: #54c677;
+		float: left;
+	}
+	.wrap p b{
+		width: 75%;
+		display: inline-block;
+		color: #ffffff;
+	}
+
+}

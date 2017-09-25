@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>助国威，国足比赛单关加奖20%</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="format-detection" content="telephone=no" />
+    <style>
+        *{  margin: 0;  padding: 0;  outline: none;  -webkit-tap-highlight-color: rgba(0,0,0,0);  }
+        body{  background-color: #99231E;  }
+        .banner{  width: 100%;  }
+        .btn-wrap{  width: 93%;  margin: -48% auto 0 auto;  text-align: center;  position: relative;  }
+        .btn-wrap img{  width: 100%;  }
+        .btn-wrap div{  display: inline-block; position: absolute;  top: 37%;  width: 23%;  color: #d53131;  font-size: 16px;  text-align: center;  }
+        .btn-wrap div span{  display: inline-block;  color: #ffffff;  font-size: 12px;  text-align: center;  padding: 2px 7px; background-image: url("http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/orange-bg.png"); background-size: 100% 100%; }
+        .btn-wrap div span.red{  background-image: url("http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/red-bg.png");  }
+        .btn-wrap div p{ border: 2px solid #F6B9B7;  padding-top: 16px;  padding-bottom: 5px;   margin-top: -12px;  }
+        .btn-wrap a{  text-decoration: none;  display: inline-block;  position: absolute;  bottom: 4%;  width: 80%;  left: 10%;  }
+        .btn-wrap a img{  width: 100%;  }
+        .rule-wrap{  width: 89%;  text-align: left;  margin: 4% auto 4% 4%;  font-size: 15px;  color: #ffffff;  }
+        .rule-wrap img{  width: 100%; margin-bottom: 4% ;}
+    </style>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ff3fe8d7424d80083f130a5e0bb80176";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</head>
+<body>
+    <img class="banner" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/banner.png">
+    <div class="btn-wrap">
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/border2.png">
+        <div style="left: 9.5%;"><span>返利3%</span><p id="v3"></p></div>
+        <div style="left: 38.5%;"><span>返利3%</span><p id="v1"></p></div>
+        <div style="left: 67.6%;"><span class="red">加奖20%</span><p id="v0"></p></div>
+        <a href="/api/tiger?act=10701&em=0&data=eyJsb3R0ZXJ5X2lkIjoiNiJ9" class="btn-nor"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/but-nor.png"></a>
+    </div>
+    <div class="rule-wrap">
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/pic-time.png">
+        <img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/ChinaVSUzbekistan_activity/img/pic-rule.png">
+    </div>
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.ajax({
+                type : 'POST',
+                url  : 'http://basedata.tigercai.com/Api',
+                data: JSON.stringify({
+                    "act": 1002,
+                    "data": {
+                        "lottery_id": 601,
+                        "play_type": 51,
+                        "schedule_day": 20170905,
+                        "schedule_round_no": "006"
+                    }
+                }),
+                success: function(data){
+                    console.log(data);
+                    if (data.code == 0) {
+                        $("#v3").html("胜"+JSON.parse(data.data.schedule_odds).v3);
+                        $("#v1").html("平"+JSON.parse(data.data.schedule_odds).v1);
+                        $("#v0").html("负"+JSON.parse(data.data.schedule_odds).v0);
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

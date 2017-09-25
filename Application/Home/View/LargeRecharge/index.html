@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>大额充值</title>
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/LargeRecharge/css/style.css?2016092902">
+</head>
+<body>
+<div id="rechargeCont">
+    <div class="cont" style="z-index:2;" id="recharge_form">
+        <div><span>联&ensp;系&ensp;人:</span><input type="text" data-type="name" id="name" /></div>
+        <div><span>联系手机:</span><input type="text" data-type="tel" id="tel" maxlength="11"/></div>
+
+        <div id="btn_select" class="noBorder"><span>充值金额:</span><b cash="0">请选择充值金额</b><i></i></div>
+        <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="5000">5,000</b></div>
+        <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="10000">10,000</b></div>
+        <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="30000">30,000</b></div>
+        <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="50000">50,000</b></div>
+        <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="80000">80,000</b></div>
+        <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="100000">100,000</b></div>
+        <!-- <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="150000">150,000</b></div> -->
+        <!-- <div class="money" name="moneyLi"><span>&emsp;&emsp;&emsp;&emsp;&ensp;</span><b cash="200000">200,000</b></div> -->
+
+        <!--<div>
+            <input id="j_verify" name="j_verify" type="text" class="form-control x164 in" style="float:left;width:50%;line-height:40px">
+            <img id="verify_img" alt="点击更换" title="点击更换" src="{$verify_url}" style="width:40%">
+        </div>-->
+
+    </div>
+
+    <div class="cont fix" id="remarkCont" style="z-index:1;">
+        <div><span>备&emsp;&emsp;注:</span><input type="text" id="remark" /></div>
+    </div>
+
+    <div class="txt fix" id="tsCont">
+        <p>温馨提示:</p>
+        <p>1.充值金额必须>=￥5000方可使用大额转账充值。</p>
+        <p>2.提交申请后，请留意181****8970的来电，客服会跟您联系具体转账事项。</p>
+        <p>3.大额充值申请仅在每日9：00至22:00之间可用。</p>
+    </div>
+
+    <button id="btn_hand" >提交申请</button>
+
+    <div class="shadow" id="shadow2"></div>
+    <div class="errorPop" id="errorPop2" align="center"><p class="errorMsg" id="errorMsg2"></p></div>
+
+    <input type="hidden" id="recharge_url" value="{$post_url}">
+    <input type="hidden" id="user_id" value="">
+</div>
+
+<div id="successCont" style="display:none;">
+    <div class="txt2">
+        <img src="__PUBLIC__/Home/LargeRecharge/images/icon_success.png" />
+        <p>提交成功!</p>
+    </div>
+    <div class="txt3">
+        <p>客服会尽快与您联系</p>
+        <p>请保证联系手机{$contacts_tel}的畅通</p>
+    </div>
+    <!--<button id="btn_close">关闭</button>-->
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="__PUBLIC__/Home/LargeRecharge/js/index.js?2016092908"></script>
+
+<script type="application/javascript">
+
+    /*$("#verify_img").click(function() {
+        var verifyURL = "{$verify_url}";
+        var time = new Date().getTime();
+        $("#verify_img").attr({
+            "src" : verifyURL + "/" + time
+        });
+    });*/
+
+    $(document).ready(function(){
+        setTimeout(function () {
+            appAutoLogin();
+        }, 200);
+    });
+    function isExitsFunction(funcName) {
+        try {
+            if (typeof(eval(funcName)) == "function") {
+                return true;
+            }
+        } catch(e) {}
+        return false;
+    }
+
+    function appAutoLogin(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if(isiOS || isAndroid){
+            if(isiOS){
+                var temp = isExitsFunction("getLoginInfo");
+            }else if(isAndroid){
+                var temp = 'getLoginInfo' in window.Tiger;
+            }
+            if(temp){
+                if(isiOS){
+                    var encrypt_str = getLoginInfo();
+                }else if(isAndroid){
+                    var encrypt_str = window.Tiger.getLoginInfo();
+                }
+                $.ajax({
+                    type : 'POST',
+                    url  : "<?php echo $get_userid_url; ?>",
+                    data : {encrypt_str:encrypt_str},
+                    dataType: "json",
+                    success: function(data){
+                        var user_id = data.user_id;
+                        var user_name = data.user_name;
+                        var user_tel = data.user_tel;
+                        $('#user_id').val(user_id);
+                        $('#name').val(user_name);
+                        $('#tel').val(user_tel);
+                    }
+                });
+            }
+        }
+    }
+
+
+
+</script>
+
+</body>
+</html>

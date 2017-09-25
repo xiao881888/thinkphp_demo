@@ -1,0 +1,121 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>竞彩对阵列表</h2>
+</div>
+<div class="cf">
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			
+			<div class="form-group">
+				<label  for="lottery_id_ex">彩种：</label>
+				<select name="lottery_id_ex" id="lottery_id_ex">
+				<option value="">全部彩种</option>
+				<volist name="lottery_map" id="lottery">
+				<option value="{$key}" <eq name="Think.request.lottery_id_ex" value="$key"> selected="selected" </eq>>{$lottery}</option>
+				</volist>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label  for="schedule_league_matches">联赛/杯赛：</label>
+				<input type="text" class="form-control" id="schedule_league_matches" name="schedule_league_matches" value="{$Think.request.schedule_league_matches}">
+			</div>
+			
+			<div class="form-group">
+				<label  for="schedule_round">场次：</label>
+				<input type="text" class="form-control" id="schedule_day" placeholder="比赛日期(20160618)" name="schedule_day" value="{$Think.request.schedule_day}">
+                -                
+				<input type="text" class="form-control" id="schedule_round_no" placeholder="比赛场次(101)" name="schedule_round_no" value="{$Think.request.schedule_round_no}">
+			</div>
+			
+			<div class="form-group">
+				<label  for="is_finish">完成情况：</label>
+				<select name="is_finish" id="is_finish">
+				<option value="">全部</option>
+				<option value="0" <eq name="Think.request.is_finish" value="0"> selected="selected" </eq>>未完成</option>
+				<option value="1" <eq name="Think.request.is_finish" value="1"> selected="selected" </eq>>已完成</option>
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">彩种</th>
+				<th class="">彩期号</th>
+				<th class="">联赛/杯赛</th>
+				<th class="">对阵</th>
+				<th class="" width="8%">截止时间</th>
+				<th class="" width="8%">官方截止时间</th>
+				<th class="" width="8%">比赛时间</th>
+				<th class="" width="8%">开奖时间</th>
+				<th class="">比赛结果</th>
+				<th class="">销售状态</th>
+				<th class="">任务状态</th>
+				<th class="">开奖状态</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$lottery_map[$vo['lottery_id']]}</td>
+				<td>{$vo.schedule_issue_no}</td>
+				<td>{$vo.schedule_league_matches}</td>                
+				<td>{$vo.schedule_home_team} VS {$vo.schedule_guest_team}</td>
+				<td>{$vo.schedule_end_time}</td>
+				<td>{$vo.schedule_official_end_time}</td>
+				<td>{$vo.schedule_game_start_time}</td>
+				<td>{$vo.schedule_prize_time}</td>
+				<td>
+                <if condition="$vo.schedule_final_score NEQ '' or $vo.schedule_half_score NEQ ''">                
+                半场：{$vo.schedule_half_score}<br>
+                全场：{$vo.schedule_final_score}
+                </if>
+                </td>
+                <td>{$vo.schedule_status|getConfText='SCHEDULE_STATUS'}</td>
+				<td>
+				<span data-toggle="tooltip" data-placement="top" title="{$vo.schedule_task_status|taskNearStatusText}">
+				{$vo.schedule_task_status|taskStatusText}</span>
+				</td>
+				<td>{$vo.schedule_prize_status|prize_status_text}</td>
+				<td>
+				<a href="{:U('edit', array('id'=>$vo['schedule_id']))}" class="btn btn-mini" >编辑</a>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-mini dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				    更多 <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li><a href="{:U('Bee/reprintoutJc', array('lottery_id'=>$vo['lottery_id'],'schedule_day'=>$vo['schedule_day'],'schedule_week'=>$vo['schedule_week'],'schedule_round_no'=>$vo['schedule_round_no']))}">补票</a></li>
+				    <li><a href="{:U('Bee/revokeJc', array('lottery_id'=>$vo['lottery_id'],'schedule_day'=>$vo['schedule_day'],'schedule_week'=>$vo['schedule_week'],'schedule_round_no'=>$vo['schedule_round_no']))}">撤票</a></li>
+				    <li><a href="{:U('Bee/resultTrigger', array('lottery_id'=>$vo['lottery_id'],'schedule_day'=>$vo['schedule_day'],'schedule_week'=>$vo['schedule_week'],'schedule_round_no'=>$vo['schedule_round_no']))}">请求赛果</a></li>
+				     <li><a href="{:U('Bee/prizeTrigger', array('lottery_id'=>$vo['lottery_id'],'schedule_day'=>$vo['schedule_day'],'schedule_week'=>$vo['schedule_week'],'schedule_round_no'=>$vo['schedule_round_no']))}">请求开奖</a></li>
+				  </ul>
+				</div>
+				</td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> 
+<script type="text/javascript">
+$(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+})
+</script>
+</block>

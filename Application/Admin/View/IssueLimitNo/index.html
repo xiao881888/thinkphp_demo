@@ -1,0 +1,59 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>彩期限制投注列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+
+</div>
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th class="">ID</th>
+				<th class="">彩种</th>
+				<th class="">彩期ID</th>
+				<th class="">玩法</th>
+				<th class="">限制投注号码</th>
+				<th class="">创建时间</th>
+				<th class="">状态</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+				<td>{$vo.iln_id}</td>
+				<td>{$lottery_map[$vo['lottery_id']]}</td>
+				<td>{$vo.issue_id}</td>
+				<td>{$vo.play_type|showPlayType}</td>
+				<td>{$vo.bet_number}</td>
+				<td>{$vo.iln_createtime}</td>
+				<td>{$vo.iln_status|status_text}</td>
+				<td>
+                    <eq name="vo.iln_status" value="1"> <a
+						href="{:U('changeStatus', array('status'=>0,'ids'=>$vo['iln_id']))}"
+						class="ajax-get btn btn-mini">禁用</a> <else /> <a
+						href="{:U('changeStatus', array('status'=>1,'ids'=>$vo['iln_id']))}"
+						class="ajax-get btn btn-mini">启用</a> </eq>  <a
+					href="{:U('edit', array('id'=>$vo['iln_id']))}" class="btn btn-mini">编辑</a>
+					<a href="{:U('del', array('ids'=>$vo['iln_id']))}" class="btn btn-mini">删除</a>
+                </td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script">
+
+</block>

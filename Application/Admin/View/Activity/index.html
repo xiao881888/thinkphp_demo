@@ -1,0 +1,90 @@
+<extend name="Public/base" />
+
+<block name="body"> <!-- 标题栏 -->
+<div class="main-title">
+	<h2>活动列表</h2>
+</div>
+<div class="cf">
+	<div class="fl">
+		<a class="btn" href="{:U('add')}">新 增</a>
+	</div>
+
+	<!-- 高级搜索 -->
+	<div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('index')}" method="post">
+			
+			<div class="form-group">
+				<label class="sr-only" for="activity_name"></label>
+				<input type="text" class="form-control"
+					id="activity_name" placeholder="输入活动名称" name="activity_name" value="{$Think.request.activity_name}">
+			</div>
+			
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div>
+</div>
+
+<!-- 数据列表 -->
+<div class="data-table table-striped">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+
+				<th class="">名称</th>
+				<th class="">彩种</th>
+				<th class="">APP名称</th>
+				<th class="">描述</th>
+				<th class="">开始时间</th>
+				<th class="">结束时间</th>
+				<th class="">创建时间</th>
+				<th class="">图片</th>
+				<th class="">是否轮播</th>
+				<th class="">状态</th>
+				<th class="">排序</th>
+				<th class="">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="list"> <volist name="list" id="vo">
+			<tr>
+
+				<td>{$vo.activity_name}</td>
+				<td>{$lottery_map[$vo['lottery_id']]}</td>
+				<td>
+					<?php if($vo['app_id'] == 0){ ?>
+					全部
+					<?php }elseif($vo['app_id'] == 1){ ?>
+					老虎彩票
+					<?php }elseif($vo['app_id'] == 2){ ?>
+					百万彩票
+					<?php }elseif($vo['app_id'] == 3){ ?>
+					新彩票
+					<?php } ?>
+				</td>
+				<td>{$vo.activity_description|htmlspecialchars|msubstr=0,20}</td>
+				<td>{$vo.activity_start_time}</td>
+				<td>{$vo.activity_end_time}</td>
+				<td>{$vo.activity_create_time}</td>
+			
+				<td><img src="{$vo.activity_image}" width="20px;" height="20px;"></td>
+				<td>{$vo.activity_carousel|activity_carousel}</td>
+				<td>{$vo.activity_status|activity_status_text}</td>
+				<td>{$vo.activity_sort}</td>
+
+				<td><eq name="vo.activity_status" value="1"> <a
+						href="{:U('changeStatus', array('status'=>0,'ids'=>$vo['activity_id']))}"
+						class="ajax-get btn btn-mini">禁用</a> <else /> <a
+						href="{:U('changeStatus', array('status'=>1,'ids'=>$vo['activity_id']))}"
+						class="ajax-get btn btn-mini">启用</a> </eq>  <a
+					href="{:U('edit', array('id'=>$vo['activity_id']))}" class="btn btn-mini">编辑</a></td>
+			</tr>
+			</volist> <else />
+			<td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+			</notempty>
+		</tbody>
+	</table>
+</div>
+<div class="page">{$_page}</div>
+</block>
+
+<block name="script"> </block>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>国庆七天乐！快乐红包购！</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<meta name="format-detection" content="telephone=no"/>
+    <link href="__PUBLIC__/Home/CouponRankForActivity/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div>
+    	<img src="__PUBLIC__/Home/CouponRankForActivity/images/top.png" style="width:100%;" />
+    </div>
+    <div class="box">
+    	<div class="tab"><button class="btnList on" id="btn_list"></button><button class="btnRule" id="btn_rule"></button></div>
+        <div class="cont">
+        	<div class="lii">
+            	<ul>
+                    <li><span>用户ID</span><span>买红包金额</span><span>排名</span></li>
+                </ul>
+                <ul>
+                    <?php foreach($couponList as $k => $coupon){ ?>
+                    <?php if($k >= 3){ ?>
+                    <li><span><?php echo substr_replace($coupon['user_tel'],"****", 3, 4); ?></span><span>{$coupon.amount}</span><span>{$coupon.rank}</span></li>
+                    <?php }else{ ?>
+                    <li><span><?php echo substr_replace($coupon['user_tel'],"****", 3, 4); ?></span><span>{$coupon.amount}</span><span></span></li>
+                    <?php } ?>
+                    <?php } ?>
+                </ul>
+            </div>
+
+            <div class="rule">
+            	<p><img src="__PUBLIC__/Home/CouponRankForActivity/images/txt_1.png" /></p>
+                <p>七天长假买红包送好礼！<br>老虎彩票推出大额支付功能还有全新大额红包！！<br>为回馈广大用户，在此长假期间，累计购买任意红包总金额在前20名的用户可获得iphone7一部！</p>
+                <p><img src="__PUBLIC__/Home/CouponRankForActivity/images/txt_3.png" /></p>
+                <p>1、用户累计购买红包的金额作为排行榜的依据。</p>
+                <p>2、排行榜实时更新，用户可以在活动页随时查看自己的排名以及累计购买红包金额。</p>
+                <p>3、获奖名单以活动结束后排行榜最终名单为准。</p>
+                <p>4、工作人员将在活动结束后7个工作日内联系获奖用户派发奖品。</p>
+                <p>5、本活动最终解释权归老虎彩票所有。</p>
+                <p><img src="__PUBLIC__/Home/CouponRankForActivity/images/txt_4.png" /></p>
+                <p>第1名：<span>iphone7plus 256GB 自选颜色</span></p>
+                <p>第2-3名：<span>iphone7plus 128GB 自选颜色</span></p>
+                <p>第4-10名：<span>iphone7 256GB  自选颜色</span></p>
+                <p>第11-20名：<span>iphone7 128GB自选颜色</span></p>
+            </div>
+        </div>
+    </div>
+
+	<div class="box2">
+    	<!--<span>我的排名:<b>9999</b></span>
+        <span>购买红包金额:<b>99999999</b></span>-->
+    </div>
+
+	<button class="btnBuy" id="btn_buy"></button>
+
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script>
+        $(document).ready(function(){
+            setTimeout(function () {
+                appAutoLogin();
+            }, 200);
+        });
+        function isExitsFunction(funcName) {
+            try {
+                if (typeof(eval(funcName)) == "function") {
+                    return true;
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        function appAutoLogin(){
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if(isiOS || isAndroid){
+                if(isiOS){
+                    var temp = isExitsFunction("getLoginInfo");
+                }else if(isAndroid){
+                    var temp = 'getLoginInfo' in window.Tiger;
+                }
+                if(temp){
+                    if(isiOS){
+                        var encrypt_str = getLoginInfo();
+                    }else if(isAndroid){
+                        var encrypt_str = window.Tiger.getLoginInfo();
+                    }
+                    $.ajax({
+                        type : 'POST',
+                        url  : "<?php echo $get_userid_url; ?>",
+                        data : {encrypt_str:encrypt_str},
+                        dataType: "json",
+                        success: function(data){
+                            var user_rank = data.userRankInfo.rank;
+                            var user_coupon_amount = data.userRankInfo.amount;
+                            //<span>我的排名:<b>9999</b></span>
+                            //<span>购买红包金额:<b>99999999</b></span>
+
+                            $(".box2").append("<span>我的排名:<b>"+user_rank+"</b></span><span>购买红包金额:<b>"+user_coupon_amount+"</b></span>");
+
+                        }
+                    });
+                }
+            }
+        }
+
+
+
+		var touchEvents = {
+			touchstart: "touchstart",
+			touchmove: "touchmove",
+			touchend: "touchend"
+		};
+
+		$(document).ready(function(){
+			initBtnToRule();/*初始化 规则 按钮*/
+			initBtnToList();/*初始化 排行榜 按钮*/
+			initBtnBuy();/*初始化 购买红包 按钮*/
+		});
+
+		/*初始化 购买红包 按钮*/
+		function initBtnBuy(){
+			$("#btn_buy").unbind();
+			$("#btn_buy").bind(touchEvents.touchend,function(){
+                location.href = '/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}';
+			});
+		}
+		/*初始化 规则 按钮*/
+		function initBtnToRule(){
+			$("#btn_rule").unbind();
+			$("#btn_rule").bind(touchEvents.touchend,function(){
+				$(this).addClass("on");
+				$(this).siblings().removeClass("on");
+				$(".rule").css("display","inline-block");
+				$(".lii").hide();
+			});
+		}
+		/*初始化 排行榜 按钮*/
+		function initBtnToList(){
+			$("#btn_list").unbind();
+			$("#btn_list").bind(touchEvents.touchend,function(){
+				$(this).addClass("on");
+				$(this).siblings().removeClass("on");
+				$(".rule").hide();
+				$(".lii").show();
+			});
+		}
+    </script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?a5ed9d009e392bc2167010a85eaba0ed";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</body>
+</html>

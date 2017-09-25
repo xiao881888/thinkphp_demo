@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+<title>老虎彩票助您快乐购彩，首充20送20！</title>
+<link href="__ROOT__/Public/Content/recharge20/css/style.css" rel="stylesheet"> 
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<div class="img-box">
+        <img src="__ROOT__/Public/Content/recharge20/images/banner_cash.png" />
+    </div>
+    <div class="bottom-box" align="center">
+    	<div><a class="btn-cash"><span id="btn"></span></a></div>
+        <div align="left">
+            <p>长期有效</p>
+            <p><br/>
+            1、本次活动仅限首次充值用户参与；<br/>
+            2、用户首次充值只要≥20元即可获赠4个价值5元的购彩红包，首充未达20元即失去获得该红包的机会；<br/>
+            3、红包分4个阶段派发到账，充值成功到账后，即派发第一个现金红包，剩余红包将于之后的每个月1号派发；<br/>
+            4、未派发的红包请到“红包管理-等待派发”中查看；<br/>
+            5、本活动与其他活动不冲突。</p>
+        </div>
+        <div><span>本活动最终解释权归本APP所有</span></div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+    $('#btn').bind('click',function(){
+        location.href = '/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}';
+        // alert('/api/tiger?act={$op_code}&em=0&data='+'{$jump_data}');
+    });
+});
+</script>

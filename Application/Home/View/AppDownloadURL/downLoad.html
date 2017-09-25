@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>老虎彩票</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no"/>
+    <style>
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        body {
+            margin: 0;
+            background-color: #D9352D;
+            background-image: url("http://oss.aliyuncs.com/tclottery/app_img/bg.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            text-align: center;
+        }
+        .logo{
+            display: block;
+            width: 28%;
+            margin: 8% auto 5% auto;
+        }
+        .img{
+            display: block;
+            width: 100%;
+            position: relative;
+            margin-top: 6%;
+        }
+        .btn-wrap{
+            text-align: center;
+        }
+        .btn-wrap a{
+            display: inline-block;
+            width: 85%;
+            padding: 3.5% 0;
+            color: #ffffff;
+            font-size: 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 3.5%;
+        }
+        .btn-wrap a.btn-ios{
+            background-color: #457EFF;
+        }
+        .btn-wrap a.btn-andr{
+            background-color: #6EBE33;
+        }
+        .shadow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            opacity: 0.5;
+            z-index: 15;
+            display: none;
+        }
+        .promt {
+            position: fixed;
+            top: 10px;
+            right: 0;
+            z-index: 16;
+            text-align: right;
+            display: none;
+        }
+        .promt img {
+            width: 62%;
+            margin: 0 20px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="http://oss.aliyuncs.com/tclottery/app_img/logo.png"/>
+    <div class="btn-wrap">
+        <a href="javascript:void(0)" class="btn-ios">IOS下载</a>
+        <a href="javascript:void(0)" class="btn-andr" id="btn_downLoad">Android下载</a>
+    </div>
+    <img class="img" src="http://oss.aliyuncs.com/tclottery/app_img/img.png"/>
+    <div class="shadow" name="mask"></div>
+    <div class="promt" name="mask"><img id="pic_adr" src="http://oss.aliyuncs.com/tclottery/app_img/promp.png"/></div>
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var ua = navigator.userAgent.toLowerCase();
+        var config = {
+            download_adr: 'http://oss.aliyuncs.com/tclottery/apk/app-blue-release_officialwebsite.apk',
+            download_ios: 'https://itunes.apple.com/cn/app/lao-hu-cai-piao-zu-cai-er/id975073829?l=zh&ls=1&mt=8'
+         };
+
+        $(document).ready(function () {
+            if ( ua.indexOf('os') > 0 ) {
+                initBtnDownLoadIOS();
+            } else {
+                initBtnDownLoadAndroid();
+            }
+        });
+
+        function initBtnDownLoadIOS() {
+            $(".btn-ios").attr("href",config.download_ios);
+        }
+
+        function initBtnDownLoadAndroid() {
+            if (ua.match(/MicroMessenger/i) == "micromessenger" || ( ua.indexOf('qq/') > -1 && ua.match(/Mobile/i) == "mobile")) {
+                $("#btn_downLoad").bind("click", function () {
+                    $(".shadow").show();
+                    $(".promt").show();
+                });
+                initMarskClick();
+            } else {
+                $(".btn-andr").attr("href",config.download_adr);
+            }
+        }
+
+        function initMarskClick() {
+            $("div[name='mask']").unbind();
+            $("div[name='mask']").bind("click", function () {
+                $(".shadow").hide();
+                $(".promt").hide();
+            });
+        }
+    </script>
+</body>
+</html>

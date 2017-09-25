@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>老快三一亿元加奖</title>
+    <link href="__ROOT__/Public/Content/LK3PlusAwards/css/style.css" rel="stylesheet" type="text/css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+	<div class="banner"><img src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/activity_image/LK3PlusAwards_activity/img/banner.png" /></div>
+
+    <div class="wrap">
+        <p><span>活动时间：</span><b>2017年6月18日-6月22日<br>（或1亿元加奖派发完成）</b></p>
+        <p><span>活动规则：</span></p>
+        <table border="0">
+            <tbody>
+                <tr><th>投注方式</th><th>原设定奖金</th><th>派奖奖金</th><th>派奖后奖金</th></tr>
+                <tr><td>和值4</td><td>80</td><td>20</td><td>100</td></tr>
+                <tr><td>和值5</td><td>40</td><td>10</td><td>50</td></tr>
+                <tr><td>和值6</td><td>25</td><td>5</td><td>30</td></tr>
+                <tr><td>和值7</td><td>16</td><td>4</td><td>20</td></tr>
+                <tr><td>和值8</td><td>12</td><td>2</td><td>14</td></tr>
+                <tr><td>和值9</td><td>10</td><td>2</td><td>12</td></tr>
+                <tr><td>和值10</td><td>9</td><td>2</td><td>11</td></tr>
+                <tr class="more"><td>和值11</td><td>9</td><td>2</td><td>11</td></tr>
+                <tr class="more"><td>和值12</td><td>10</td><td>2</td><td>12</td></tr>
+                <tr class="more"><td>和值13</td><td>12</td><td>2</td><td>14</td></tr>
+                <tr class="more"><td>和值14</td><td>16</td><td>4</td><td>20</td></tr>
+                <tr class="more"><td>和值15</td><td>25</td><td>5</td><td>30</td></tr>
+                <tr class="more"><td>和值16</td><td>40</td><td>10</td><td>50</td></tr>
+                <tr class="more"><td>和值17</td><td>80</td><td>20</td><td>100</td></tr>
+                <tr class="more"><td>三同号通选</td><td>40</td><td>10</td><td>50</td></tr>
+                <tr class="more"><td>三同号单选</td><td>240</td><td>60</td><td>300</td></tr>
+                <tr class="more"><td>二同号复选</td><td>15</td><td>4</td><td>19</td></tr>
+                <tr class="more"><td>二同号单选</td><td>80</td><td>20</td><td>100</td></tr>
+                <tr class="more"><td>三不同号</td><td>40</td><td>10</td><td>50</td></tr>
+                <tr class="more"><td>二不同号</td><td>8</td><td>2</td><td>10</td></tr>
+                <tr class="more"><td>三连号通选</td><td>10</td><td>2</td><td>12</td></tr>
+            </tbody>
+        </table>
+        <div class="btn-more-wrap"><a class="btn-more" href="javascript:void(0)">点击展开更多</a></div>
+    </div>
+
+    <!-- 去投注按钮 -->
+    <div class="btn-wrap">
+    </div>
+        <?php
+            $jump_data = urlencode(base64_encode(json_encode(array('lottery_id'=>22))));
+            $jump_url = '/api/tiger?act=10701&em=0&data='.$jump_data;
+        ?>
+        <a class="btn" href="<?php echo $jump_url; ?>"></a>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".btn-more").bind('click', function() {
+                if( $(this).hasClass("top") ){
+                    $(this).removeClass("top");
+                    $(".more").hide();
+                    $(this).html("点击展开更多");
+                }else{
+                    $(this).addClass("top");
+                    $(".more").show();
+                    $(this).html("点击收起");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

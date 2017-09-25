@@ -1,0 +1,64 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>生成红包码</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" >    
+   		<div class="form-group">
+		    <label for="coupon_id" class="col-sm-2 control-label">渠道：</label>
+		    <div class="col-sm-2">
+		      <select name="channel_id" id="channel_id" class="form-control">
+		      <option value="">选择红包渠道</option>
+		      <volist name="channels" id="channel">
+		      <option value="{$key}">{$channel}</option>
+		      </volist>
+		      </select>
+		    </div>
+	 	</div>
+        
+        <div class="form-group">
+		    <label for="coupon_id" class="col-sm-2 control-label">方案：</label>
+		    <div class="col-sm-2">
+		      <select name="plan_id" id="plan_id" class="form-control">
+		      <option value="">选择方案</option>
+		      <volist name="plans" id="plan">
+		      <option value="{$key}">{$plan}</option>
+		      </volist>
+		      </select>
+		    </div>
+	 	</div>
+	  
+		<div class="form-group">
+		    <label for="ce_start_time" class="col-sm-2 control-label">兑换起始时间：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control " name="cc_start_time" id="cc_start_time" value="{$vo.cc_start_time}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+		    </div>
+	 	 </div>
+	 	
+	 	 <div class="form-group">
+		    <label for="ce_end_time" class="col-sm-2 control-label">兑换截止时间：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control " name="cc_end_time" id="cc_end_time" value="{$vo.cc_end_time}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+		    </div>
+	 	 </div>	 	 
+	 	 
+	 	 <div class="form-group">
+		    <label for="number" class="col-sm-2 control-label">生成个数：</label>
+		    <div class="col-sm-2">
+		    <input type="text" class="form-control" name="number" id="number" value="{$vo.number}">
+		    </div>
+	 	 </div>
+	  
+	  	<div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="ce_operator_id" value="{:is_login()}">
+              	<button type="submit" class="btn btn-default">提交</button>
+            </div>
+	  	</div>
+    </form>
+</block>
+
+<block name="script">
+  
+</block>

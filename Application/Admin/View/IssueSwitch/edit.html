@@ -1,0 +1,69 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['is_id'])?'编辑':'新增'}彩期开关</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="is_package_name" class="col-sm-2 control-label">渠道ID：</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="is_package_name" id="is_package_name" value="{$vo.is_package_name}">
+            </div>
+        </div>
+
+		<div class="form-group">
+			<label for="is_app_version" class="col-sm-2 control-label">版本号：</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="is_app_version" id="is_app_version" value="{$vo.is_app_version}">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="is_switch" class="col-sm-2 control-label" >开关：</label>
+			<div class="col-sm-2">
+				<select name="is_switch" id="is_switch" class="form-control">
+					<option value="1" <eq name="vo.is_switch" value="1"> selected="selected"</eq>>开</option>
+					<option value="0" <eq name="vo.is_switch" value="0"> selected="selected"</eq>>关</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="is_switch" class="col-sm-2 control-label" >类型：</label>
+			<div class="col-sm-2">
+				<select name="is_type" id="is_type" class="form-control">
+					<option value="1" <eq name="vo.is_type" value="1"> selected="selected"</eq>>购彩开关</option>
+					<option value="2" <eq name="vo.is_type" value="2"> selected="selected"</eq>>注册开关</option>
+				</select>
+			</div>
+		</div>
+
+	  <div class="form-group">
+	    <label for="is_status" class="col-sm-2 control-label" >状态：</label>
+	    <div class="col-sm-2">
+	    <select name="is_status" id="is_status" class="form-control">
+	    <option value="1" <eq name="vo.is_status" value="1"> selected="selected"</eq>>启用</option>
+	    <option value="0" <eq name="vo.is_status" value="0"> selected="selected"</eq>>禁用</option>
+	    </select>
+	    </div>
+	  </div>
+
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="is_id" value="{$vo.is_id}">
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/ckeditor/ckeditor.js"></script>
+
+   <script type="text/javascript">
+    highlight_subnav("{:U('index')}");
+</script>
+</block>

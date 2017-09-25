@@ -1,0 +1,49 @@
+*{ margin:0;padding:0;}
+
+body{ background: #ffffff; }
+
+.img-box{
+	width:100%;
+}
+.img-box img{
+	width:100%;
+}
+
+.bottom-box{
+	width:100%;
+}
+.bottom-box div{
+	width: 93%;
+	margin: 10px 0 25px 0 ;
+	font-size:14px;
+}
+.bottom-box p{
+	color:#333;
+	line-height: 28px;
+	margin: 0 0 13px 0;
+}
+.bottom-box div a{
+	display:inline-block;
+	height: 46px;
+}
+.bottom-box div a span{
+	display: inline-block;
+	width:130px;
+	height: 46px;
+	background: url(../images/btn-nor.png) no-repeat;
+	background-size: 100%;
+}
+.bottom-box a:active span{
+	background: url(../images/btn-pre.png) no-repeat;
+	background-size: 100%;
+}
+.bottom-box div span{
+	color:#999;
+}
+.bottom-box p span{
+	color: #ea3e3e;
+}
+
+
+
+	

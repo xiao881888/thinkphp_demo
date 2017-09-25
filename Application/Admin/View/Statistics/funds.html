@@ -1,0 +1,160 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<div class="cf">
+	<!-- 高级搜索 -->
+	<!-- <div class="search-form fr cf">
+		<form class="form-inline" role="form" action="{:U('funds')}" method="post">
+			<div class="form-group">
+				<label  for="s_date">时间：</label>
+				<input type="text" class="form-control input-sm" name="s_date" value="{$Think.request.s_date}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+				~
+				<input type="text" class="form-control input-sm" name="e_date" value="{$Think.request.e_date}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+			</div>
+			<button type="submit" class="btn btn-default">搜索</button>
+		</form>
+	</div> -->
+</div>
+
+<div class="cf">
+    <div class="data-table table-striped">
+        <table class="table table-striped table-bordered table-hover table-condensed" >
+            <thead>
+                <tr>
+                    <th class="col-sm-1">统计项</th>
+                    <th class="col-sm-1">统计额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>首充40送40</td>
+                    <td>{$recharge40|default=0}</td>
+                </tr>
+                <tr>
+                    <td>首充20送20</td>
+                    <td>{$recharge20|default=0}</td>
+                </tr>
+                <tr>
+                    <td>首充20送128</td>
+                    <td>{$recharge_new|default=0}</td>
+                </tr>           
+                <tr>
+                    <td>注册送5元</td>
+                    <td>{$register5|default=0}</td>
+                </tr>
+                <tr>
+                    <td>加奖红包</td>
+                    <td>{$order_award|default=0}</td>
+                </tr>
+                <tr>
+                    <td>购买红包补贴</td>
+                    <td>{$buy_coupon|default=0}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-hover table-condensed" >
+            <thead>
+                <tr>
+                    <th class="col-sm-1">统计项</th>
+                    <th class="col-sm-1">统计额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>连连-充值</td>
+                    <td>{$recharge_fee[5]['fee']|default=0}</td>
+                </tr>
+                <tr>
+                    <td>连连-代付</td>
+                    <td>{$lianlian_daifu_fee|default=0}</td>
+                </tr>
+                <tr>
+                    <td>宝付-充值</td>
+                    <td>{$recharge_fee[10]['fee']|default=0}</td>
+                </tr>
+                <tr>
+                    <td>宝付-代付</td>
+                    <td>{$baofu_daifu_fee|default=0}</td>
+                </tr>
+                <tr>
+                    <td>支付宝-充值</td>
+                    <td>{$recharge_fee[2]['fee']|default=0}</td>
+                </tr>
+                <tr>
+                    <td>微信扫码-充值</td>
+                    <td>{$recharge_fee[3]['fee']|default=0}</td>
+                </tr>
+                <tr>
+                    <td>汇付宝-充值</td>
+                    <td>{$recharge_fee[9]['fee']|default=0}</td>
+                </tr>
+                <tr>
+                    <td>易宝-充值</td>
+                    <td>{$recharge_fee[11]['fee']|default=0}</td>
+                </tr>
+                <tr>
+                    <td>梓微兴-充值</td>
+                    <td>{$recharge_fee[12]['fee']|default=0}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-hover table-condensed" >
+            <thead>
+                <tr>
+                    <th class="col-sm-1">统计项</th>
+                    <th class="col-sm-1">统计额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>用户可用余额</td>
+                    <td>{$user_account.balance}</td>
+                </tr>
+                <tr>
+                    <td>用户冻结金额</td>
+                    <td>{$user_account.frozen}</td>
+                </tr>
+                <tr>
+                    <td>非法用户冻结金额</td>
+                    <td>{$illegal_user_frozen}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-hover table-condensed" >
+            <thead>
+                <tr>
+                    <th class="col-sm-1">统计项</th>
+                    <th class="col-sm-1">统计额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>用户积分余额</td>
+                    <td>{$integral_balance}</td>
+                </tr>
+                <tr>
+                    <td>用户消耗积分</td>
+                    <td>{$integral_consume}</td>
+                </tr>
+                <tr>
+                    <td>用户兑换红包总额</td>
+                    <td>{$user_integral_hongbao_amount}</td>
+                </tr>
+                <tr>
+                    <td>用户兑换红包消费</td>
+                    <td>{$user_integral_hongbao_custom}</td>
+                </tr>
+                <tr>
+                    <td>用户累计积分</td>
+                    <td>{$integral_amount}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+</script>
+</block>

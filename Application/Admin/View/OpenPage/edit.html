@@ -1,0 +1,207 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{:isset($vo['open_page_id'])?'编辑':'新增'}启动页</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+	 	<div class="form-group">
+		    <label for="open_page_title" class="col-sm-2 control-label">名称</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="open_page_title"  value="{$vo.open_page_title}">
+		    </div>
+	 	</div>
+
+		<div class="form-group">
+			<label for="app_id" class="col-sm-2 control-label" >APP名称：</label>
+			<div class="col-sm-2">
+				<select name="app_id" id="app_id" class="form-control">
+					<option value="0" <if condition="$vo[app_id] eq 0">selected</if>>全部</option>
+					<option value="1" <if condition="$vo[app_id] eq 1">selected</if>>老虎彩票</option>
+					<option value="2" <if condition="$vo[app_id] eq 2">selected</if>>百万彩票</option>
+					<option value="3" <if condition="$vo[app_id] eq 3">selected</if>>新彩票</option>
+				</select>
+			</div>
+		</div>
+
+	 	<div class="form-group">
+		    <label for="open_page_os" class="col-sm-2 control-label">平台</label>
+		    <div class="col-sm-4 form-inline">
+		      	<select name="open_page_os" class="form-control">
+            	<volist name=":C('DEVICE_OS_TYPE_LIST')" id="os">
+		      		<option value="{$key}" <eq name="key" value="$vo.open_page_os">selected="selected"</eq>>{$os}</option>
+		      	</volist>
+		      	</select>
+            </div>
+	 	</div>
+ 
+	 	<div class="form-group">
+		    <label for="open_page_image_640_2" class="col-sm-2 control-label">图片640*960</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_640_2"> 
+            	<a href="{$vo.open_page_image_640_2}" class="colorbox"><img src="{$vo.open_page_image_640_2}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_640_2" id="open_page_image_640" >
+                </label>
+			</div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="open_page_image_640" class="col-sm-2 control-label">图片640*1136</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_640"> 
+            	<a href="{$vo.open_page_image_640}" class="colorbox"><img src="{$vo.open_page_image_640}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_640" id="open_page_image_640" >
+                </label>
+			</div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="open_page_image_750" class="col-sm-2 control-label">图片750*1334</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_750"> 
+            	<a href="{$vo.open_page_image_750}" class="colorbox"><img src="{$vo.open_page_image_750}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_750" id="open_page_image_750" >
+                </label>
+			</div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="open_page_image_1242" class="col-sm-2 control-label">图片1242*208</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_1242"> 
+            	<a href="{$vo.open_page_image_1242}" class="colorbox"><img src="{$vo.open_page_image_1242}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_1242" id="open_page_image_1242" >
+                </label>
+			</div>
+	 	</div>
+	 	<div class="form-group">
+		    <label for="open_page_image_480" class="col-sm-2 control-label">图片480*800</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_480"> 
+            	<a href="{$vo.open_page_image_480}" class="colorbox"><img src="{$vo.open_page_image_480}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_480" id="open_page_image_480" >
+                </label>
+			</div>
+	 	</div>
+	 	<div class="form-group">
+		    <label for="open_page_image_720" class="col-sm-2 control-label">图片720*1280</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_720"> 
+            	<a href="{$vo.open_page_image_720}" class="colorbox"><img src="{$vo.open_page_image_720}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_720" id="open_page_image_720" >
+                </label>
+			</div>
+	 	</div>
+	 	<div class="form-group">
+		    <label for="open_page_image_1080" class="col-sm-2 control-label">图片1080*1920</label>            
+            <div class="col-sm-2">
+            	<label class="navbar-left">
+            	<notempty name="vo.open_page_image_1080"> 
+            	<a href="{$vo.open_page_image_1080}" class="colorbox"><img src="{$vo.open_page_image_1080}" width="50" height="50" /></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                </notempty>
+                </label>
+                <label>
+                <input  type="file" name="open_page_image_1080" id="open_page_image_1080" >
+                </label>
+			</div>
+	 	</div>
+	 	<div class="form-group">
+		    <label for="open_page_expiretime" class="col-sm-2 control-label">过期时间</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="open_page_expiretime"  value="{$vo.open_page_expiretime}"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+		    </div>
+	 	</div>
+
+	 	<div class="form-group">
+		    <label for="open_page_type" class="col-sm-2 control-label">跳转类型</label>
+		    <div class="col-sm-4 form-inline">
+		      	<select name="open_page_type" class="form-control">
+            	<volist name="open_page_type" id="type_name">
+		      		<option value="{$key}" <eq name="key" value="$vo.open_page_type">selected="selected"</eq>>{$type_name}</option>
+		      	</volist>
+		      	</select>
+            </div>
+	 	</div>
+        	
+	 	<div class="form-group">
+		    <label for="open_page_target_url" class="col-sm-2 control-label">跳转链接</label>
+		    <div class="col-sm-2">
+		      <input type="text" class="form-control" name="open_page_target_url"  value="{$vo.open_page_target_url}">
+		    </div>
+	 	</div>
+        	
+	 	<div class="form-group">
+		    <label for="open_page_lottery_id" class="col-sm-2 control-label">关联彩种</label>
+		    <div class="col-sm-4 form-inline">
+		      	<select name="open_page_lottery_id" class="form-control">
+		      	<option value="0">无</option>
+            	<volist name="lottery_map" id="lottery_name">
+		      		<option value="{$key}" <eq name="key" value="$vo.open_page_lottery_id">selected="selected"</eq>>{$lottery_name}</option>
+		      	</volist>
+		      	</select>
+            </div>
+	 	</div>
+	 	
+	 	<div class="form-group">
+		    <label for="open_page_status" class="col-sm-2 control-label">状态</label>
+		    <div class="col-sm-2">
+		      <select name="open_page_status" class="form-control">
+		      <volist name=":C('COMMON_STATUS')" id="status">
+		      <option value="{$key}" <eq name="key" value="$vo.open_page_status">selected="selected"</eq>>{$status}</option>
+		      </volist>	    
+		      </select>
+		    </div>
+	 	</div>
+
+		<div class="form-group">
+			<label for="open_page_level" class="col-sm-2 control-label">启动优先级</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="open_page_level"  value="{$vo.open_page_level}">
+			</div>
+		</div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	    	<input type="hidden" name="open_page_id" value="{$vo.open_page_id}">	    	
+	      <button type="submit" class="btn btn-default">提交</button>
+	    </div>
+	  </div>
+    </form>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+    highlight_subnav('{:U('index')}');
+</script>
+</block>

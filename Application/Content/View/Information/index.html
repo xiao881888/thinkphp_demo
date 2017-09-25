@@ -1,0 +1,789 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>彩票资讯</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<link href="__PUBLIC__/Content/css/style.css?2016121303" rel="stylesheet" type="text/css">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?41791bbd1565647fa1b0d9236fc6ee3d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <script>
+        var tabFlag = "";
+        var tzFlag = 0;
+        //获取cookie中key的值...
+        function getCookie(c_name){
+            if (document.cookie.length>0){　　//先查询cookie是否为空，为空就return ""
+                c_start=document.cookie.indexOf(c_name + "=");　　//通过String对象的indexOf()来检查这个cookie是否存在，不存在就为 -1　　
+                if (c_start!=-1){
+                    c_start=c_start + c_name.length+1;　　//最后这个+1其实就是表示"="号啦，这样就获取到了cookie值的开始位置
+                    c_end=document.cookie.indexOf(";",c_start);　　//其实我刚看见indexOf()第二个参数的时候猛然有点晕，后来想起来表示指定的开始索引的位置...这句是为了得到值的结束位置。因为需要考虑是否是最后一项，所以通过";"号是否存在来判断
+                    if (c_end==-1) c_end=document.cookie.length;
+                    return unescape(document.cookie.substring(c_start,c_end));　　//通过substring()得到了值。想了解unescape()得先知道escape()是做什么的，都是很重要的基础，想了解的可以搜索下，在文章结尾处也会进行讲解cookie编码细节
+                }
+            }
+            return "";
+        }
+        //设置cookie
+        function setCookie(c_name, value, expiredays){
+            var exdate=new Date();
+            exdate.setTime(exdate.getTime() + expiredays*24*3600*1000);
+            document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+        }
+
+        var cookie = getCookie('c_count');
+        tabFlag = getCookie('tab_count');
+        console.log(tabFlag+" "+cookie);
+        if( cookie !="" ){
+            if( cookie == 2 ){
+                setCookie('c_count', "1", 1000);
+            }
+        }else if( cookie =="" ){
+            setCookie('c_count', "1", 1000);
+        }
+
+        window.onbeforeunload = function(){
+
+            if( tzFlag ==0  && getCookie('c_count') ==1 ){
+                setCookie('tab_count', "0", 1000);
+            }
+        }
+
+    </script>
+</head>
+<body>
+	<!--  顶部tab  --->
+    <div class="bgLine"></div>
+    <div class="wrapper" id="wrapper2">
+    	<header id="scroller2">
+            <ul>
+            	<volist name="category_list" id="category">
+
+                    <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+                    <li s="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/ajaxIndex',array('id'=>$category['information_category_id'])); ?>"
+                    <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+                    <li s="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/ajaxIndex',array('id'=>$category['information_category_id'])); ?>"
+                    <?php } else { ?>
+                    <li s="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/ajaxIndex',array('id'=>$category['information_category_id'])); ?>"
+                    <?php } ?>
+                    <empty name="Think.request.id">
+                     <eq name="i" value="1">class="tab_on" id="current"</eq>
+                     <else/>
+                     <eq name="Think.request.id" value="$category.information_category_id">class="tab_on"</eq>
+                     </empty>
+                     >{$category.information_category_name}</li>
+                </volist>
+                <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+                <li s="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/ajaxSupportList'); ?>" >我赞过的</li>
+                <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+                <li s="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/ajaxSupportList'); ?>" >我赞过的</li>
+                <?php } else { ?>
+                <li s="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/ajaxSupportList'); ?>" >我赞过的</li>
+                <?php } ?>
+            </ul>
+        </header>
+    </div>
+    
+    <!-- 更多按钮 -->
+  	<div name="btn_showMenu" class="btn_moreType"><a id="icon_more"></a></div>
+    
+    <!-- 所有类型 -->
+    <div class="totalHead">
+    	<ul name="btn_showMenu">
+        	<li>所有频道</li>
+        </ul>
+        <hr>
+    	<ul id="menu_2">
+        	<volist name="category_list" id="category">
+                 <li
+                 <empty name="Think.request.id">
+                 <eq name="i" value="1">class="on"</eq>
+                 <else/>
+                 <eq name="Think.request.id" value="$category.information_category_id">class="on"</eq>
+                 </empty>
+                 >{$category.information_category_name}</li>
+            </volist>
+
+            <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+            <li s="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/ajaxSupportList'); ?>" >我赞过的</li>
+            <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+            <li s="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/ajaxSupportList'); ?>" >我赞过的</li>
+            <?php } else { ?>
+            <li s="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/ajaxSupportList'); ?>" >我赞过的</li>
+
+            <?php } ?>
+
+        </ul>
+    </div>   
+    
+    <!-- 资讯列表内容 -->
+    <div id="wrapper" class="about fixPosition">
+        <div id="scroller">
+            <div id="pullDown" class="idle">
+                <span class="pullDownIcon"></span>
+                <span class="pullDownLabel">下拉刷新</span>
+            </div>
+            <ul id="list">
+
+                <?php foreach($informationList as $information){ ?>
+                    <?php
+                        $information_images = $information['information_image_list'];
+
+                    ?>
+                    <?php if($information['information_picture_status'] == 2){ ?>
+
+                        <?php
+                            $information_images = explode('|',$information_images);
+                        ?>
+
+                        <li class="third">
+
+                            <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+                            <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+                            <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+                                <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+                            <?php } else { ?>
+                                <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+
+                            <?php } ?>
+                            <p>{$information.information_title}</p>
+                            <div><img src="{$information_images.0}" /><img src="{$information_images.1}" /><img src="{$information_images.2}" /></div>
+                            <p>{$information.information_create_time|substr=0,10} </p>
+                            </a>
+                        </li>
+
+                    <?php }elseif($information['information_picture_status'] == 1){ ?>
+
+
+                        <li class="first">
+
+                            <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+                                <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+                            <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+                                    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+                            <?php } else { ?>
+                                    <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+
+                            <?php } ?>
+
+                            <div name="recommend_img"><img src="{$information_images}" /></div>
+                            <div><p>{$information.information_title}</p>
+                                <?php if(!empty($information['information_tag'])){ ?>
+                                <p>{$information.information_tag}</p>
+                                <?php } ?>
+                                <p>{$information.information_create_time|substr=0,10} </p></div>
+                            </a>
+                        </li>
+
+                    <?php }elseif($information['information_picture_status'] == 0){ ?>
+                        <li class="sec">
+                               <?php if (get_cfg_var('PROJECT_RUN_MODE') == 'PRODUCTION') { ?>
+                                    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+                               <?php } else if (get_cfg_var('PROJECT_RUN_MODE') == 'TEST') { ?>
+                                        <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+                               <?php } else { ?>
+                                        <a href="<?php echo 'http://'.$_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'].'/index.php?s='.U('Information/detail',array('id'=>$information['information_id'])); ?>" >
+
+                               <?php } ?>
+                            <p>{$information.information_title}</p>
+                            <?php if(!empty($information['information_tag'])){ ?>
+                            <p>{$information.information_tag}</p>
+                            <?php } ?>
+                            <p>{$information.information_create_time|substr=0,10} </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                <?php } ?>
+            </ul>
+            <div id="pullUp" class="idle">
+                <span class="pullUpIcon"></span>
+                <span class="pullUpLabel">上拉加载更多</span>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="encrypt_str" name="encrypt_str" value="">
+
+    <div class="shadow" style="z-index:2;"></div>
+    
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>	
+    <script type="text/javascript" src="__PUBLIC__/Content/js/iscroll-probe.js"></script>
+    <script>
+        $("#scroller").css("min-height",$(window).height());
+        // TODO：常量定义为大写
+        var OFFSET = 5, PAGESIZE = 10;
+
+       	var page = 0;
+		
+		$(".btn_moreType").height($("header ul li").height());
+		$(".bgLine").height($("header ul li").height());
+		
+		var length = $(".btn_moreType").outerWidth();
+		console.log($("header ul li").height());
+        var myScroll, myScroll2,
+                pullDownEl, pullDownOffset,
+                pullUpEl, pullUpOffset;
+        var _maxScrollY = 0;
+
+        var hasMoreData = false;//是否有下一页数据
+    </script>
+    <script>
+		/*顶部tab 点击事件*/	
+		function initTabClickEvent(){
+			$('#scroller2 ul li').each(function(index, element) {
+				$(this).on('click', function(){
+                    tabFlag = $(this).prevAll().length;
+                    setCookie('tab_count', tabFlag, 1000);
+
+					$(this).attr("class","tab_on");
+					$(this).siblings().attr("class","");
+					var txt = $(this).html();
+					$(".totalHead ul li").each(function(index, element) {
+						if( $(this).html() == txt ){
+							$(this).attr("class","on");
+							$(this).siblings().attr("class","");
+						}
+					});	
+					
+					var address = $(this).attr('s');
+                    if( txt == "我赞过的" ) {
+                        var post_encrypt_str = $('#encrypt_str').val();
+                        $.post(
+                                address, {
+                                    "offset": page,
+                                    "limit": PAGESIZE,
+                                    "encrypt_str" : post_encrypt_str
+                                },
+                                function(data){
+
+                                    if (data.length < PAGESIZE ) {
+                                        hasMoreData = false;
+                                        $("#pullUp").hide();
+                                    } else {
+                                        hasMoreData = true;
+                                        $("#pullUp").show();
+                                    }
+                                    $('#list').html(data.content);
+
+                                    $("#list li").each(function(index, element) {
+                                        $(this).on('tap', function(){
+
+                                            showDetail($(this).children("a").attr("href"));
+                                        });
+                                    });
+
+                                    myScroll.refresh();
+
+                                    if (hasMoreData) {
+                                        myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+                                    } else {
+                                        myScroll.maxScrollY = myScroll.maxScrollY;
+                                    }
+                                    _maxScrollY = myScroll.maxScrollY;
+                                    myScroll.scrollTo(0,-pullDownOffset,100);
+
+                                }, "json");
+                    }else {
+                        $.post(
+                            address, {
+                                "offset": page,
+                                "limit": PAGESIZE
+                            },
+                            function(data){
+
+                                if (data.length < PAGESIZE) {
+                                    hasMoreData = false;
+                                    $("#pullUp").hide();
+                                } else {
+                                    hasMoreData = true;
+                                    $("#pullUp").show();
+                                }
+                                $('#list').html(data.content);
+
+                                $("#list li").each(function(index, element) {
+                                    $(this).on('tap', function(){
+                                        showDetail($(this).children("a").attr("href"));
+                                    });
+                                });
+                                myScroll.refresh();
+
+                                if (hasMoreData) {
+                                    myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+                                } else {
+                                    myScroll.maxScrollY = myScroll.maxScrollY;
+                                }
+                                _maxScrollY = myScroll.maxScrollY;
+                                myScroll.scrollTo(0,-pullDownOffset,100);
+                            }, "json");
+                    }
+
+				});
+			});
+			
+		}
+		
+		/*刷新数据*/
+    	function refreshEvent() {
+			page = 0;
+			var address = $('.tab_on').attr('s');
+
+            if( $('.tab_on').html() == "我赞过的" ) {
+                var post_encrypt_str = $('#encrypt_str').val();
+                $.post(
+                    address, {
+                        "offset": page,
+                        "limit": PAGESIZE,
+                        "encrypt_str" : post_encrypt_str
+                    },
+                    function(data){
+                        $("#list").empty();
+                        if(myScroll){
+                            myScroll.refresh();
+                        }
+
+                        if (data.length < PAGESIZE) {
+                            hasMoreData = false;
+                            $("#pullUp").hide();
+                        } else {
+                            hasMoreData = true;
+                            $("#pullUp").show();
+                        }
+                        $('#list').html(data.content);
+                        $("#list li").each(function(index, element) {
+                            $(this).on('tap', function(){
+                                showDetail($(this).children("a").attr("href"));
+                            });
+                        });
+                        if(myScroll){
+                            myScroll.refresh();
+                        }
+
+                        if (hasMoreData) {
+                            myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+                        } else {
+                            myScroll.maxScrollY = myScroll.maxScrollY;
+                        }
+                        _maxScrollY = myScroll.maxScrollY;
+                        myScroll.scrollTo(0, myScroll.options.startY,800);
+                    },
+                    "json");
+            }else{
+                $.post(
+                    address, {
+                        "offset": page,
+                        "limit": PAGESIZE
+                    },
+                    function(data){
+                        $("#list").empty();
+                        if(myScroll){
+                            myScroll.refresh();
+                        }
+
+                        if (data.length < PAGESIZE) {
+                            hasMoreData = false;
+                            $("#pullUp").hide();
+                        } else {
+                            hasMoreData = true;
+                            $("#pullUp").show();
+                        }
+                        $('#list').html(data.content);
+                        $("#list li").each(function(index, element) {
+                            $(this).on('tap', function(){
+                                showDetail($(this).children("a").attr("href"));
+                            });
+                        });
+                        if(myScroll){
+                            myScroll.refresh();
+                        }
+
+                        if (hasMoreData) {
+                            myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+                        } else {
+                            myScroll.maxScrollY = myScroll.maxScrollY;
+                        }
+                        _maxScrollY = myScroll.maxScrollY;
+                        myScroll.scrollTo(0, myScroll.options.startY,800);
+                    },
+                    "json");
+            }
+
+
+		}
+		
+		/*加载下一页数据*/
+		function nextPage() {
+			var address = $('.tab_on').attr('s');
+			page+=PAGESIZE;
+
+            if( $('.tab_on').html() == "我赞过的" ) {
+                var post_encrypt_str = $('#encrypt_str').val();
+                $.post(
+                    address, {
+                        "offset": page,
+                        "limit": PAGESIZE,
+                        "encrypt_str" : post_encrypt_str
+                    },
+                    function(data){
+                        if (data.length < PAGESIZE) {
+                            hasMoreData = false;
+                            $("#pullUp").hide();
+                        } else {
+                            hasMoreData = true;
+                            $("#pullUp").show();
+                        }
+                        $('#list').append(data.content);
+                        $("#list li").each(function(index, element) {
+                            $(this).on('tap', function(){
+                                showDetail($(this).children("a").attr("href"));
+                            });
+                        });
+                        if(myScroll){
+                            myScroll.refresh();
+                        }
+                        if (hasMoreData) {
+                            myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+                        } else {
+                            myScroll.maxScrollY = myScroll.maxScrollY;
+                        }
+                        _maxScrollY = myScroll.maxScrollY;
+                    },
+                    "json");
+            }else{
+                $.post(
+                    address, {
+                        "offset": page,
+                        "limit": PAGESIZE
+                    },
+                    function(data){
+                        if (data.length < PAGESIZE) {
+                            hasMoreData = false;
+                            $("#pullUp").hide();
+                        } else {
+                            hasMoreData = true;
+                            $("#pullUp").show();
+                        }
+                        $('#list').append(data.content);
+                        $("#list li").each(function(index, element) {
+                            $(this).on('tap', function(){
+                                showDetail($(this).children("a").attr("href"));
+                            });
+                        });
+                        if(myScroll){
+                            myScroll.refresh();
+                        }
+                        if (hasMoreData) {
+                            myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+                        } else {
+                            myScroll.maxScrollY = myScroll.maxScrollY;
+                        }
+                        _maxScrollY = myScroll.maxScrollY;
+                    },
+                    "json");
+            }
+
+		}
+		
+		/*显示资讯详情*/
+		function showDetail(url) {
+			//alert('跳转详情:'+url);
+            tzFlag = 1;
+			window.location.href = url;
+		}
+
+		/*处理menu联动点击事件*/
+		function initMenu(){
+			$(".shadow").height(document.body.scrollHeight);
+			$("div[name=recommend_img]").each(function(index, element) {
+				$(this).height($(this).next().height());
+			});
+			
+			$("[name=btn_showMenu]").bind("click",function(){
+				$("#icon_more").toggleClass("btn_moreTypeDown");
+				$(".shadow").toggle();
+				$(".totalHead").toggle();
+			});
+			
+			$(".shadow").bind("click",function(){
+				$("#icon_more").toggleClass("btn_moreTypeDown");
+				$(".shadow").toggle();
+				$(".totalHead").toggle();
+			});
+			$("#menu_2").children().each(function(index, element) {
+				$(this).unbind();
+				$(this).bind("click",function(){
+					//alert($(this));
+					$(this).attr("class","on");
+					$(this).siblings().attr("class","");
+					
+					$("#icon_more").toggleClass("btn_moreTypeDown");
+					$(".shadow").toggle();
+					$(".totalHead").toggle();
+					
+					var txt = $(this).html();
+					
+					$("#scroller2 ul li").each(function(index, element) {
+						if( $(this).html() == txt ){
+							$(this).click();
+							$(this).attr("class","tab_on");
+							$(this).siblings().attr("class","");
+							
+							var prevWdith = 0;
+							var nextWdith = $(this).outerWidth();
+							var windowWidth = document.body.clientWidth-$(".btn_moreType").outerWidth();
+			
+							$(this).prevAll().each(function(index, element) {
+								prevWdith = prevWdith + $(this).outerWidth();
+							});
+							
+							$(this).nextAll().each(function(index, element) {
+								nextWdith = nextWdith + $(this).outerWidth();
+							});
+
+                            if( (prevWdith+$(this).outerWidth()) <= windowWidth ){
+                                myScroll2.scrollTo(0,0,0);
+                            }else {
+                                if( (nextWdith+$(this).outerWidth()) >= windowWidth ){
+                                    myScroll2.scrollTo(-prevWdith,0,0);
+                                }else{
+                                    myScroll2.scrollTo(-(prevWdith-(windowWidth-nextWdith)),0,0);
+                                }
+                            }
+						}
+					});	
+	
+				});
+			});
+		}
+    </script>
+	<script type="text/javascript">
+		
+		document.addEventListener('DOMContentLoaded', function() {
+			$(document).ready(function() {
+
+                loaded();
+                initTabClickEvent();
+				initMenu();
+
+                if( tabFlag == "" || tabFlag == 0){
+                    $('#current').click();
+                }else{
+                    if ( cookie == 1 || cookie == 2){
+
+                        $("#scroller2 ul").children().eq(tabFlag).click();
+
+                        var prevWdith = 0;
+                        var nextWdith = $("#scroller2 ul").children().eq(tabFlag).outerWidth();
+                        var windowWidth = document.body.clientWidth-$(".btn_moreType").outerWidth();
+
+                        $("#scroller2 ul").children().eq(tabFlag).prevAll().each(function(index, element) {
+                            prevWdith = prevWdith + $("#scroller2 ul").children().eq(tabFlag).outerWidth();
+                        });
+
+                        $("#scroller2 ul").children().eq(tabFlag).nextAll().each(function(index, element) {
+                            nextWdith = nextWdith + $("#scroller2 ul").children().eq(tabFlag).outerWidth();
+                        });
+
+                        if( (prevWdith+$("#scroller2 ul").children().eq(tabFlag).outerWidth()) <= windowWidth ){
+                            myScroll2.scrollTo(0,0,0);
+                        }else {
+                            if( (nextWdith+$("#scroller2 ul").children().eq(tabFlag).outerWidth()) >= windowWidth ){
+                                myScroll2.scrollTo(-prevWdith,0,0);
+                            }else{
+                                myScroll2.scrollTo(-(prevWdith-(windowWidth-$(".btn_moreType").outerWidth())),0,0);
+                            }
+                        }
+
+                    }else {
+                        $('#current').click();
+                    }
+                }
+			});
+		}, false);
+	
+		/********菜单********/
+		$('#wrapper2 ul li').each(function(index, element) {
+			length = length + $(this).outerWidth();
+		});
+
+		$('#scroller2').width(length);
+		$('#scroller2 ul').width(length);
+        $("#wrapper2").height($("header ul li").outerHeight());
+		
+        
+		
+		/********IScroll********/
+		
+		//下拉刷新数据事件
+		function pullDownAction(){
+			refreshEvent(); 
+		}
+		//下拉加载数据事件
+		function pullUpAction () {
+			nextPage();
+		}
+		
+		function loaded() {
+			
+			/********顶部tab IScroll********/
+			
+			//Options of 顶部tab IScroll
+			var myOptions2 = {
+				eventPassthrough: true, 
+				scrollX: true, 
+				scrollY: false, 
+				preventDefault: false, 
+				hScrollbar: false,
+				tap:true
+			};	
+			myScroll2 = new IScroll('#wrapper2', myOptions2 );
+			
+			/********列表内容 IScroll********/
+			pullDownEl = document.querySelector('#pullDown');
+			if (pullDownEl) {
+				pullDownOffset = pullDownEl.offsetHeight;
+			} else {
+				pullDownOffset = 0;
+			}
+			pullUpEl = document.querySelector('#pullUp');    
+			if (pullUpEl) {
+				pullUpOffset = pullUpEl.offsetHeight;
+			} else {
+				pullUpOffset = 0;
+			}
+			
+			hasMoreData = false;
+        	$("#pullUp").hide();
+			
+			//Options of 列表内容IScroll
+			var myOptions = {
+				mouseWheel: true,
+				scrollbars: false,
+				fadeScrollbars: true,
+				probeType:1,
+				tap:true,
+				startY:-pullDownOffset
+			};
+			myScroll = new IScroll('#wrapper',myOptions);
+			
+			//_maxScrollY = myScroll.maxScrollY = myScroll.maxScrollY + pullUpOffset;
+			
+			var isScrolling = false;
+			
+			//Event: scrollStart
+			myScroll.on("scrollStart", function() {
+				if(this.y==this.startY){
+					isScrolling = true;
+				}
+			});
+			//Event: scroll
+			myScroll.on('scroll', function(){
+				if (this.y >= OFFSET && pullDownEl && !pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'flip';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '释放刷新';
+					this.minScrollY = 0;
+				} else if (this.y < OFFSET  && pullDownEl && pullDownEl.className.match('flip')) {
+					pullDownEl.className = 'idle';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新';
+					this.minScrollY = -pullDownOffset;
+				}else if (this.y <= (_maxScrollY - pullUpOffset - OFFSET) && pullUpEl && !pullUpEl.className.match('flip')) {
+					if( hasMoreData ){
+						pullUpEl.className = 'flip';
+						pullUpEl.querySelector('.pullUpLabel').innerHTML = '释放加载更多';
+						//this.maxScrollY = this.maxScrollY;
+						this.maxScrollY = this.maxScrollY - pullUpOffset;
+					}
+				} else if (this.y > (_maxScrollY - pullUpOffset - OFFSET) && pullUpEl && pullUpEl.className.match('flip')) {
+					if( hasMoreData ){
+						pullUpEl.className = 'idle';
+						pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多';
+						this.maxScrollY = pullUpOffset;
+						//this.maxScrollY = this.maxScrollY + pullUpOffset;
+					}
+				}
+			});
+			//Event: scrollEnd
+			myScroll.on("scrollEnd", function() {
+				if (pullDownEl && !pullDownEl.className.match('flip') && this.y > this.options.startY) {
+					this.scrollTo(0, this.options.startY,800);
+				} else if (pullDownEl && pullDownEl.className.match('flip')){
+					pullDownEl.className = 'loading';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '正在加载';                
+					if (isScrolling) {
+						pullDownAction();
+					}
+				} else if (hasMoreData && pullUpEl && pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '正在加载';    
+					if (isScrolling) {            
+						pullUpAction();    
+					}
+				}
+				isScrolling = false;
+			});
+			//Event: refresh
+			myScroll.on("refresh", function() {			  
+				//_maxScrollY = this.maxScrollY = this.maxScrollY+pullUpOffset;
+				if (pullDownEl  && pullDownEl.className.match('loading')) {
+					pullDownEl.className = 'idle';
+					pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新';
+					this.scrollTo(0,this.options.startY,0);
+				} else if (pullUpEl && pullUpEl.className.match('loading')) {
+					pullUpEl.className = 'idle';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多';
+					//this.scrollTo(0,this.maxScrollY,0);
+				} 
+			});
+			setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 500);
+		}
+
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+        $(document).ready(function(){
+            setTimeout(function () {
+                appAutoLogin();
+            }, 200);
+        });
+        function isExitsFunction(funcName) {
+            try {
+                if (typeof(eval(funcName)) == "function") {
+                    return true;
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        function appAutoLogin(){
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if(isiOS || isAndroid){
+                if(isiOS){
+                    var temp = isExitsFunction("getLoginInfo");
+                }else if(isAndroid){
+                    var temp = 'getLoginInfo' in window.Tiger;
+                }
+                if(temp){
+                    if(isiOS){
+                        var encrypt_str = getLoginInfo();
+                    }else if(isAndroid){
+                        var encrypt_str = window.Tiger.getLoginInfo();
+                    }
+                    $('#encrypt_str').val(encrypt_str);
+                }
+            }
+        }
+    
+    </script>
+    
+    
+
+</body>
+</html>

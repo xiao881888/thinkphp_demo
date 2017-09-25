@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<title>神马搜索</title>
+</head>
+<style>
+body{ margin:0;padding:0; }
+.cont{  width:100%; }
+.bg{ position: fixed;top:0;left:0;width:100%;height:100%; }
+.btn-app{
+	background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/smss/img/btn_nor.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:83%;
+	position: fixed; 
+	display: block;
+	width:48%;
+	bottom:4.5%; 
+	left:26%;
+	margin: 0;
+	padding: 15% 0;
+	border:0;
+	outline:0;
+}
+.btn-app:active{ background-image:url(http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/smss/img/btn_pre.png); }
+#btn_ce{
+	display:none;height:10px;width:10px;
+}
+@media only screen and (device-height :480px) and (-webkit-device-pixel-ratio:2){
+	.btn-app{
+		bottom:2.5%; 
+	}
+}
+</style>
+<body>
+<div class="cont" align="center">
+    <img class="bg" src="http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/smss/img/bg.jpg" />
+    <a id="btn_download" class="btn-app"></a>
+</div>
+<script type="text/javascript">
+	var element = document.getElementById("btn_download");
+	var ua = navigator.userAgent.toLowerCase();	
+
+	if (/iphone|ipad|ipod/.test(ua)) {
+		
+		element.addEventListener('touchend', function(event) { 
+			window.location.href = "https://itunes.apple.com/cn/app/id1127299025?mt=8";
+		});
+	} else if (/android/.test(ua)) {
+		element.addEventListener('touchend', function (event) {
+			window.location.href = "http://oss.aliyuncs.com/tclottery/apk/tigercai_blue_kaixinwang_V2.0_17.apk";
+		});
+	}
+	
+	window.onload = function(){
+		var dd = new Image();
+		dd.src = "http://tclottery.oss-cn-hangzhou.aliyuncs.com/web_source/smss/img/btn_pre.png";
+	};
+</script>
+</body>
+</html>
